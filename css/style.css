@@ -22,9 +22,8 @@ body {
 .sidebar {
   position: fixed;
   left: 0;
-  top: 10px; /* Shifted down a bit */
   width: 60px;
-  height: 80px; /* Closed height increased */
+  height: 100px; /* Closed height increased */
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   z-index: 1000;
