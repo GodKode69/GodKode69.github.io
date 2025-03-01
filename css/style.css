@@ -19,9 +19,9 @@ body {
 }
 
 /* Sidebar (Bookmark style) */
-/* Now using position: relative so it sits at the top of the document */
 .sidebar {
-  position: relative;
+  position: fixed;
+  left: 0;
   width: 60px;
   height: 120px; /* Closed height increased */
   background: rgba(255, 255, 255, 0.8);
@@ -30,14 +30,13 @@ body {
   cursor: pointer;
   overflow: hidden;
   transition: height 0.5s ease, clip-path 0.5s ease;
-  /* Closed clip-path with a pointed bottom */
+  /* Adjusted clip-path to remove stretching at the pointed end */
   clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 90%, 0 80%);
 }
 
-/* Expanded state: remove the clip-path to avoid stretching */
 .sidebar.expanded {
-  height: auto;
-  clip-path: none;
+  height: calc(100vh - 20px);
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
 }
 
 .sidebar .sidebar-content {
@@ -46,6 +45,16 @@ body {
   align-items: center;
   padding-top: 20px;
   transition: opacity 0.5s ease;
+}
+
+.sidebar:not(.expanded) .sidebar-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar.expanded .sidebar-content {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sidebar .sidebar-content a {
@@ -85,7 +94,7 @@ body {
   left: 55px;
 }
 
-/* Welcome Banner */
+/* Welcome Banner - a normal block at the top */
 .welcome-banner {
   position: relative;
   width: 100vw;
@@ -99,23 +108,33 @@ body {
   margin-bottom: 20px;
 }
 
-/* Intro Section (using flex for independent layout) */
+/* Intro Section */
 #intro {
   position: relative;
-  padding: 40px 20px;
+  padding: 100px 20px 40px 20px;
 }
 
 .intro-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+}
+
+.intro-group {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
   gap: 20px;
-  padding: 20px;
+  margin-left: 20px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .intro-image {
-  /* Removed absolute positioning */
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-20%, -50%);
+  flex-shrink: 0;
 }
 
 .profile-img {
@@ -127,7 +146,10 @@ body {
 }
 
 .intro-text-right {
-  /* Now independent – no absolute positioning */
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translateY(-50%);
   text-align: left;
 }
 
@@ -247,7 +269,7 @@ body {
   color: white;
 }
 
-/* Special styling for Profile Card */
+/* Special styling for profile card (uses profile.png) */
 .card[data-card="profile"] {
   padding: 0;
   background: none;
@@ -313,18 +335,19 @@ body {
   height: 24px;
 }
 
-/* About Me Bubbles */
+/* About Me Bubbles - same bubble formatting as skill bubbles */
 .about-bubbles {
-  margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  margin-top: 10px;
 }
 
 .about-bubble {
-  background: rgb(62, 62, 73);
+  background: rgba(62, 62, 73, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
   padding: 5px 10px;
-  border-radius: 5px;
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   text-align: center;
@@ -359,8 +382,14 @@ body {
     margin-left: 60px;
   }
   .intro-container {
-    flex-direction: column;
+    height: auto;
+    padding-top: 20px;
+  }
+  .intro-group,
+  .intro-text-right {
+    position: static;
     text-align: center;
+    margin: 10px auto;
   }
   .card {
     width: 250px;
