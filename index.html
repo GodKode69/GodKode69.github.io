@@ -48,24 +48,20 @@
       </div>
     </div>
 
-    <!-- Welcome Banner (a normal block at the top that scrolls away) -->
+    <!-- Welcome Banner -->
     <div class="welcome-banner">
       <h2>Welcome</h2>
     </div>
 
-    <!-- Intro Section -->
+    <!-- Intro Section (using flex for independent image & text) -->
     <section id="intro" data-aos="fade-in">
       <div class="intro-container">
-        <div class="intro-group">
-          <!-- Profile image on the left -->
-          <div class="intro-image" data-aos="zoom-in">
-            <img src="images/pfp.png" alt="Profile Image" class="profile-img" />
-          </div>
-          <!-- Text (typewriter effect) on the right -->
-          <div class="intro-text-right" data-aos="fade-left">
-            <h1 id="typewriter"></h1>
-            <p class="location">Rajasthan India</p>
-          </div>
+        <div class="intro-image">
+          <img src="images/pfp.png" alt="Profile Image" class="profile-img" />
+        </div>
+        <div class="intro-text-right">
+          <h1 id="typewriter"></h1>
+          <p class="location">Rajasthan India</p>
         </div>
       </div>
     </section>
@@ -74,7 +70,7 @@
     <section id="cards-section">
       <div class="cards-container" data-aos="fade-up">
         <div class="card-slider">
-          <!-- Profile Card: uses profile.png -->
+          <!-- Profile Card -->
           <div class="card" data-card="profile">
             <img
               src="images/profile.png"
@@ -82,7 +78,7 @@
               class="card-profile-img"
             />
           </div>
-          <!-- About Me Card -->
+          <!-- About Me Card with pointers/bubbles -->
           <div class="card" data-card="about">
             <div class="heading-bubble">
               <h2>About Me</h2>
@@ -91,6 +87,12 @@
               I'm GodKode – a passionate coder who creates sleek, interactive
               web experiences.
             </p>
+            <div class="about-bubbles">
+              <div class="about-bubble">Creative</div>
+              <div class="about-bubble">Innovative</div>
+              <div class="about-bubble">Dedicated</div>
+              <div class="about-bubble">Efficient</div>
+            </div>
           </div>
           <!-- Skillset Card -->
           <div class="card" data-card="skillset">
@@ -136,7 +138,7 @@
                   alt="Fabric Discord Bot"
                   class="experience-icon"
                 />
-                <span>Fabric – discord bot</span>
+                <span>Fabric</span>
               </div>
             </div>
           </div>
@@ -171,7 +173,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-
     <!-- Custom JavaScript -->
     <script src="js/script.js"></script>
   </body>

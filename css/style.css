@@ -19,24 +19,25 @@ body {
 }
 
 /* Sidebar (Bookmark style) */
+/* Now using position: relative so it sits at the top of the document */
 .sidebar {
-  position: fixed;
-  left: 0;
+  position: relative;
   width: 60px;
-  height: 1000px; /* Closed height increased */
+  height: 120px; /* Closed height increased */
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   cursor: pointer;
   overflow: hidden;
   transition: height 0.5s ease, clip-path 0.5s ease;
-  /* Adjusted clip-path to remove stretching at the pointed end */
+  /* Closed clip-path with a pointed bottom */
   clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 90%, 0 80%);
 }
 
+/* Expanded state: remove the clip-path to avoid stretching */
 .sidebar.expanded {
-  height: calc(100vh - 20px);
-  clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
+  height: auto;
+  clip-path: none;
 }
 
 .sidebar .sidebar-content {
@@ -45,16 +46,6 @@ body {
   align-items: center;
   padding-top: 20px;
   transition: opacity 0.5s ease;
-}
-
-.sidebar:not(.expanded) .sidebar-content {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sidebar.expanded .sidebar-content {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .sidebar .sidebar-content a {
@@ -94,7 +85,7 @@ body {
   left: 55px;
 }
 
-/* Welcome Banner - a normal block at the top */
+/* Welcome Banner */
 .welcome-banner {
   position: relative;
   width: 100vw;
@@ -108,33 +99,23 @@ body {
   margin-bottom: 20px;
 }
 
-/* Intro Section */
+/* Intro Section (using flex for independent layout) */
 #intro {
   position: relative;
-  padding: 100px 20px 40px 20px;
+  padding: 40px 20px;
 }
 
 .intro-container {
-  position: relative;
-  width: 100%;
-  height: 250px;
-}
-
-.intro-group {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 20px;
-  margin-left: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  padding: 20px;
 }
 
 .intro-image {
-  position: absolute;
-  top: 50%;
-  left: 20%;
-  transform: translate(-20%, -50%);
-  flex-shrink: 0;
+  /* Removed absolute positioning */
 }
 
 .profile-img {
@@ -146,10 +127,7 @@ body {
 }
 
 .intro-text-right {
-  position: absolute;
-  top: 50%;
-  left: 45%;
-  transform: translateY(-50%);
+  /* Now independent – no absolute positioning */
   text-align: left;
 }
 
@@ -269,7 +247,7 @@ body {
   color: white;
 }
 
-/* Special styling for profile card (now uses profile.png) */
+/* Special styling for Profile Card */
 .card[data-card="profile"] {
   padding: 0;
   background: none;
@@ -335,6 +313,23 @@ body {
   height: 24px;
 }
 
+/* About Me Bubbles */
+.about-bubbles {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.about-bubble {
+  background: rgb(62, 62, 73);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  text-align: center;
+}
+
 /* Projects Card */
 .experience-container {
   display: flex;
@@ -364,14 +359,8 @@ body {
     margin-left: 60px;
   }
   .intro-container {
-    height: auto;
-    padding-top: 20px;
-  }
-  .intro-group,
-  .intro-text-right {
-    position: static;
+    flex-direction: column;
     text-align: center;
-    margin: 10px auto;
   }
   .card {
     width: 250px;
