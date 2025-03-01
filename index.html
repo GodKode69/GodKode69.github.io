@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GodKode Portfolio</title>
+
+    <!-- Google Fonts: Montserrat for headings, Roboto for body, Roboto Mono for monospace -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- AOS CSS for animations -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      integrity="sha512-Ho3dOUpYUJZb64XDx4zbcnm4spStv/IU8K7VukSWuS7k8+5HafR7f3xPLzS/Np2OUMy5QxWvF1kzCjF6K7bN4g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Fontisto Icon Library for contact icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fontisto@3.0.4/css/fontisto/fontisto.min.css"
+    />
+  </head>
+  <body>
+    <!-- Sidebar (Bookmark style) -->
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-content">
+        <a href="https://github.com/GodKode69" target="_blank">
+          <img src="images/github.png" alt="GitHub" />
+          <span class="icon-label">GitHub</span>
+        </a>
+        <a href="https://discord.com/users/iskidcodes" target="_blank">
+          <img src="images/discord.png" alt="Discord" />
+          <span class="icon-label">Discord</span>
+        </a>
+        <a href="https://instagram.com/iskidcodes" target="_blank">
+          <img src="images/instagram.png" alt="Instagram" />
+          <span class="icon-label">Instagram</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Welcome Banner (a normal block at the top that scrolls away) -->
+    <div class="welcome-banner">
+      <h2>Welcome</h2>
+    </div>
+
+    <!-- Intro Section -->
+    <section id="intro" data-aos="fade-in">
+      <div class="intro-container">
+        <div class="intro-group">
+          <!-- Profile image on the left -->
+          <div class="intro-image" data-aos="zoom-in">
+            <img src="images/pfp.png" alt="Profile Image" class="profile-img" />
+          </div>
+          <!-- Text (typewriter effect) on the right -->
+          <div class="intro-text-right" data-aos="fade-left">
+            <h1 id="typewriter"></h1>
+            <p class="location">Rajasthan India</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards Section (Carousel / Circular Chain) -->
+    <section id="cards-section">
+      <div class="cards-container" data-aos="fade-up">
+        <div class="card-slider">
+          <!-- Profile Card: uses profile.png -->
+          <div class="card" data-card="profile">
+            <img
+              src="images/profile.png"
+              alt="Profile"
+              class="card-profile-img"
+            />
+          </div>
+          <!-- About Me Card -->
+          <div class="card" data-card="about">
+            <div class="heading-bubble">
+              <h2>About Me</h2>
+            </div>
+            <p>
+              I'm GodKode – a passionate coder who creates sleek, interactive
+              web experiences.
+            </p>
+          </div>
+          <!-- Skillset Card -->
+          <div class="card" data-card="skillset">
+            <div class="heading-bubble">
+              <h2>Skillset</h2>
+            </div>
+            <div class="skills-container">
+              <div class="skill-bubble">
+                <img
+                  src="images/javascript.png"
+                  alt="Javascript"
+                  class="skill-icon"
+                />
+                <span>Javascript</span>
+              </div>
+              <div class="skill-bubble">
+                <img src="images/python.png" alt="Python" class="skill-icon" />
+                <span>Python</span>
+              </div>
+              <div class="skill-bubble">
+                <img src="images/mysql.png" alt="MySQL" class="skill-icon" />
+                <span>MySQL</span>
+              </div>
+              <div class="skill-bubble">
+                <img
+                  src="images/html5_css.png"
+                  alt="HTML5 & CSS"
+                  class="skill-icon"
+                />
+                <span>HTML5 & CSS</span>
+              </div>
+            </div>
+          </div>
+          <!-- Projects Card -->
+          <div class="card" data-card="projects">
+            <div class="heading-bubble">
+              <h2>Projects</h2>
+            </div>
+            <div class="experience-container">
+              <div class="experience-bubble">
+                <img
+                  src="images/fabric.gif"
+                  alt="Fabric Discord Bot"
+                  class="experience-icon"
+                />
+                <span>Fabric – discord bot</span>
+              </div>
+            </div>
+          </div>
+          <!-- GitHub Stats Card -->
+          <div class="card" data-card="github-stats">
+            <div class="github-stats-images">
+              <img
+                class="github-stats-img"
+                src="https://github-readme-stats.vercel.app/api?username=GodKode69&show_icons=true&theme=default"
+                alt="Overall Stats"
+              />
+              <img
+                class="github-stats-img"
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=GodKode69&layout=compact&theme=default"
+                alt="Top Languages"
+              />
+              <img
+                class="github-stats-img"
+                src="https://github-readme-streak-stats.herokuapp.com/?user=GodKode69&theme=default"
+                alt="Streak Stats"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AOS JS for animations -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+      integrity="sha512-GY1a74xJwd3VwI+UxN2akAZkrp6t84XwoOanWXnMCZUhF/N7YBf+VVBZzDCRZX/QxS4U37zrsyKzljN7iTjF0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
