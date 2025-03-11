@@ -1,10 +1,9 @@
-/* style.css - Global Styles for Portfolio Website */
-
+/* Global Styles */
 * {
-  user-select: none; /* Standard syntax */
-  -webkit-user-select: none; /* Chrome, Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
@@ -20,7 +19,7 @@ body {
   background-color: #141414;
   color: #fff;
   overflow-x: hidden;
-  padding-top: 70px; /* Space for fixed header */
+  padding-top: 70px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -58,7 +57,7 @@ nav ul {
 }
 
 nav ul li a {
-  font-size: 1.2rem; /* More consistent sizing */
+  font-size: 1.2rem;
   color: #fff;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -68,7 +67,7 @@ nav ul li a:hover {
   color: #ffc107;
 }
 
-/* Home Content Container */
+/* Home Content */
 .home-container {
   max-width: 800px;
   margin: 40px auto;
@@ -81,19 +80,43 @@ nav ul li a:hover {
   margin-bottom: 20px;
 }
 
-/* Global Button */
-.btn {
-  background-color: #e50914;
-  color: #fff;
-  padding: 12px 24px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.highlight {
+  color: #ffc107;
 }
 
-.btn:hover {
-  background-color: #f40612;
+/* GitHub Stats Section */
+.github-stats-section {
+  margin-top: 40px;
+  padding: 20px;
+  text-align: center;
+  background-color: #1b1b1b;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #ffc107;
+  margin-bottom: 20px;
+}
+
+.github-stats-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.github-stats-img {
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.github-stats-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
 }
 
 /* Footer */
