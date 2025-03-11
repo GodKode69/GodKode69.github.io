@@ -1,0 +1,103 @@
+/* about.css */
+
+* {
+  user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+body {
+  background-color: #141414;
+  color: #fff;
+  font-family: "Press Start 2P", cursive;
+  margin: 0;
+  padding-top: 80px; /* To account for fixed header */
+}
+
+/* Fixed, centralised header (consistent with other pages) */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #141414;
+  border-bottom: 1px solid #333;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.logo {
+  margin-right: 20px;
+  font-size: 1.5rem;
+  color: #e50914;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #ffc107;
+}
+
+/* About content container */
+.about-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* About Me heading with glitch animation */
+.about-container h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #fff;
+  animation: contactGlitch 1s infinite alternate;
+}
+
+/* Use our defined glitch keyframes from animations.css, or redefine here if needed */
+@keyframes contactGlitch {
+  0% {
+    text-shadow: 2px 2px #ff0707, -2px -2px #1916ac;
+  }
+  100% {
+    text-shadow: -2px -2px #ff0707, 2px 2px #1916ac;
+  }
+}
+
+.about-container p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  background-color: #141414;
+  padding: 20px 40px;
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: auto;
+}

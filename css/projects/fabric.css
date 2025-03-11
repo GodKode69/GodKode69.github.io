@@ -1,0 +1,331 @@
+/* fabric.css - Styling for Fabric DiscordJS Bot Detail Page */
+
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Press Start 2P", cursive;
+}
+
+body {
+  background-color: #141414;
+  color: #fff;
+  overflow-x: hidden;
+  padding-top: 70px; /* Offset for fixed header */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header (consistent across pages) */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #141414;
+  border-bottom: 1px solid #333;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.logo {
+  font-size: 2rem;
+  color: #e50914;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+nav ul li a {
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+nav ul li a:hover {
+  color: #ffc107;
+}
+
+/* Project Detail Container */
+.project-detail-container {
+  flex: 1;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.project-detail-container h1 {
+  font-size: 2.8rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Project Content Layout */
+.project-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* Left Section: Project Image */
+.project-image {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 150px;
+}
+.project-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Right Section: Project Description */
+.project-description {
+  flex: 1;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #ccc;
+  margin: 0 20px;
+}
+
+/* Modules Section */
+.modules {
+  text-align: center;
+  margin-top: 40px;
+}
+.modules h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.modules-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+.module {
+  text-align: left;
+}
+.module h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+.module ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+.module ul li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+/* All Commands Section */
+.commands {
+  margin-top: 40px;
+  text-align: center;
+}
+.commands h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.commands p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #ccc;
+}
+
+/* Floating Search Button (Bubble) */
+.search-section {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+.search-button {
+  width: 60px;
+  height: 60px;
+  background-color: #e50914;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.search-button:hover {
+  background-color: #f40612;
+}
+
+/* Invite & Stats Section */
+.invite-stats {
+  margin-top: 40px;
+  text-align: center;
+}
+.invite-stats h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.invite-stats-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.invite-stats .stats img {
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+/* Global Button */
+.btn {
+  display: inline-block;
+  color: #ffc107;
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+  float: right;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.btn:hover {
+  background-color: #0d0d0d;
+}
+.back-btn {
+  margin-top: 40px;
+}
+
+/* Footer */
+footer {
+  background-color: #141414;
+  padding: 20px 40px;
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: auto;
+}
+
+/* Modal Search Popup CSS */
+#searchModal .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#searchModal.show .modal-overlay {
+  opacity: 1;
+}
+
+#searchModal .modal-content {
+  background-color: #1c1c1c;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  max-width: 400px;
+  width: 90%;
+  /* Using a different font for contrast */
+  font-family: "Roboto Mono", monospace;
+}
+
+#searchModal .close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.8rem;
+  color: #ffc107;
+  cursor: pointer;
+}
+
+#searchModal .search-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#searchModal .search-icon {
+  width: 50px;
+  height: 50px;
+}
+
+#searchModal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #141414;
+  color: #fff;
+  font-size: 1rem;
+}
+
+#searchModal .popup-search-btn {
+  padding: 10px 20px;
+  background-color: #e50914;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+#searchModal .popup-search-btn:hover {
+  background-color: #f40612;
+}
+
+/* Floating Search Button (if not already styled) */
+.search-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background-color: #e50914;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease;
+  z-index: 1500;
+}
+
+.search-button:hover {
+  background-color: #f40612;
+}
