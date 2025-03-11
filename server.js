@@ -14,14 +14,14 @@ app.use(express.static(path.join(__dirname)));
 
 // Routes for main pages
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "html", "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 app.get("/home", (req, res) => {
-  res.sendFile(path.join(__dirname, "html", "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.get("/waifu", (req, res) => {
-  res.sendFile(path.join(__dirname, "html", "waifu.html"));
+  res.sendFile(path.join(__dirname, "html", "projects", "waifu.html"));
 });
 app.get("/about", (req, res) => {
   res.sendFile(path.join(__dirname, "html", "about.html"));
