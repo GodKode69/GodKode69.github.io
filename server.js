@@ -83,7 +83,7 @@ app.post("/send-email", async (req, res) => {
 
 // 404 Handler - for undefined routes
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "html", "404.html"));
+  res.status(404).sendFile(path.join(__dirname, "404.html"));
 });
 
 app.listen(PORT, () => {
