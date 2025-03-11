@@ -1,17 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Smooth scrolling for internal anchor links (if applicable)
-  const navLinks = document.querySelectorAll("a.nav-link");
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      if (this.getAttribute("href").charAt(0) === "#") {
-        e.preventDefault();
-        const targetID = this.getAttribute("href").substring(1);
-        const targetElement = document.getElementById(targetID);
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    });
+  // Dark/Light Mode Toggle
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    if (document.body.classList.contains("light-mode")) {
+      themeToggle.textContent = "☀️";
+    } else {
+      themeToggle.textContent = "🌙";
+    }
+    localStorage.setItem(
+      "theme",
+      document.body.classList.contains("light-mode") ? "light" : "dark"
+    );
   });
+
+  // Load saved theme preference
+  if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+    themeToggle.textContent = "☀️";
+  } else {
+    themeToggle.textContent = "🌙";
+  }
+
   console.log("Main JS loaded.");
 });

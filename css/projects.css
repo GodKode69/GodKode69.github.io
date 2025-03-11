@@ -116,10 +116,18 @@ nav ul li a:hover {
 }
 
 /* Left Section: Project Image */
-.project-image {
+.fabric-image {
   width: 150px;
   height: 150px;
   background: url("/asset/fabric.gif") no-repeat center center;
+  background-size: cover;
+  flex-shrink: 0;
+}
+
+.waifu-image {
+  width: 150px;
+  height: 150px;
+  background: url("/asset/discord.png") no-repeat center center;
   background-size: cover;
   flex-shrink: 0;
 }
