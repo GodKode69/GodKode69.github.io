@@ -14,7 +14,7 @@ body {
   color: #fff;
   font-family: "Press Start 2P", cursive;
   margin: 0;
-  padding-top: 80px; /* To account for fixed header */
+  padding-top: 70px; /* To account for fixed header */
 }
 
 /* Fixed, centralised header (consistent with other pages) */
