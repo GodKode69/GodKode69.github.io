@@ -149,6 +149,19 @@ button:hover {
   color: #ffc107;
   display: none;
 }
+/* Dark/Light Mode Toggle Button */
+#theme-toggle {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #e50914;
+  transition: transform 0.3s ease;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.2);
+}
 
 /* Footer */
 footer {

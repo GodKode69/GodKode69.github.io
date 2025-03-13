@@ -93,6 +93,20 @@ nav ul li a:hover {
   margin-bottom: 20px;
 }
 
+/* Dark/Light Mode Toggle Button */
+#theme-toggle {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #e50914;
+  transition: transform 0.3s ease;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.2);
+}
+
 /* Footer */
 footer {
   background-color: #141414;
