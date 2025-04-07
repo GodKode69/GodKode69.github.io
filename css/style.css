@@ -108,7 +108,7 @@ nav ul li a:hover {
 }
 
 /* GitHub Contributions Section */
-.github-stats-section {
+/*.github-stats-section {
   margin-top: 40px;
   padding: 20px;
   text-align: center;
@@ -121,7 +121,7 @@ nav ul li a:hover {
   font-size: 1.8rem;
   color: #ffc107;
   margin-bottom: 20px;
-}
+}*/
 
 .github-stats-section img {
   width: 80%;
