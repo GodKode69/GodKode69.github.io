@@ -132,7 +132,7 @@ nav ul li a:hover {
 
 .github-stats-section img:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+  box-shadow: 0 0 20px rgba(255, 207, 67, 0.5);
 }
 
 /* Dark/Light Mode Toggle Button */
