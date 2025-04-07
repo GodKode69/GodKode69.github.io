@@ -126,7 +126,7 @@ nav ul li a:hover {
 .github-stats-section img {
   width: 80%;
   max-width: 400px;
-  border-radius: 10px;
+  border-radius: 0px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
