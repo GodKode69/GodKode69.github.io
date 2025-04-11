@@ -35,6 +35,10 @@ app.get("/contact", (req, res) => {
   res.sendFile(path.join(__dirname, "html", "contact.html"));
 });
 
+app.get("/banner", (req, res) => {
+  res.sendFile(path.join(__dirname, "asset", "banner.png"));
+});
+
 // Detailed project page: fabric.html
 app.get("/projects/fabric", (req, res) => {
   res.sendFile(path.join(__dirname, "html", "projects", "fabric.html"));
