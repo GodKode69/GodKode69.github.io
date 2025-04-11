@@ -1,12 +1,12 @@
 {
-  "welcome": "Bienvenue chez",
-  "portfolio": "@GodKode.",
-  "click_button": "Appuyez sur le bouton pour continuer...",
-  "choose_language": "Choisissez la langue:",
-  "home_title": "Bienvenue dans le portfolio de <span class=\"highlight\">@GodKode.</span>",
-  "home_subheading": "Initier | Créer | Déployer",
-  "github_stats": "Statistiques GitHub",
-  "nav_about": "À propos",
-  "nav_projects": "Projets",
+  "welcome": "Welcome to",
+  "portfolio": "Portfolio",
+  "click_button": "Press the button to continue...",
+  "choose_language": "Choose Language:",
+  "home_title": "Welcome to <span class=\"highlight\">@GodKode.</span> Portfolio",
+  "home_subheading": "Initiate | Create | Deploy",
+  "github_stats": "GitHub Stats",
+  "nav_about": "About",
+  "nav_projects": "Projects",
   "nav_contact": "Contact"
 }
