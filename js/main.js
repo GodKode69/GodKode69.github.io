@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function applyLanguage(lang) {
     try {
-      const response = await fetch(`lang/${lang}.json`);
+      const response = await fetch(`../lang/${lang}.json`);
       const data = await response.json();
+      console.log(data).cactch((error) => console.log(error));
 
       // Apply translated content using IDs
       const homeTitle = document.getElementById("homeTitle");
@@ -47,4 +48,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     themeToggle.textContent = "🌙";
   }
 });
- 
