@@ -1,26 +1,42 @@
-// about.js
-
-document.addEventListener("DOMContentLoaded", () => {
-  const themeToggle = document.getElementById("button");
-  themeToggle.addEventListener("click", () => {
-    window.location.href = "/home";
-  });
-
+document.addEventListener("DOMContentLoaded", async () => {
   const langSelect = document.getElementById("language");
+  const storedLang = localStorage.getItem("lang") || "en";
 
-  langSelect.addEventListener("change", async () => {
-    const selectedLang = langSelect.value;
+  // Set dropdown to stored value
+  if (langSelect) langSelect.value = storedLang;
 
+  async function applyLanguage(lang) {
     try {
-      const response = await fetch(`lang/${selectedLang}.json`);
+      const response = await fetch(`lang/${lang}.json`);
       const data = await response.json();
 
-      document.getElementById("welcomeText").textContent = data.welcome;
-      document.getElementById("portfolioText").textContent = data.portfolio;
-      document.getElementById("clickText").textContent = data.click_button;
-      document.getElementById("langLabel").textContent = data.choose_language;
+      if (document.getElementById("welcomeText")) {
+        document.getElementById("welcomeText").textContent = data.welcome;
+        document.getElementById("portfolioText").textContent = data.portfolio;
+        document.getElementById("clickText").textContent = data.click_button;
+        document.getElementById("langLabel").textContent = data.choose_language;
+      }
     } catch (err) {
-      console.error("Error loading language file", err);
+      console.error("Language file load failed", err);
     }
-  });
+  }
+
+  // Load on init
+  applyLanguage(storedLang);
+
+  if (langSelect) {
+    langSelect.addEventListener("change", () => {
+      const selected = langSelect.value;
+      localStorage.setItem("lang", selected);
+      applyLanguage(selected);
+    });
+  }
+
+  // Button redirect (if exists)
+  const button = document.getElementById("button");
+  if (button) {
+    button.addEventListener("click", () => {
+      window.location.href = "/home";
+    });
+  }
 });
