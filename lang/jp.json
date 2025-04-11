@@ -2,6 +2,13 @@
     "welcome": "ようこそ",
     "portfolio": "@GodKodeの",
     "click_button": "続行するにはボタンを押してください...",
-    "choose_language": "言語を選択してください:"
+    "choose_language": "言語を選択してください:",
+    "home_title": "<span class=\"highlight\">@GodKode.</span> ポートフォリオへようこそ",
+    "home_subheading": "開始 | 作成 | 配信",
+    "github_stats": "GitHub 統計",
+    "nav_about": "概要",
+    "nav_projects": "プロジェクト",
+    "nav_contact": "連絡先"
   }
+  
   
