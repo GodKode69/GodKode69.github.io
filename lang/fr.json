@@ -1,7 +1,12 @@
 {
-    "welcome": "Bienvenue chez",
-    "portfolio": "@GodKode.",
-    "click_button": "Appuyez sur le bouton pour continuer...",
-    "choose_language": "Choisissez la langue:"
-  }
-  
+  "welcome": "Bienvenue chez",
+  "portfolio": "@GodKode.",
+  "click_button": "Appuyez sur le bouton pour continuer...",
+  "choose_language": "Choisissez la langue:",
+  "home_title": "Bienvenue dans le portfolio de <span class=\"highlight\">@GodKode.</span>",
+  "home_subheading": "Initier | Créer | Déployer",
+  "github_stats": "Statistiques GitHub",
+  "nav_about": "À propos",
+  "nav_projects": "Projets",
+  "nav_contact": "Contact"
+}
