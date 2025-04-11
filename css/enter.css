@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: url("../asset/bg.webp") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Press Start 2P", cursive;
+}
+
+.mirror {
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  color: #fff;
+  max-width: 600px;
+  width: 90%;
+}
+
+.mirror p {
+  font-size: 14px;
+  margin: 20px 0;
+  color: #d0d0d0;
+}
+
+.name {
+  color: #e50914;
+}
+
+button {
+  font-family: "Press Start 2P", cursive;
+  font-size: 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.card {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 15px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.dropdown-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.dropdown-section label {
+  font-size: 16px;
+  color: #ffffff;
+  text-align: left;
+}
+
+.dropdown-section select {
+  font-family: "Press Start 2P", cursive;
+  font-size: 12px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  appearance: none;
+  position: relative;
+}
+
+/* Custom option styling (for dark backgrounds) */
+.dropdown-section select option {
+  color: black;
+  background: #ffffff;
+}
+
+/* Optional: Remove ugly default arrow on dropdown */
+.dropdown-section select::-ms-expand {
+  display: none;
+}
