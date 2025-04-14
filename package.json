@@ -1,7 +1,6 @@
 {
-  "name": "twist",
+  "name": "godkode69.github.io",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,20 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/godkode69/twist.git"
+    "url": "git+https://github.com/GodKode69/GodKode69.github.io.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/godkode69/twist/issues"
+    "url": "https://github.com/GodKode69/GodKode69.github.io/issues"
   },
-  "homepage": "https://github.com/godkode69/twist#readme",
+  "homepage": "https://github.com/GodKode69/GodKode69.github.io#readme",
+  "description": "",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "nodemailer": "^6.10.0"
+    "express": "^5.1.0"
   }
 }
