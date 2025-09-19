@@ -18,21 +18,78 @@ let score = 0;
 let gameRunning = false;
 let gameInterval;
 
+// Touch device detection
+let isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
 // Initialize page
 document.addEventListener("DOMContentLoaded", function () {
-  initializeCursorBobble();
+  if (!isTouchDevice) {
+    initializeCursorBobble();
+  } else {
+    initializeTouchInteractions();
+  }
   initializeWhiteboard();
   initializeMemoryGame();
   initializeSnakeGame();
+  initializeScrollAnimations();
 });
 
-// Cursor Bobble
+// Cursor Bobble (Desktop Only)
 function initializeCursorBobble() {
   const bobble = document.querySelector(".cursor-bobble");
 
-  document.addEventListener("mousemove", (e) => {
-    bobble.style.left = e.clientX - 6 + "px";
-    bobble.style.top = e.clientY - 6 + "px";
+  if (bobble) {
+    document.addEventListener("mousemove", (e) => {
+      bobble.style.left = e.clientX - 8 + "px";
+      bobble.style.top = e.clientY - 8 + "px";
+    });
+  }
+}
+
+// Touch Interactions (Mobile)
+function initializeTouchInteractions() {
+  const clickAnimationsContainer = document.querySelector(".click-animations");
+
+  document.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    createClickRipple(touch.clientX, touch.clientY);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (isTouchDevice) {
+      createClickRipple(e.clientX, e.clientY);
+    }
+  });
+
+  function createClickRipple(x, y) {
+    const ripple = document.createElement("div");
+    ripple.classList.add("click-ripple");
+    ripple.style.left = x + "px";
+    ripple.style.top = y + "px";
+
+    clickAnimationsContainer.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  }
+}
+
+// Scroll Animations
+function initializeScrollAnimations() {
+  const dnaScroll = document.querySelector(".dna-scroll");
+
+  window.addEventListener("scroll", () => {
+    const scrollPercentage =
+      (window.scrollY /
+        (document.documentElement.scrollHeight - window.innerHeight)) *
+      100;
+
+    // Update DNA scroll indicator
+    if (dnaScroll) {
+      const rotation = (scrollPercentage * 3.6) % 360;
+      dnaScroll.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
+    }
   });
 }
 
@@ -136,60 +193,87 @@ function initializeWhiteboard() {
   const colorPicker = document.getElementById("colorPicker");
   const brushSize = document.getElementById("brushSize");
 
+  let lastPoint = null;
+
+  // Mouse events
   canvas.addEventListener("mousedown", startDrawing);
   canvas.addEventListener("mousemove", draw);
   canvas.addEventListener("mouseup", stopDrawing);
   canvas.addEventListener("mouseout", stopDrawing);
 
   // Touch events for mobile
-  canvas.addEventListener("touchstart", handleTouch);
-  canvas.addEventListener("touchmove", handleTouch);
+  canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
+  canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
   canvas.addEventListener("touchend", stopDrawing);
 
   function startDrawing(e) {
     isDrawing = true;
-    draw(e);
+    const rect = canvas.getBoundingClientRect();
+    lastPoint = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
   }
 
   function draw(e) {
     if (!isDrawing) return;
 
+    const rect = canvas.getBoundingClientRect();
+    const currentPoint = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
+
     ctx.lineWidth = brushSize.value;
     ctx.lineCap = "round";
     ctx.strokeStyle = colorPicker.value;
 
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    ctx.lineTo(x, y);
-    ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(x, y);
+    ctx.moveTo(lastPoint.x, lastPoint.y);
+    ctx.lineTo(currentPoint.x, currentPoint.y);
+    ctx.stroke();
+
+    lastPoint = currentPoint;
   }
 
   function stopDrawing() {
-    if (isDrawing) {
-      ctx.beginPath();
-      isDrawing = false;
-    }
+    isDrawing = false;
+    lastPoint = null;
   }
 
-  function handleTouch(e) {
+  function handleTouchStart(e) {
     e.preventDefault();
     const touch = e.touches[0];
-    const mouseEvent = new MouseEvent(
-      e.type === "touchstart"
-        ? "mousedown"
-        : e.type === "touchmove"
-        ? "mousemove"
-        : "mouseup",
-      {
-        clientX: touch.clientX,
-        clientY: touch.clientY,
-      }
-    );
-    canvas.dispatchEvent(mouseEvent);
+    const rect = canvas.getBoundingClientRect();
+
+    isDrawing = true;
+    lastPoint = {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+    };
+  }
+
+  function handleTouchMove(e) {
+    e.preventDefault();
+    if (!isDrawing) return;
+
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    const currentPoint = {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+    };
+
+    ctx.lineWidth = brushSize.value;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = colorPicker.value;
+
+    ctx.beginPath();
+    ctx.moveTo(lastPoint.x, lastPoint.y);
+    ctx.lineTo(currentPoint.x, currentPoint.y);
+    ctx.stroke();
+
+    lastPoint = currentPoint;
   }
 }
 
@@ -260,6 +344,7 @@ function initializeSnakeGame() {
   const canvas = document.getElementById("snakeCanvas");
   const ctx = canvas.getContext("2d");
 
+  // Desktop controls
   document.addEventListener("keydown", changeDirection);
 
   function changeDirection(e) {
@@ -385,6 +470,43 @@ function initializeSnakeGame() {
   };
 }
 
+// Mobile Snake Controls
+function mobileSnakeControl(direction) {
+  if (!gameRunning) return;
+
+  const goingUp = dy === -1;
+  const goingDown = dy === 1;
+  const goingRight = dx === 1;
+  const goingLeft = dx === -1;
+
+  switch (direction) {
+    case "up":
+      if (!goingDown) {
+        dx = 0;
+        dy = -1;
+      }
+      break;
+    case "down":
+      if (!goingUp) {
+        dx = 0;
+        dy = 1;
+      }
+      break;
+    case "left":
+      if (!goingRight) {
+        dx = -1;
+        dy = 0;
+      }
+      break;
+    case "right":
+      if (!goingLeft) {
+        dx = 1;
+        dy = 0;
+      }
+      break;
+  }
+}
+
 // Make functions global for HTML onclick handlers
 window.closeModal = closeModal;
 window.closeAlert = closeAlert;
@@ -395,3 +517,4 @@ window.clearCanvas = clearCanvas;
 window.resetMemory = resetMemory;
 window.startSnake = startSnake;
 window.pauseSnake = pauseSnake;
+window.mobileSnakeControl = mobileSnakeControl;
