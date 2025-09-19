@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+  <head>
     <meta charset="UTF-8" />
     <meta property="og:title" content="@GodKode. | Portfolio" />
     <meta
@@ -17,7 +17,7 @@
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#ffffff" />
     <title>@GodKode. | Portfolio</title>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@300;400;600;700&display=swap"
@@ -34,11 +34,31 @@
     </script>
   </head>
   <body>
+    <!-- DNA Scroll Indicator -->
+    <div class="dna-scroll">
+      <div class="dna-helix">
+        <div class="dna-strand"></div>
+        <div class="dna-strand"></div>
+      </div>
+    </div>
+
+    <!-- Floating Shapes Animation -->
+    <div class="floating-shapes">
+      <div class="shape triangle"></div>
+      <div class="shape circle"></div>
+      <div class="shape square"></div>
+      <div class="shape hexagon"></div>
+      <div class="shape pentagon"></div>
+    </div>
+
     <!-- Moving Background Lines -->
     <div class="background-lines"></div>
 
-    <!-- Cursor Follower Bobble -->
-    <div class="cursor-bobble"></div>
+    <!-- Click Animation Container -->
+    <div class="click-animations"></div>
+
+    <!-- Cursor Follower Bobble (Desktop Only) -->
+    <div class="cursor-bobble desktop-only"></div>
 
     <!-- Welcome Modal -->
     <div id="welcomeModal" class="modal-overlay">
@@ -65,10 +85,16 @@
       <div class="nav-links">
         <a href="#intro">Intro</a>
         <a href="#games">Games</a>
+        <a href="#projects">Projects</a>
         <a href="#about">About</a>
         <a href="#hobbies">Hobbies</a>
         <a href="#goals">Goals</a>
         <a href="#contact">Contact</a>
+      </div>
+      <div class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </nav>
 
@@ -77,12 +103,23 @@
       <!-- Introduction Section -->
       <section id="intro" class="intro-section">
         <div class="container">
-          <h2 class="section-title">Hello, I'm GodKode</h2>
-          <p class="intro-text">
-            A passionate developer exploring the endless possibilities of code
-            and creativity. Welcome to my digital space where innovation meets
-            imagination.
-          </p>
+          <div class="intro-content">
+            <h2 class="section-title animated-title">Hello, I'm GodKode</h2>
+            <p class="intro-text">
+              A passionate developer exploring the endless possibilities of code
+              and creativity. Welcome to my digital space where innovation meets
+              imagination.
+            </p>
+            <div class="intro-graphics">
+              <div class="code-blocks">
+                <div class="code-block">console.log("Hello World!");</div>
+                <div class="code-block">const developer = "GodKode";</div>
+                <div class="code-block">
+                  function create() { return magic; }
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -90,7 +127,8 @@
       <section id="disclaimer" class="disclaimer-section">
         <div class="container">
           <div class="disclaimer-box">
-            <h3>⚠️ Disclaimer</h3>
+            <div class="warning-icon">⚠️</div>
+            <h3>Disclaimer</h3>
             <p>
               This portfolio showcases personal projects and experiments. All
               content is created for educational and demonstration purposes.
@@ -176,11 +214,112 @@
                 <div class="snake-controls">
                   <button onclick="startSnake()">Start</button>
                   <button onclick="pauseSnake()">Pause</button>
+                  <div class="mobile-controls">
+                    <button
+                      class="arrow-btn"
+                      onclick="mobileSnakeControl('up')"
+                    >
+                      ↑
+                    </button>
+                    <div class="arrow-row">
+                      <button
+                        class="arrow-btn"
+                        onclick="mobileSnakeControl('left')"
+                      >
+                        ←
+                      </button>
+                      <button
+                        class="arrow-btn"
+                        onclick="mobileSnakeControl('right')"
+                      >
+                        →
+                      </button>
+                    </div>
+                    <button
+                      class="arrow-btn"
+                      onclick="mobileSnakeControl('down')"
+                    >
+                      ↓
+                    </button>
+                  </div>
                   <span>Score: <span id="snakeScore">0</span></span>
                 </div>
-                <p class="snake-instructions">
-                  Use arrow keys to control the snake
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects" class="projects-section">
+        <div class="container">
+          <h2 class="section-title">My Projects</h2>
+          <div class="projects-grid">
+            <!-- Project Template - Copy this structure for each project -->
+            <div class="project-card">
+              <div class="project-image">
+                <div class="project-placeholder">📱</div>
+              </div>
+              <div class="project-info">
+                <h3>Project Name</h3>
+                <p class="project-description">
+                  Brief description of what this project does and the
+                  technologies used to build it.
                 </p>
+                <div class="project-tech">
+                  <span class="tech-tag">HTML</span>
+                  <span class="tech-tag">CSS</span>
+                  <span class="tech-tag">JavaScript</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link">Live Demo</a>
+                  <a href="#" class="project-link">GitHub</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Add more project cards by copying the above structure -->
+            <div class="project-card">
+              <div class="project-image">
+                <div class="project-placeholder">🎮</div>
+              </div>
+              <div class="project-info">
+                <h3>Another Project</h3>
+                <p class="project-description">
+                  Another project description goes here with details about
+                  functionality and features.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">MongoDB</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link">Live Demo</a>
+                  <a href="#" class="project-link">GitHub</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <div class="project-image">
+                <div class="project-placeholder">🌐</div>
+              </div>
+              <div class="project-info">
+                <h3>Third Project</h3>
+                <p class="project-description">
+                  Description of your third project with technical details and
+                  achievements.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Flask</span>
+                  <span class="tech-tag">SQLite</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link">Live Demo</a>
+                  <a href="#" class="project-link">GitHub</a>
+                </div>
               </div>
             </div>
           </div>
@@ -205,8 +344,8 @@
               <h3>Areas of Growth</h3>
               <p>[Honest assessment of areas you're working to improve]</p>
 
-              <h3>Featured Projects</h3>
-              <p>[Description of your key projects and achievements]</p>
+              <h3>Experience</h3>
+              <p>[Your professional and personal development experience]</p>
             </div>
           </div>
         </div>
@@ -218,19 +357,23 @@
           <h2 class="section-title">My Hobbies</h2>
           <div class="hobbies-grid">
             <div class="hobby-card">
-              <h3>🎮 Gaming</h3>
+              <div class="hobby-icon">🎮</div>
+              <h3>Gaming</h3>
               <p>[Your gaming interests and favorite games]</p>
             </div>
             <div class="hobby-card">
-              <h3>🎵 Music</h3>
+              <div class="hobby-icon">🎵</div>
+              <h3>Music</h3>
               <p>[Your musical interests and instruments you play]</p>
             </div>
             <div class="hobby-card">
-              <h3>🎨 Art</h3>
+              <div class="hobby-icon">🎨</div>
+              <h3>Art</h3>
               <p>[Your artistic activities and creative pursuits]</p>
             </div>
             <div class="hobby-card">
-              <h3>💻 Coding</h3>
+              <div class="hobby-icon">💻</div>
+              <h3>Coding</h3>
               <p>[Personal coding projects and experiments]</p>
             </div>
           </div>
@@ -243,16 +386,25 @@
           <h2 class="section-title">Future Goals</h2>
           <div class="goals-content">
             <div class="goal-item">
-              <h3>Short-term Goals</h3>
-              <p>[Your immediate objectives and plans for the next year]</p>
+              <div class="goal-number">01</div>
+              <div class="goal-text">
+                <h3>Short-term Goals</h3>
+                <p>[Your immediate objectives and plans for the next year]</p>
+              </div>
             </div>
             <div class="goal-item">
-              <h3>Long-term Vision</h3>
-              <p>[Your long-term career aspirations and life goals]</p>
+              <div class="goal-number">02</div>
+              <div class="goal-text">
+                <h3>Long-term Vision</h3>
+                <p>[Your long-term career aspirations and life goals]</p>
+              </div>
             </div>
             <div class="goal-item">
-              <h3>How I Plan to Achieve Them</h3>
-              <p>[Your strategy and approach to reaching these goals]</p>
+              <div class="goal-number">03</div>
+              <div class="goal-text">
+                <h3>How I Plan to Achieve Them</h3>
+                <p>[Your strategy and approach to reaching these goals]</p>
+              </div>
             </div>
           </div>
         </div>
