@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+    <head>
     <meta charset="UTF-8" />
     <meta property="og:title" content="@GodKode. | Portfolio" />
     <meta
@@ -17,8 +17,13 @@
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#ffffff" />
     <title>@GodKode. | Portfolio</title>
-
-    <link rel="stylesheet" href="css/enter.css" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
     <link rel="icon" type="image/png" href="asset/github.png" />
     <script type="importmap">
       {
@@ -29,27 +34,279 @@
     </script>
   </head>
   <body>
-    <div class="mirror">
-      <h1 class="text" id="welcomeText">Welcome to</h1>
-      <div id="threeTextContainer"></div>
-      <h1 class="text" id="portfolioText">Portfolio</h1>
-      <p id="clickText">Press the button to continue...</p>
-      <button id="button">Click Me</button>
-    </div>
+    <!-- Moving Background Lines -->
+    <div class="background-lines"></div>
 
-    <div class="card">
-      <img src="asset/translate.png" alt="Profile" class="profile-img" />
-      <div class="dropdown-section">
-        <label for="language" id="langLabel">Choose Language:</label>
-        <select id="language">
-          <option value="en">English</option>
-          <option value="hi">Hindi</option>
-          <option value="jp">Japanese</option>
-          <option value="fr">French</option>
-        </select>
+    <!-- Cursor Follower Bobble -->
+    <div class="cursor-bobble"></div>
+
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal-overlay">
+      <div class="modal-container">
+        <div class="modal-content">
+          <h1 class="welcome-title">Welcome to GodKode</h1>
+          <p class="welcome-subtitle">Crafting Digital Experiences</p>
+          <button class="continue-btn" onclick="closeModal()">Continue</button>
+        </div>
       </div>
     </div>
 
-    <script type="module" src="js/enter.js"></script>
+    <!-- Custom Alert Modal -->
+    <div id="customAlert" class="alert-modal hidden">
+      <div class="alert-content">
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()" class="alert-btn">OK</button>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-brand">GodKode</div>
+      <div class="nav-links">
+        <a href="#intro">Intro</a>
+        <a href="#games">Games</a>
+        <a href="#about">About</a>
+        <a href="#hobbies">Hobbies</a>
+        <a href="#goals">Goals</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Page Content (blurred when modal is open) -->
+    <div id="pageContent" class="blurred">
+      <!-- Introduction Section -->
+      <section id="intro" class="intro-section">
+        <div class="container">
+          <h2 class="section-title">Hello, I'm GodKode</h2>
+          <p class="intro-text">
+            A passionate developer exploring the endless possibilities of code
+            and creativity. Welcome to my digital space where innovation meets
+            imagination.
+          </p>
+        </div>
+      </section>
+
+      <!-- Disclaimer Section -->
+      <section id="disclaimer" class="disclaimer-section">
+        <div class="container">
+          <div class="disclaimer-box">
+            <h3>⚠️ Disclaimer</h3>
+            <p>
+              This portfolio showcases personal projects and experiments. All
+              content is created for educational and demonstration purposes.
+              Please enjoy exploring my work responsibly!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mini Games Section with Tabs -->
+      <section id="games" class="games-section">
+        <div class="container">
+          <h2 class="section-title">Interactive Games</h2>
+
+          <!-- Game Tabs -->
+          <div class="game-tabs">
+            <button class="tab-btn active" onclick="showGame('ticTacToe')">
+              Tic Tac Toe
+            </button>
+            <button class="tab-btn" onclick="showGame('whiteboard')">
+              Whiteboard
+            </button>
+            <button class="tab-btn" onclick="showGame('memory')">
+              Memory Game
+            </button>
+            <button class="tab-btn" onclick="showGame('snake')">Snake</button>
+          </div>
+
+          <!-- Game Content -->
+          <div class="game-content">
+            <!-- Tic Tac Toe -->
+            <div id="ticTacToe" class="game-panel active">
+              <div class="tic-tac-toe">
+                <div class="game-board" id="ticTacBoard">
+                  <div class="cell" onclick="makeMove(0)"></div>
+                  <div class="cell" onclick="makeMove(1)"></div>
+                  <div class="cell" onclick="makeMove(2)"></div>
+                  <div class="cell" onclick="makeMove(3)"></div>
+                  <div class="cell" onclick="makeMove(4)"></div>
+                  <div class="cell" onclick="makeMove(5)"></div>
+                  <div class="cell" onclick="makeMove(6)"></div>
+                  <div class="cell" onclick="makeMove(7)"></div>
+                  <div class="cell" onclick="makeMove(8)"></div>
+                </div>
+                <button class="reset-btn" onclick="resetTicTac()">
+                  Reset Game
+                </button>
+              </div>
+            </div>
+
+            <!-- Whiteboard -->
+            <div id="whiteboard" class="game-panel">
+              <div class="whiteboard-container">
+                <canvas id="whiteboardCanvas" width="400" height="300"></canvas>
+                <div class="whiteboard-controls">
+                  <button onclick="clearCanvas()">Clear</button>
+                  <input type="color" id="colorPicker" value="#d4602a" />
+                  <input
+                    type="range"
+                    id="brushSize"
+                    min="1"
+                    max="20"
+                    value="3"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory Game -->
+            <div id="memory" class="game-panel">
+              <div class="memory-game" id="memoryGame">
+                <!-- Generated by JS -->
+              </div>
+              <button class="reset-btn" onclick="resetMemory()">
+                New Game
+              </button>
+            </div>
+
+            <!-- Snake Game -->
+            <div id="snake" class="game-panel">
+              <div class="snake-container">
+                <canvas id="snakeCanvas" width="400" height="300"></canvas>
+                <div class="snake-controls">
+                  <button onclick="startSnake()">Start</button>
+                  <button onclick="pauseSnake()">Pause</button>
+                  <span>Score: <span id="snakeScore">0</span></span>
+                </div>
+                <p class="snake-instructions">
+                  Use arrow keys to control the snake
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="about-section">
+        <div class="container">
+          <h2 class="section-title">About Me</h2>
+          <div class="about-content">
+            <div class="about-text">
+              <h3>Skills & Expertise</h3>
+              <p>
+                [Your detailed description about skills, strengths, and
+                technical expertise goes here]
+              </p>
+
+              <h3>Strengths</h3>
+              <p>[Your strengths and what makes you unique as a developer]</p>
+
+              <h3>Areas of Growth</h3>
+              <p>[Honest assessment of areas you're working to improve]</p>
+
+              <h3>Featured Projects</h3>
+              <p>[Description of your key projects and achievements]</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hobbies Section -->
+      <section id="hobbies" class="hobbies-section">
+        <div class="container">
+          <h2 class="section-title">My Hobbies</h2>
+          <div class="hobbies-grid">
+            <div class="hobby-card">
+              <h3>🎮 Gaming</h3>
+              <p>[Your gaming interests and favorite games]</p>
+            </div>
+            <div class="hobby-card">
+              <h3>🎵 Music</h3>
+              <p>[Your musical interests and instruments you play]</p>
+            </div>
+            <div class="hobby-card">
+              <h3>🎨 Art</h3>
+              <p>[Your artistic activities and creative pursuits]</p>
+            </div>
+            <div class="hobby-card">
+              <h3>💻 Coding</h3>
+              <p>[Personal coding projects and experiments]</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Future Goals Section -->
+      <section id="goals" class="goals-section">
+        <div class="container">
+          <h2 class="section-title">Future Goals</h2>
+          <div class="goals-content">
+            <div class="goal-item">
+              <h3>Short-term Goals</h3>
+              <p>[Your immediate objectives and plans for the next year]</p>
+            </div>
+            <div class="goal-item">
+              <h3>Long-term Vision</h3>
+              <p>[Your long-term career aspirations and life goals]</p>
+            </div>
+            <div class="goal-item">
+              <h3>How I Plan to Achieve Them</h3>
+              <p>[Your strategy and approach to reaching these goals]</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact-section">
+        <div class="container">
+          <h2 class="section-title">Get In Touch</h2>
+          <div class="contact-content">
+            <div class="contact-links">
+              <h3>Connect With Me</h3>
+              <div class="social-grid">
+                <a
+                  href="https://github.com/GodKode"
+                  class="social-card"
+                  target="_blank"
+                >
+                  <div class="social-icon">🐙</div>
+                  <h4>GitHub</h4>
+                  <p>@GodKode</p>
+                </a>
+                <a href="mailto:your.email@example.com" class="social-card">
+                  <div class="social-icon">📧</div>
+                  <h4>Email</h4>
+                  <p>your.email@example.com</p>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                  <div class="social-icon">💼</div>
+                  <h4>LinkedIn</h4>
+                  <p>Your Name</p>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                  <div class="social-icon">🐦</div>
+                  <h4>Twitter</h4>
+                  <p>@yourusername</p>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                  <div class="social-icon">💬</div>
+                  <h4>Discord</h4>
+                  <p>YourTag#1234</p>
+                </a>
+                <a href="#" class="social-card" target="_blank">
+                  <div class="social-icon">📱</div>
+                  <h4>Telegram</h4>
+                  <p>@yourusername</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="js/index.js"></script>
   </body>
 </html>
