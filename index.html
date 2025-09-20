@@ -1,464 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta property="og:title" content="@GodKode. | Portfolio" />
-    <meta
-      property="og:description"
-      content="Explore the portfolio of @GodKode. listing all their projects and skills."
-    />
-    <meta
-      property="og:image"
-      content="https://raghav.is-a.dev/asset/banner.png"
-    />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="180" />
-    <meta property="og:url" content="https://raghav.is-a.dev/" />
-    <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#ffffff" />
     <title>@GodKode. | Portfolio</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      charset="UTF-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="icon" type="image/png" href="asset/github.png" />
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.152.0/build/three.module.js"
-        }
-      }
-    </script>
+    <link rel="stylesheet" href="css/self.css" />
   </head>
   <body>
-    <!-- DNA Scroll Indicator -->
-    <div class="dna-scroll">
-      <div class="dna-helix">
-        <div class="dna-strand"></div>
-        <div class="dna-strand"></div>
-      </div>
-    </div>
-
-    <!-- Floating Shapes Animation -->
-    <div class="floating-shapes">
-      <div class="shape triangle"></div>
-      <div class="shape circle"></div>
-      <div class="shape square"></div>
-      <div class="shape hexagon"></div>
-      <div class="shape pentagon"></div>
-    </div>
-
-    <!-- Moving Background Lines -->
-    <div class="background-lines"></div>
-
-    <!-- Click Animation Container -->
-    <div class="click-animations"></div>
-
-    <!-- Cursor Follower Bobble (Desktop Only) -->
-    <div class="cursor-bobble desktop-only"></div>
-
-    <!-- Welcome Modal -->
-    <div id="welcomeModal" class="modal-overlay">
-      <div class="modal-container">
-        <div class="modal-content">
-          <h1 class="welcome-title">Welcome to GodKode</h1>
-          <p class="welcome-subtitle">Crafting Digital Experiences</p>
-          <button class="continue-btn" onclick="closeModal()">Continue</button>
+    <div class="clickAnim"></div>
+    <div class="cursorBobble"></div>
+    <div id="text">@GodKode.</div>
+    <div id="container">
+      Creating
+      <div id="flip">
+        <div>
+          <div>Websites</div>
+        </div>
+        <div>
+          <div>Apllications</div>
+        </div>
+        <div>
+          <div>Everything</div>
         </div>
       </div>
     </div>
-
-    <!-- Custom Alert Modal -->
-    <div id="customAlert" class="alert-modal hidden">
-      <div class="alert-content">
-        <p id="alertMessage"></p>
-        <button onclick="closeAlert()" class="alert-btn">OK</button>
-      </div>
+    <div id="sparkle">
+      <a href="#">
+        <!-- Drop as many sparkles in as you need and scope the speed -->
+        <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z"
+            fill="#000"
+          />
+        </svg>
+        <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z"
+            fill="#000"
+          />
+        </svg>
+        <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z"
+            fill="#000"
+          />
+        </svg>
+        <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z"
+            fill="#000"
+          />
+        </svg>
+        <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z"
+            fill="#000"
+          />
+        </svg>
+        <!-- End sparkles -->
+        <span>Click ME!</span>
+        <span aria-hidden="true">Click ME!</span>
+      </a>
     </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="nav-brand">GodKode</div>
-      <div class="nav-links">
-        <a href="#intro">Intro</a>
-        <a href="#games">Games</a>
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#hobbies">Hobbies</a>
-        <a href="#goals">Goals</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="mobile-menu-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </nav>
-
-    <!-- Page Content (blurred when modal is open) -->
-    <div id="pageContent" class="blurred">
-      <!-- Introduction Section -->
-      <section id="intro" class="intro-section">
-        <div class="container">
-          <div class="intro-content">
-            <h2 class="section-title animated-title">Hello, I'm GodKode</h2>
-            <p class="intro-text">
-              A passionate developer exploring the endless possibilities of code
-              and creativity. Welcome to my digital space where innovation meets
-              imagination.
-            </p>
-            <div class="intro-graphics">
-              <div class="code-blocks">
-                <div class="code-block">console.log("Hello World!");</div>
-                <div class="code-block">const developer = "GodKode";</div>
-                <div class="code-block">
-                  function create() { return magic; }
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Disclaimer Section -->
-      <section id="disclaimer" class="disclaimer-section">
-        <div class="container">
-          <div class="disclaimer-box">
-            <div class="warning-icon">⚠️</div>
-            <h3>Disclaimer</h3>
-            <p>
-              This portfolio showcases personal projects and experiments. All
-              content is created for educational and demonstration purposes.
-              Please enjoy exploring my work responsibly!
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Mini Games Section with Tabs -->
-      <section id="games" class="games-section">
-        <div class="container">
-          <h2 class="section-title">Interactive Games</h2>
-
-          <!-- Game Tabs -->
-          <div class="game-tabs">
-            <button class="tab-btn active" onclick="showGame('ticTacToe')">
-              Tic Tac Toe
-            </button>
-            <button class="tab-btn" onclick="showGame('whiteboard')">
-              Whiteboard
-            </button>
-            <button class="tab-btn" onclick="showGame('memory')">
-              Memory Game
-            </button>
-            <button class="tab-btn" onclick="showGame('snake')">Snake</button>
-          </div>
-
-          <!-- Game Content -->
-          <div class="game-content">
-            <!-- Tic Tac Toe -->
-            <div id="ticTacToe" class="game-panel active">
-              <div class="tic-tac-toe">
-                <div class="game-board" id="ticTacBoard">
-                  <div class="cell" onclick="makeMove(0)"></div>
-                  <div class="cell" onclick="makeMove(1)"></div>
-                  <div class="cell" onclick="makeMove(2)"></div>
-                  <div class="cell" onclick="makeMove(3)"></div>
-                  <div class="cell" onclick="makeMove(4)"></div>
-                  <div class="cell" onclick="makeMove(5)"></div>
-                  <div class="cell" onclick="makeMove(6)"></div>
-                  <div class="cell" onclick="makeMove(7)"></div>
-                  <div class="cell" onclick="makeMove(8)"></div>
-                </div>
-                <button class="reset-btn" onclick="resetTicTac()">
-                  Reset Game
-                </button>
-              </div>
-            </div>
-
-            <!-- Whiteboard -->
-            <div id="whiteboard" class="game-panel">
-              <div class="whiteboard-container">
-                <canvas id="whiteboardCanvas" width="400" height="300"></canvas>
-                <div class="whiteboard-controls">
-                  <button onclick="clearCanvas()">Clear</button>
-                  <input type="color" id="colorPicker" value="#d4602a" />
-                  <input
-                    type="range"
-                    id="brushSize"
-                    min="1"
-                    max="20"
-                    value="3"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory Game -->
-            <div id="memory" class="game-panel">
-              <div class="memory-game" id="memoryGame">
-                <!-- Generated by JS -->
-              </div>
-              <button class="reset-btn" onclick="resetMemory()">
-                New Game
-              </button>
-            </div>
-
-            <!-- Snake Game -->
-            <div id="snake" class="game-panel">
-              <div class="snake-container">
-                <canvas id="snakeCanvas" width="400" height="300"></canvas>
-                <div class="snake-controls">
-                  <button onclick="startSnake()">Start</button>
-                  <button onclick="pauseSnake()">Pause</button>
-                  <div class="mobile-controls">
-                    <button
-                      class="arrow-btn"
-                      onclick="mobileSnakeControl('up')"
-                    >
-                      ↑
-                    </button>
-                    <div class="arrow-row">
-                      <button
-                        class="arrow-btn"
-                        onclick="mobileSnakeControl('left')"
-                      >
-                        ←
-                      </button>
-                      <button
-                        class="arrow-btn"
-                        onclick="mobileSnakeControl('right')"
-                      >
-                        →
-                      </button>
-                    </div>
-                    <button
-                      class="arrow-btn"
-                      onclick="mobileSnakeControl('down')"
-                    >
-                      ↓
-                    </button>
-                  </div>
-                  <span>Score: <span id="snakeScore">0</span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Projects Section -->
-      <section id="projects" class="projects-section">
-        <div class="container">
-          <h2 class="section-title">My Projects</h2>
-          <div class="projects-grid">
-            <!-- Project Template - Copy this structure for each project -->
-            <div class="project-card">
-              <div class="project-image">
-                <div class="project-placeholder">📱</div>
-              </div>
-              <div class="project-info">
-                <h3>Project Name</h3>
-                <p class="project-description">
-                  Brief description of what this project does and the
-                  technologies used to build it.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">HTML</span>
-                  <span class="tech-tag">CSS</span>
-                  <span class="tech-tag">JavaScript</span>
-                </div>
-                <div class="project-links">
-                  <a href="#" class="project-link">Live Demo</a>
-                  <a href="#" class="project-link">GitHub</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Add more project cards by copying the above structure -->
-            <div class="project-card">
-              <div class="project-image">
-                <div class="project-placeholder">🎮</div>
-              </div>
-              <div class="project-info">
-                <h3>Another Project</h3>
-                <p class="project-description">
-                  Another project description goes here with details about
-                  functionality and features.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">React</span>
-                  <span class="tech-tag">Node.js</span>
-                  <span class="tech-tag">MongoDB</span>
-                </div>
-                <div class="project-links">
-                  <a href="#" class="project-link">Live Demo</a>
-                  <a href="#" class="project-link">GitHub</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-image">
-                <div class="project-placeholder">🌐</div>
-              </div>
-              <div class="project-info">
-                <h3>Third Project</h3>
-                <p class="project-description">
-                  Description of your third project with technical details and
-                  achievements.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">Python</span>
-                  <span class="tech-tag">Flask</span>
-                  <span class="tech-tag">SQLite</span>
-                </div>
-                <div class="project-links">
-                  <a href="#" class="project-link">Live Demo</a>
-                  <a href="#" class="project-link">GitHub</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- About Section -->
-      <section id="about" class="about-section">
-        <div class="container">
-          <h2 class="section-title">About Me</h2>
-          <div class="about-content">
-            <div class="about-text">
-              <h3>Skills & Expertise</h3>
-              <p>
-                [Your detailed description about skills, strengths, and
-                technical expertise goes here]
-              </p>
-
-              <h3>Strengths</h3>
-              <p>[Your strengths and what makes you unique as a developer]</p>
-
-              <h3>Areas of Growth</h3>
-              <p>[Honest assessment of areas you're working to improve]</p>
-
-              <h3>Experience</h3>
-              <p>[Your professional and personal development experience]</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Hobbies Section -->
-      <section id="hobbies" class="hobbies-section">
-        <div class="container">
-          <h2 class="section-title">My Hobbies</h2>
-          <div class="hobbies-grid">
-            <div class="hobby-card">
-              <div class="hobby-icon">🎮</div>
-              <h3>Gaming</h3>
-              <p>[Your gaming interests and favorite games]</p>
-            </div>
-            <div class="hobby-card">
-              <div class="hobby-icon">🎵</div>
-              <h3>Music</h3>
-              <p>[Your musical interests and instruments you play]</p>
-            </div>
-            <div class="hobby-card">
-              <div class="hobby-icon">🎨</div>
-              <h3>Art</h3>
-              <p>[Your artistic activities and creative pursuits]</p>
-            </div>
-            <div class="hobby-card">
-              <div class="hobby-icon">💻</div>
-              <h3>Coding</h3>
-              <p>[Personal coding projects and experiments]</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Future Goals Section -->
-      <section id="goals" class="goals-section">
-        <div class="container">
-          <h2 class="section-title">Future Goals</h2>
-          <div class="goals-content">
-            <div class="goal-item">
-              <div class="goal-number">01</div>
-              <div class="goal-text">
-                <h3>Short-term Goals</h3>
-                <p>[Your immediate objectives and plans for the next year]</p>
-              </div>
-            </div>
-            <div class="goal-item">
-              <div class="goal-number">02</div>
-              <div class="goal-text">
-                <h3>Long-term Vision</h3>
-                <p>[Your long-term career aspirations and life goals]</p>
-              </div>
-            </div>
-            <div class="goal-item">
-              <div class="goal-number">03</div>
-              <div class="goal-text">
-                <h3>How I Plan to Achieve Them</h3>
-                <p>[Your strategy and approach to reaching these goals]</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section id="contact" class="contact-section">
-        <div class="container">
-          <h2 class="section-title">Get In Touch</h2>
-          <div class="contact-content">
-            <div class="contact-links">
-              <h3>Connect With Me</h3>
-              <div class="social-grid">
-                <a
-                  href="https://github.com/GodKode"
-                  class="social-card"
-                  target="_blank"
-                >
-                  <div class="social-icon">🐙</div>
-                  <h4>GitHub</h4>
-                  <p>@GodKode</p>
-                </a>
-                <a href="mailto:your.email@example.com" class="social-card">
-                  <div class="social-icon">📧</div>
-                  <h4>Email</h4>
-                  <p>your.email@example.com</p>
-                </a>
-                <a href="#" class="social-card" target="_blank">
-                  <div class="social-icon">💼</div>
-                  <h4>LinkedIn</h4>
-                  <p>Your Name</p>
-                </a>
-                <a href="#" class="social-card" target="_blank">
-                  <div class="social-icon">🐦</div>
-                  <h4>Twitter</h4>
-                  <p>@yourusername</p>
-                </a>
-                <a href="#" class="social-card" target="_blank">
-                  <div class="social-icon">💬</div>
-                  <h4>Discord</h4>
-                  <p>YourTag#1234</p>
-                </a>
-                <a href="#" class="social-card" target="_blank">
-                  <div class="social-icon">📱</div>
-                  <h4>Telegram</h4>
-                  <p>@yourusername</p>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <script src="js/index.js"></script>
   </body>
+  <footer>© Copyright @GodKode. | 2025</footer>
 </html>
