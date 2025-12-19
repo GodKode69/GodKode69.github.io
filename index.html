@@ -1,114 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me - Developer Search</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/search.css">
-    <link rel="stylesheet" href="styles/results.css">
-    <link rel="stylesheet" href="styles/footer.css">
-</head>
-<body>
-    <!-- Header Section -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="navbar__left">
-                <a href="#" class="navbar__logo">Dev Portfolio</a>
-            </div>
-            <div class="navbar__right">
-                <a href="#about" class="navbar__link">About</a>
-                <a href="#projects" class="navbar__link">Projects</a>
-                <a href="#skills" class="navbar__link">Skills</a>
-                <a href="#contact" class="navbar__link">Contact</a>
-            </div>
-        </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GodKode | Creative Developer</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <nav>
+      <div class="logo">GODKODE_</div>
+      <ul class="nav-links">
+        <li><a href="#about" class="hover-link">About</a></li>
+        <li><a href="#work" class="hover-link">Work</a></li>
+        <li><a href="#contact" class="hover-link">Contact</a></li>
+      </ul>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-content">
+        <p class="mono-text">Identity: Raghav</p>
+        <h1 class="glitch" data-text="GODKODE">GODKODE</h1>
+        <p class="subtitle">
+          Architecting digital voids & <br />
+          aesthetic systems.
+        </p>
+      </div>
+      <div class="scroll-indicator">
+        <span>INIT_SYSTEM</span>
+      </div>
     </header>
 
-    <!-- Main Search Section -->
-    <main class="search-container">
-        <section class="search-area">
-            <!-- Logo/Title -->
-            <div class="search-area__header">
-                <h1 class="search-area__title">Search About Me</h1>
-            </div>
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-title">01 / The Source</h2>
+        <div class="about-grid">
+          <div class="text-block reveal">
+            <p>
+              I go by <strong>Raghav</strong> in the real world, but online I
+              operate as GodKode.
+            </p>
+            <br />
+            <p>
+              I bridge the gap between heavy backend logic and fluid frontend
+              interactivity. My code is clean, my designs are dark, and my focus
+              is absolute.
+            </p>
 
-            <!-- Search Box -->
-            <div class="search-box">
-                <div class="search-box__wrapper">
-                    <input 
-                        type="text" 
-                        class="search-box__input" 
-                        id="searchInput"
-                        placeholder="Search for projects, skills, or contact info..."
-                        autocomplete="off"
-                    >
-                    <span class="search-box__icon">🔍</span>
-                </div>
+            <div class="tech-stack">
+              <span>JavaScript</span>
+              <span>React</span>
+              <span>Node.js</span>
+              <span>WebGL</span>
+              <span>Three.js</span>
             </div>
-
-            <!-- Search Suggestions -->
-            <div class="search-suggestions" id="searchSuggestions">
-                <div class="suggestion-item" data-query="projects">Projects</div>
-                <div class="suggestion-item" data-query="skills">Skills</div>
-                <div class="suggestion-item" data-query="experience">Experience</div>
-                <div class="suggestion-item" data-query="contact">Contact</div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="search-buttons">
-                <button class="btn btn--search" id="searchBtn">Search</button>
-                <button class="btn btn--lucky" id="luckyBtn">I'm Feeling Lucky</button>
-            </div>
-        </section>
-    </main>
-
-    <!-- Results Section (Hidden by default) -->
-    <section class="results-container" id="resultsContainer" style="display: none;">
-        <div class="results-header">
-            <a href="#" class="results-logo">Dev Portfolio</a>
-            <div class="results-search">
-                <input 
-                    type="text" 
-                    class="results-search__input" 
-                    id="resultsSearchInput"
-                    placeholder="Search..."
-                >
-                <span class="results-search__icon">🔍</span>
-            </div>
-            <button class="btn btn--back" id="backBtn">← Back</button>
+          </div>
         </div>
-
-        <!-- Results Tabs Container -->
-        <div class="result-tabs-container" id="resultTabsContainer">
-            <!-- Tabs will be generated here -->
-        </div>
-
-        <!-- Results Content Area -->
-        <div class="results-content">
-            <div class="results-inner" id="resultsContent">
-                <!-- Results will be populated here by JavaScript -->
-            </div>
-        </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer__top">
-            <a href="#privacy">Privacy</a>
-            <a href="#terms">Terms</a>
-            <a href="#settings">Settings</a>
+    <section id="work" class="section">
+      <div class="container">
+        <h2 class="section-title">02 / Executables</h2>
+
+        <div class="projects-grid">
+          <div class="project-card reveal">
+            <div class="card-header">
+              <span class="mono-text">2024</span>
+              <span class="mono-text">System Architecture</span>
+            </div>
+            <h3>Project Eclipse</h3>
+            <p>
+              A high-frequency trading dashboard with dark-mode visualization.
+            </p>
+            <div class="card-links">
+              <a href="#" class="hover-link">Live Demo ↗</a>
+              <a href="#" class="hover-link">GitHub ↗</a>
+            </div>
+          </div>
+
+          <div class="project-card reveal">
+            <div class="card-header">
+              <span class="mono-text">2023</span>
+              <span class="mono-text">Web App</span>
+            </div>
+            <h3>Void Messenger</h3>
+            <p>
+              End-to-end encrypted chat application with ephemeral messaging.
+            </p>
+            <div class="card-links">
+              <a href="#" class="hover-link">Live Demo ↗</a>
+              <a href="#" class="hover-link">GitHub ↗</a>
+            </div>
+          </div>
         </div>
-        <div class="footer__bottom">
-            <span>© 2025 Developer Portfolio. Made with ❤️</span>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-title">03 / Uplink</h2>
+        <div class="contact-wrapper reveal">
+          <h1>
+            Ready to initialize <br />
+            a new protocol?
+          </h1>
+          <div class="email-block">
+            <a href="mailto:raghav@godkode.dev" class="big-link hover-link"
+              >raghav@godkode.dev</a
+            >
+          </div>
+          <div class="socials">
+            <a href="#" class="hover-link">LinkedIn</a>
+            <a href="#" class="hover-link">GitHub</a>
+            <a href="#" class="hover-link">Twitter</a>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p class="mono-text">© 2025 GodKode / Raghav.</p>
+      </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="js/data.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/app.js"></script>
-</body>
+    <script src="assets/js/app.js"></script>
+  </body>
 </html>

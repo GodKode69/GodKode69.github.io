@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 | Signal Lost</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Specific override for 404 centering */
+      body {
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .error-container h1 {
+        font-size: 15vw;
+        margin: 0;
+        line-height: 1;
+      }
+      .error-container p {
+        font-family: "Space Mono", monospace;
+        margin-bottom: 2rem;
+        color: var(--accent-color);
+      }
+      .back-btn {
+        border: 1px solid var(--text-color);
+        padding: 1rem 2rem;
+        font-family: "Space Mono", monospace;
+        transition: 0.3s;
+      }
+      .back-btn:hover {
+        background: var(--text-color);
+        color: var(--bg-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="error-container">
+      <h1 class="glitch" data-text="404">404</h1>
+      <p>FATAL ERROR: SECTOR NOT FOUND</p>
+      <a href="index.html" class="back-btn hover-link">RETURN TO BASE</a>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
