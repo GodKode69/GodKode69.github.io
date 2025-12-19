@@ -410,64 +410,58 @@ nav {
   font-family: "Space Mono", monospace;
 }
 
-/* Visualize Bar Chart Container */
+/* Visualize Container inside Popup */
 .visualize-container {
   margin-top: 15px;
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .proficiency-text {
+  font-family: "Space Mono", monospace;
   font-size: 0.7rem;
   color: #b5bac1;
   margin-bottom: 6px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-family: "Space Mono", monospace;
 }
 
-/* The background track of the bar */
+/* The 100% Bar Track */
 .progress-bar {
   width: 100%;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.05); /* Very subtle track */
-  border-radius: 10px;
-  overflow: visible; /* Important: "visible" allows the glow to bleed outside the bar */
-  margin-top: 8px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.3); /* Darker track for better contrast */
+  border-radius: 4px;
+  overflow: hidden; /* This keeps ALL glow strictly inside the bar */
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* The Progress Fill */
 .progress-fill {
   height: 100%;
-  background: cadetblue; /* Your primary color */
-  border-radius: 10px;
+  background: cadetblue;
+  border-radius: 4px;
   position: relative;
-
-  /* 1. The Glow Effects */
-  box-shadow: 0 0 8px rgba(95, 158, 160, 0.8),
-    /* Inner soft glow */ 0 0 15px rgba(95, 158, 160, 0.4); /* Outer wide glow */
-
-  /* 2. Extra radiance (optional but looks great on dark mode) */
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
-
-  /* 3. Animation */
-  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  
+  /* Inner Glow only */
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2),
+              0 0 15px rgba(95, 158, 160, 0.6);
+              
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Optional: Add a "Scanning" highlight effect */
+/* The "Neon Cap" - The bright tip that stays at the end of the bar */
 .progress-fill::after {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  animation: shine 2s infinite;
+  width: 12px; /* Strictly 4px wide tip */
+  height: 100%;
+  background: #fff; /* Bright white tip */
+  filter: blur(2px); /* Softens the tip so it looks like a glow bulb */
+  opacity: 0.8;
 }
 
 @keyframes shine {
