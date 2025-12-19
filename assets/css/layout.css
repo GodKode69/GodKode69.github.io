@@ -12,31 +12,185 @@ nav {
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 .nav-links {
   list-style: none;
   display: flex;
   gap: 2rem;
 }
 
-/* Hero */
+/* Hero & Hero Container */
 .hero {
   height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center; /* Vertical center */
   padding: 0 5%;
+  position: relative;
 }
+
+.hero-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  flex: 1;
+}
+
 .hero h1 {
   font-size: 9vw;
   line-height: 0.9;
   margin: 1rem 0;
   letter-spacing: -2px;
 }
+
 .subtitle {
   font-size: 1.5rem;
   color: var(--accent-color);
   max-width: 500px;
 }
+
+/* NEW: System Status Styling */
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: "Space Mono", monospace;
+}
+
+#discord-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+/* Status Colors & Glows */
+.online {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+.idle {
+  background: #888;
+  box-shadow: 0 0 5px rgba(136, 136, 136, 0.5);
+}
+.dnd {
+  background: #ff4444;
+  box-shadow: 0 0 8px rgba(255, 68, 68, 0.6);
+}
+.offline {
+  background: #333;
+}
+
+/* Discord Card UI (Right Side) */
+.hero-visual {
+  flex: 0 0 350px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.discord-card {
+  width: 300px;
+  background: #0a0a0a;
+  border: 1px solid #222;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.card-banner {
+  height: 60px;
+  background: #1a1a1a;
+}
+.card-header {
+  padding: 0 16px;
+  margin-top: -30px;
+  margin-bottom: 12px;
+}
+.avatar-wrapper {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+#discord-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid #0a0a0a;
+  background: #000;
+}
+#discord-status-dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid #0a0a0a;
+}
+
+.card-body {
+  padding: 0 16px 16px;
+}
+.user-info {
+  border-bottom: 1px solid #1a1a1a;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+#discord-name {
+  font-weight: 700;
+  display: block;
+  font-size: 1rem;
+  color: #fff;
+}
+#discord-tag {
+  font-size: 0.75rem;
+  color: #666;
+  font-family: "Space Mono", monospace;
+}
+
+.section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 8px;
+}
+.activity-flex {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+#activity-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  background: #111;
+}
+.activity-text p {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin: 0;
+}
+#activity-name {
+  font-weight: 700;
+  color: #ddd;
+}
+#activity-details,
+#activity-state {
+  color: #777;
+}
+
+/* Scroll & General Sections */
 .scroll-indicator {
   position: absolute;
   bottom: 2rem;
@@ -61,7 +215,6 @@ nav {
   }
 }
 
-/* General Section */
 .section {
   padding: 10rem 5%;
   min-height: 80vh;
@@ -109,7 +262,7 @@ nav {
 .project-card:hover {
   transform: translateY(-10px);
 }
-.card-header {
+.card-header-project {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
@@ -144,6 +297,11 @@ nav {
   gap: 2rem;
   font-family: "Space Mono", monospace;
 }
+.socials a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
 /* Animation Utility */
 .reveal {
@@ -156,10 +314,28 @@ nav {
   transform: translateY(0);
 }
 
-@media (max-width: 768px) {
+/* Responsive Updates */
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+  .hero-visual {
+    display: none;
+  }
+  .system-status {
+    justify-content: center;
+  }
+  .subtitle {
+    margin: 0 auto;
+  }
   .hero h1 {
     font-size: 15vw;
   }
+}
+
+@media (max-width: 768px) {
   .contact-wrapper h1 {
     font-size: 10vw;
   }

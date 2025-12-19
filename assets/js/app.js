@@ -58,3 +58,50 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", revealOnScroll);
   revealOnScroll();
 });
+
+const DISCORD_ID = "1243904701318037609";
+
+async function getLanyard() {
+  try {
+    const response = await fetch(
+      `https://api.lanyard.rest/v1/users/${DISCORD_ID}`
+    );
+    const { data, success } = await response.json();
+
+    if (!success) return;
+
+    const dot = document.getElementById("discord-dot");
+    const statusText = document.getElementById("status-text");
+
+    // 1. Update the Dot
+    dot.className = data.discord_status;
+
+    // 2. Format the String
+    const username = `@${data.discord_user.username}`;
+    let statusVerb = "pursuing";
+    let activityName = "the void";
+
+    if (data.listening_to_spotify) {
+      statusVerb = "listening to";
+      activityName = data.spotify.song;
+    } else if (data.activities.length > 0) {
+      // Find the most relevant activity
+      const activity =
+        data.activities.find((a) => a.type !== 4) || data.activities[0];
+      statusVerb = "pursuing";
+      activityName = activity.name;
+    } else {
+      statusVerb = "pursuing";
+      activityName =
+        data.discord_status === "online" ? "optimization" : "stealth mode";
+    }
+
+    // Apply final text: {status} Entity @adhuraghav {verb} ${activity}
+    statusText.innerHTML = `Entity <span style="color:white">${username}</span> ${statusVerb} <span style="color:white">${activityName}</span>`;
+  } catch (err) {
+    console.error("Uplink Error:", err);
+  }
+}
+
+getLanyard();
+setInterval(getLanyard, 15000); // Update every 15 seconds
