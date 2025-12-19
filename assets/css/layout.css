@@ -347,25 +347,6 @@ nav {
   padding-bottom: 1rem;
 }
 
-/* Tech Stack */
-.tech-stack {
-  margin-top: 2rem;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.tech-stack span {
-  border: 1px solid #333;
-  padding: 0.5rem 1rem;
-  font-family: "Space Mono", monospace;
-  font-size: 0.8rem;
-  transition: 0.3s;
-}
-.tech-stack span:hover {
-  background: white;
-  color: black;
-}
-
 /* Projects */
 .projects-grid {
   display: grid;
