@@ -63,45 +63,75 @@ const DISCORD_ID = "1243904701318037609";
 
 async function getLanyard() {
   try {
-    const response = await fetch(
-      `https://api.lanyard.rest/v1/users/${DISCORD_ID}`
-    );
+    const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
     const { data, success } = await response.json();
-
     if (!success) return;
 
-    const dot = document.getElementById("discord-dot");
-    const statusText = document.getElementById("status-text");
+    // 1. Core Identity & Status
+    const status = data.discord_status;
+    const username = data.discord_user.username;
+    
+    // Status text mapping
+    const statusMap = {
+        online: "online",
+        idle: "idle",
+        dnd: "on do not disturb",
+        offline: "offline"
+    };
 
-    // 1. Update the Dot
-    dot.className = data.discord_status;
+    // Update Dots & Header Text
+    document.getElementById("discord-dot").className = status;
+    document.getElementById("discord-status-dot").className = status;
+    document.getElementById("status-text").innerHTML = 
+        `Entity <span style="color:white">@${username}</span> is <span style="color:white">${statusMap[status] || status}</span>`;
 
-    // 2. Format the String
-    const username = `@${data.discord_user.username}`;
-    let statusVerb = "pursuing";
-    let activityName = "the void";
+    // 2. Profile Card Details
+    document.getElementById("discord-name").innerText = data.discord_user.global_name || username;
+    document.getElementById("discord-avatar").src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`;
 
+    // 3. Clear and Rebuild Activities
+    const container = document.getElementById("activities-container");
+    container.innerHTML = ""; 
+
+    // Add Spotify
     if (data.listening_to_spotify) {
-      statusVerb = "listening to";
-      activityName = data.spotify.song;
-    } else if (data.activities.length > 0) {
-      // Find the most relevant activity
-      const activity =
-        data.activities.find((a) => a.type !== 4) || data.activities[0];
-      statusVerb = "pursuing";
-      activityName = activity.name;
-    } else {
-      statusVerb = "pursuing";
-      activityName =
-        data.discord_status === "online" ? "optimization" : "stealth mode";
+      container.innerHTML += `
+        <p class="section-label">Listening to Spotify</p>
+        <div class="activity-item">
+          <img class="activity-img" src="${data.spotify.album_art_url}">
+          <div class="activity-info">
+            <p class="activity-title">${data.spotify.song}</p>
+            <p>by ${data.spotify.artist}</p>
+          </div>
+        </div>`;
     }
 
-    // Apply final text: {status} Entity @adhuraghav {verb} ${activity}
-    statusText.innerHTML = `Entity <span style="color:white">${username}</span> ${statusVerb} <span style="color:white">${activityName}</span>`;
+    // Add Game/Code (Type 0 = Playing)
+    const playingAct = data.activities.find(a => a.type === 0);
+    if (playingAct) {
+      let assetImg = 'https://cdn.discordapp.com/embed/avatars/0.png';
+      if(playingAct.assets && playingAct.assets.large_image) {
+        assetImg = playingAct.assets.large_image.startsWith("mp:external") 
+            ? playingAct.assets.large_image.replace(/mp:external\/.*\/https\//, "https://")
+            : `https://cdn.discordapp.com/app-assets/${playingAct.application_id}/${playingAct.assets.large_image}.png`;
+      }
+      
+      container.innerHTML += `
+        <p class="section-label">Playing</p>
+        <div class="activity-item">
+          <img class="activity-img" src="${assetImg}">
+          <div class="activity-info">
+            <p class="activity-title">${playingAct.name}</p>
+            <p>${playingAct.details || ''}</p>
+            <p>${playingAct.state || ''}</p>
+          </div>
+        </div>`;
+    }
+
   } catch (err) {
-    console.error("Uplink Error:", err);
+    console.error("Lanyard Error:", err);
   }
 }
 
 getLanyard();
-setInterval(getLanyard, 15000); // Update every 15 seconds
+setInterval(getLanyard, 15000);
