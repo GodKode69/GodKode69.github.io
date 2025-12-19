@@ -45,6 +45,17 @@ nav {
   max-width: 500px;
 }
 
+.subtitle-wrapper {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    color: var(--accent-color);
+}
+.bracket {
+    font-size: 1.5rem;
+    line-height: 1.4; /* Must match the subtitle line-height */
+}
+
 /* NEW: System Status Styling */
 .system-status {
   display: flex;
