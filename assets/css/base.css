@@ -6,6 +6,14 @@
 }
 
 * {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+  -khtml-user-select: none; /* Konqueror */
+  user-select: none; /* Standard syntax */
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,7 +21,7 @@
 }
 
 #projects {
-    color:aqua
+  color: aqua;
 }
 
 body {
