@@ -26,6 +26,11 @@ nav {
   align-items: center; /* Vertical center */
   padding: 0 5%;
   position: relative;
+  /* Adjust this value based on your header height */
+  padding-top: 100px;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .hero-content {
@@ -579,8 +584,6 @@ nav {
 
 /* The big project screenshot */
 .project-banner {
-  width: 100%;
-  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.02);
   padding: 10px;
@@ -680,5 +683,83 @@ nav {
   }
   .discord-profile-card {
     max-width: 300px; /* Slightly smaller for tiny phones */
+  }
+}
+
+/* --- MEDIA TERMINAL & SPOILERS --- */
+.media-terminal {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 40px 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.terminal-header {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.terminal-title {
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--accent-color);
+  margin-left: 10px;
+  opacity: 0.8;
+}
+
+/* The Spoiler Logic */
+.media-spoiler {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.media-spoiler summary {
+  padding: 15px;
+  list-style: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  user-select: none;
+}
+
+.media-spoiler summary::-webkit-details-marker {
+  display: none; /* Hides default arrow */
+}
+
+.media-spoiler summary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent-color);
+}
+
+.spoiler-content {
+  padding: 10px;
+  background: #000;
+  animation: slideDown 0.3s ease-out;
+}
+
+.spoiler-content img {
+  border: 1px solid #333;
+  display: block;
+}
+
+/* Smooth opening animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
