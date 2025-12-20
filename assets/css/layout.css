@@ -443,11 +443,11 @@ nav {
   background: cadetblue;
   border-radius: 4px;
   position: relative;
-  
+
   /* Inner Glow only */
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2),
-              0 0 15px rgba(95, 158, 160, 0.6);
-              
+    0 0 15px rgba(95, 158, 160, 0.6);
+
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -566,5 +566,119 @@ nav {
   }
   .big-link {
     font-size: 6vw;
+  }
+}
+
+/* --- PROJECT PAGE ADDITIONS --- */
+
+/* Ensures content isn't hidden behind the fixed nav */
+.project-wrapper {
+  padding-top: 120px;
+  min-height: 100vh;
+}
+
+/* The big project screenshot */
+.project-banner {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 10px;
+  margin: 40px 0;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.project-banner:hover {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Two-column layout for text (Overview + Specs) */
+.project-text-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+/* Typography specifics for projects */
+.project-meta-label {
+  font-family: "Space Mono", monospace;
+  color: var(--accent-color);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  display: block;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+
+/* Mobile responsive fix */
+@media (max-width: 768px) {
+  .project-text-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* Add :active so it triggers when the user touches the card */
+.profile-card:hover,
+.profile-card:active {
+  transform: translateY(-10px);
+  /* your other hover styles */
+}
+.profile-card {
+  width: 90%; /* Uses 90% of the screen on mobile */
+  max-width: 400px; /* Prevents it from getting too big on PC */
+  margin: 0 auto; /* Centers it */
+
+  /* ADD THIS: Force the browser to treat it as a GPU layer */
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+}
+
+/* 1. The Wrapper (The space the card lives in) */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px; /* Prevents card from touching screen edges */
+  min-height: 500px;
+}
+
+/* 2. The Card itself */
+.discord-profile-card {
+  background: #111214; /* Discord Dark */
+  width: 100%;
+  /* This is the magic line: */
+  /* It will be 100% wide on phones, but never bigger than 350px on PC */
+  max-width: 350px;
+
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+
+  /* Avoid using 'absolute' positioning for the card itself; 
+       let the flexbox above handle the centering. */
+
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. Handle the images inside so they don't 'stretch' the card */
+.discord-profile-card img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 4. Responsive adjustments for very small screens */
+@media (max-width: 400px) {
+  .hero-visual {
+    padding: 10px;
+  }
+  .discord-profile-card {
+    max-width: 300px; /* Slightly smaller for tiny phones */
   }
 }
