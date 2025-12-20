@@ -638,6 +638,7 @@ nav {
   /* ADD THIS: Force the browser to treat it as a GPU layer */
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* 1. The Wrapper (The space the card lives in) */
