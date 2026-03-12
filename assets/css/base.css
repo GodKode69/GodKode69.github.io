@@ -61,7 +61,8 @@ body::before {
 
   height: 100%;
 
-  background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
 
   background-size: 50px 50px;
@@ -80,10 +81,8 @@ h3 {
 }
 
 .mono-text {
-  font-family: "Space Mono", monospace;
-
+  font-family: "SpaMaplece Mono", monospace;
   font-size: 0.9rem;
-
   color: var(--accent-color);
 }
 
@@ -121,7 +120,11 @@ a {
 }
 .cursor .cursor-follower {
   opacity: 0; /* Start hidden */
-  transition: opacity 0.3s ease, width 0.3s, height 0.3s, background 0.3s;
+  transition:
+    opacity 0.3s ease,
+    width 0.3s,
+    height 0.3s,
+    background 0.3s;
 }
 
 .cursor-visible {
@@ -137,7 +140,10 @@ a {
 
   background: rgba(255, 255, 255, 0.05);
 
-  transition: width 0.3s, height 0.3s, background 0.3s;
+  transition:
+    width 0.3s,
+    height 0.3s,
+    background 0.3s;
 
   mix-blend-mode: difference;
 }

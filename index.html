@@ -1,25 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
   <head>
     <meta property="og:type" content="website" />
     <meta property="og:title" content="GodKode's Website" />
-    <meta
-      property="og:description"
-      content="Teeny tiny wannabe gamedev"
-    />
+    <meta property="og:description" content="Teeny tiny wannabe gamedev" />
     <meta
       property="og:image"
       content="https://godkode.xyz/assets/img/wink.png"
     />
     <meta name="theme-color" content="#5f9ea0" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="./assets//img/favicon.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="./assets//img/favicon.png" />
     <title>GodKode | Portfolio</title>
     <link rel="stylesheet" href="assets/css/main.css" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,28 +24,43 @@
       rel="stylesheet"
     />
   </head>
+
   <body>
+    <!-- cursor div start -->>
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
+    /<!-- cursor div end -->>
 
+    <!-- nav bar start -->>
     <nav>
       <div class="logo">_GODKODE/</div>
+
       <ul class="nav-links">
         <li><a href="#about" class="hover-link">About</a></li>
         <li><a href="#work" class="hover-link">Work</a></li>
         <li><a href="#contact" class="hover-link">Contact</a></li>
       </ul>
     </nav>
+    <!-- nav bar end -->>
 
+    <!-- header text container start -->>
     <header class="hero">
       <div class="hero-container">
+        <!-- header text start -->
         <div class="hero-content">
+          <!-- godkode glitch text -->
           <h1 class="glitch" data-text="GODKODE">GODKODE</h1>
+
+          <!-- placeholder text start -->
           <div class="system-status mono-text">
+            <!-- discord status dot -->
             <span id="discord-dot"></span>
+
             <span id="status-text">Initializing Entity...</span>
           </div>
+          <!-- placeholder text end -->
 
+          <!-- quote start-->
           <div class="subtitle-wrapper">
             <span class="bracket" style="color: aliceblue">⌈<br />⌊</span>
             <p class="subtitle">
@@ -57,8 +69,11 @@
             </p>
             <span class="bracket" style="color: aliceblue">⌉<br />⌋</span>
           </div>
+          <!-- quote end -->
         </div>
+        <!-- header text container end -->
 
+        <!-- discord profile start -->
         <div class="hero-visual">
           <div class="discord-profile-card reveal active">
             <div class="card-banner" id="card-banner"></div>
@@ -92,13 +107,18 @@
             </div>
           </div>
         </div>
+        <!-- discord profile end -->
       </div>
 
+      <!-- jumping path start -->
       <div class="scroll-indicator">
         <span>root/home/usr/raghav/README.md</span>
       </div>
+      <!-- jumping path end -->
     </header>
+    <!-- header end-->
 
+    <!-- 1st section start -->
     <section id="about" class="section">
       <div class="container">
         <h2 class="section-title">01 / The Source</h2>
@@ -133,325 +153,18 @@
         </div>
       </div>
     </section>
+    <!-- 1st section end -->
 
+    <!-- 2nd section start -->
     <section id="skill" class="section">
       <div class="container">
         <h2 class="section-title">02 / Skill Tree</h2>
-        <div class="tech-stack reveal">
-          <span>
-            JavaScript
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/js.png" alt="" />
-                <div class="popup-title">JavaScript</div>
-              </div>
-              <p class="popup-desc">
-                High-level, dynamically typed, multi-paradigm programming
-                language.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 65%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 65%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            SQL
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/sql.png" alt="" />
-                <div class="popup-title">SQL</div>
-              </div>
-              <p class="popup-desc">
-                Standardized language used to manage and manipulate relational
-                databases.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 40%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 40%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            Node.JS
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/nodejs.png" alt="" />
-                <div class="popup-title">Node.JS</div>
-              </div>
-              <p class="popup-desc">
-                Runtime environment that allows JavaScript to be executed
-                server-side.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 60%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 60%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            Python
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/python.png" alt="" />
-                <div class="popup-title">Python</div>
-              </div>
-              <p class="popup-desc">
-                High-level, interpreted, object-oriented programming language.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 30%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 30%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            C
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/c.png" alt="" />
-                <div class="popup-title">C</div>
-              </div>
-              <p class="popup-desc">
-                General-purpose, procedural, and structured programming
-                language.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 15%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 15%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            Linux
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/linux.png" alt="" />
-                <div class="popup-title">Linux</div>
-              </div>
-              <p class="popup-desc">
-                Open-source operating system kernel and development environment.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 30%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 30%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            Discord.js
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/djs.png" alt="" />
-                <div class="popup-title">Discord.js</div>
-              </div>
-              <p class="popup-desc">
-                Library designed to interact with the Discord API using Node.js.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 85%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 85%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            HTML
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/html.png" alt="" />
-                <div class="popup-title">HTML</div>
-              </div>
-              <p class="popup-desc">
-                Markup language used to define the structure of web pages.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 45%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 45%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            MongoDB
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/mongo.png" alt="" />
-                <div class="popup-title">MongoDB</div>
-              </div>
-              <p class="popup-desc">
-                Cross-platform, document-oriented NoSQL database program.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 50%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 50%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            Mongoose
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/npm.png" alt="" />
-                <div class="popup-title">Mongoose</div>
-              </div>
-              <p class="popup-desc">
-                MongoDB object modeling tool for asynchronous environments.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 55%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 55%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            CSS
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/css.png" alt="" />
-                <div class="popup-title">CSS</div>
-              </div>
-              <p class="popup-desc">
-                Stylesheet language used for describing the presentation of
-                documents.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 40%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 40%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            Documentation
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/docs.png" alt="" />
-                <div class="popup-title">Docs</div>
-              </div>
-              <p class="popup-desc">
-                Reading and implementing technical specs and API references.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 45%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 45%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            Typescript
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/ts.png" alt="" />
-                <div class="popup-title">Typescript</div>
-              </div>
-              <p class="popup-desc">
-                Statically typed superset of JavaScript that compiles to plain
-                JS.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 10%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 10%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            Electron
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/npm.png" alt="" />
-                <div class="popup-title">Electron</div>
-              </div>
-              <p class="popup-desc">
-                Framework for building native desktop apps with web
-                technologies.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 10%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 10%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            GO
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/go.png" alt="" />
-                <div class="popup-title">GO</div>
-              </div>
-              <p class="popup-desc">
-                Statically typed, compiled programming language by Google.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 1%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 1%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-
-          <span>
-            MySQL
-            <div class="skill-popup">
-              <div class="popup-header">
-                <img src="./assets/img/icons/sql.png" alt="" />
-                <div class="popup-title">MySQL</div>
-              </div>
-              <p class="popup-desc">
-                Open-source relational database management system.
-              </p>
-              <div class="visualize-container">
-                <div class="proficiency-text">Proficiency: 75%</div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 75%"></div>
-                </div>
-              </div>
-            </div>
-          </span>
-        </div>
+        <div class="tech-stack reveal" id="skills-container"></div>
       </div>
     </section>
+    <!-- 2nd section end -->
 
+    <!-- 3rd section start -->
     <section id="work" class="section">
       <div class="container">
         <h2 class="section-title">02 / Executables</h2>
@@ -504,7 +217,9 @@
         </div>
       </div>
     </section>
+    <!-- 3rd section end -->
 
+    <!-- 4th section start -->
     <section id="contact" class="section">
       <div class="container">
         <h2 class="section-title">03 / Uplink</h2>
@@ -541,12 +256,13 @@
         </div>
       </div>
     </section>
+    <!-- 4th section end -->
 
+    <!-- footer start -->
     <footer>
       <div class="container">
         <p class="mono-text">
           © 2025 GodKode / Raghav. |
-
           <a
             href="https://icons/8.com"
             title="python icons"
@@ -557,7 +273,9 @@
         </p>
       </div>
     </footer>
+    <!-- footer end -->
 
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/skill.js"></script>
   </body>
 </html>

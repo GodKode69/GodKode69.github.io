@@ -45,16 +45,16 @@ document.addEventListener("DOMContentLoaded", () => {
   animateCursor();
 
   links.forEach((link) => {
-    link.addEventListener("mouseenter", () => {
-      follower.classList.add("cursor-grow");
+    links.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        follower.classList.add("cursor-grow");
+        document.body.classList.add("cursor-hover");
+      });
 
-      cursor.style.opacity = "0";
-    });
-
-    link.addEventListener("mouseleave", () => {
-      follower.classList.remove("cursor-grow");
-
-      cursor.style.opacity = "1";
+      link.addEventListener("mouseleave", () => {
+        follower.classList.remove("cursor-grow");
+        document.body.classList.remove("cursor-hover");
+      });
     });
   });
 
@@ -86,7 +86,7 @@ const DISCORD_ID = "1243904701318037609";
 async function getLanyard() {
   try {
     const response = await fetch(
-      `https://api.lanyard.rest/v1/users/${DISCORD_ID}`
+      `https://api.lanyard.rest/v1/users/${DISCORD_ID}`,
     );
 
     const { data, success } = await response.json();
@@ -117,20 +117,18 @@ async function getLanyard() {
 
     document.getElementById("discord-status-dot").className = status;
 
-    document.getElementById(
-      "status-text"
-    ).innerHTML = `Entity <span style="color:white">@${username}</span> is <span style="color:white">${
-      statusMap[status] || status
-    }</span>`;
+    document.getElementById("status-text").innerHTML =
+      `Entity <span style="color:white">@${username}</span> is <span style="color:white">${
+        statusMap[status] || status
+      }</span>`;
 
     // 2. Profile Card Details
 
     document.getElementById("discord-name").innerText =
       data.discord_user.global_name || username;
 
-    document.getElementById(
-      "discord-avatar"
-    ).src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`;
+    document.getElementById("discord-avatar").src =
+      `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`;
 
     // 3. Clear and Rebuild Activities
 
@@ -171,7 +169,7 @@ async function getLanyard() {
         assetImg = playingAct.assets.large_image.startsWith("mp:external")
           ? playingAct.assets.large_image.replace(
               /mp:external\/.*\/https\//,
-              "https://"
+              "https://",
             )
           : `https://cdn.discordapp.com/app-assets/${playingAct.application_id}/${playingAct.assets.large_image}.png`;
       }
