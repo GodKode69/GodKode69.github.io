@@ -17,21 +17,10 @@
         "/manga-app": "/projects/manga-app.html",
       };
 
-      let path = window.location.pathname.replace(/\/$/, "");
-
-      if (path.endsWith("404.html")) {
-        const segments = window.location.pathname.split("404.html");
-        path = segments[1] || "/";
-      }
+      const path = window.location.pathname.replace(/\/$/, "");
 
       if (routes[path]) {
-        fetch(routes[path])
-          .then((r) => r.text())
-          .then((html) => {
-            document.open();
-            document.write(html);
-            document.close();
-          });
+        window.location.replace(routes[path]);
       }
     </script>
     <style>
