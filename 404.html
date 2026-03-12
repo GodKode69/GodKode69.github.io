@@ -1,14 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 | Signal Lost</title>
+    <title>404 test | Signal Lost</title>
     <link rel="stylesheet" href="assets/css/main.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
+    <script>
+      const routes = {
+        "/fabric": "/projects/fabric.html",
+        "/monteria": "/projects/monteria.html",
+        "/nebula": "/projects/nebula.html",
+        "/manga-app": "/projects/manga-app.html",
+      };
+
+      let path = window.location.pathname.replace(/\/$/, "");
+
+      if (path.endsWith("404.html")) {
+        const segments = window.location.pathname.split("404.html");
+        path = segments[1] || "/";
+      }
+
+      if (routes[path]) {
+        fetch(routes[path])
+          .then((r) => r.text())
+          .then((html) => {
+            document.open();
+            document.write(html);
+            document.close();
+          });
+      }
+    </script>
     <style>
       /* Specific override for 404 centering */
       body {
