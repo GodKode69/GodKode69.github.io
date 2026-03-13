@@ -129,6 +129,7 @@ nav {
 .card-header {
   padding: 0 16px;
   margin-top: -32px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
 }
