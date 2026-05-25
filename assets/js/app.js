@@ -93,72 +93,64 @@ async function getLanyard() {
 
     if (!success) return;
 
-    // 1. Core Identity & Status
-
     const status = data.discord_status;
 
     const username = data.discord_user.username;
 
-    // Status text mapping
-
     const statusMap = {
       online: "online",
-
       idle: "idle",
-
       dnd: "on do not disturb",
-
       offline: "offline",
     };
 
-    // Update Dots & Header Text
+    const discordDot = document.getElementById("discord-dot");
+    const discordStatusDot = document.getElementById("discord-status-dot");
+    const statusText = document.getElementById("status-text");
+    const discordName = document.getElementById("discord-name");
+    const discordAvatar = document.getElementById("discord-avatar");
+    const container = document.getElementById("activities-container");
 
-    document.getElementById("discord-dot").className = status;
+    if (discordDot) {
+      discordDot.className = status;
+    }
 
-    document.getElementById("discord-status-dot").className = status;
+    if (discordStatusDot) {
+      discordStatusDot.className = status;
+    }
 
-    document.getElementById("status-text").innerHTML =
-      `Entity <span style="color:white">@${username}</span> is <span style="color:white">${
+    if (statusText) {
+      statusText.innerHTML = `Entity <span style="color:white">@${username}</span> is <span style="color:white">${
         statusMap[status] || status
       }</span>`;
+    }
 
-    // 2. Profile Card Details
+    if (discordName) {
+      discordName.innerText = data.discord_user.global_name || username;
+    }
 
-    document.getElementById("discord-name").innerText =
-      data.discord_user.global_name || username;
+    if (discordAvatar) {
+      discordAvatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`;
+    }
 
-    document.getElementById("discord-avatar").src =
-      `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`;
-
-    // 3. Clear and Rebuild Activities
-
-    const container = document.getElementById("activities-container");
+    if (!container) return;
 
     container.innerHTML = "";
 
-    // Add Spotify
-
     if (data.listening_to_spotify) {
       container.innerHTML += `
-
         <p class="section-label">Listening to Spotify</p>
 
         <div class="activity-item">
-
           <img class="activity-img" src="${data.spotify.album_art_url}">
 
           <div class="activity-info">
-
             <p class="activity-title">${data.spotify.song}</p>
-
             <p>by ${data.spotify.artist}</p>
-
           </div>
-
-        </div>`;
+        </div>
+      `;
     }
-
-    // Add Game/Code (Type 0 = Playing)
 
     const playingAct = data.activities.find((a) => a.type === 0);
 
@@ -175,24 +167,18 @@ async function getLanyard() {
       }
 
       container.innerHTML += `
-
         <p class="section-label">Playing</p>
 
         <div class="activity-item">
-
           <img class="activity-img" src="${assetImg}">
 
           <div class="activity-info">
-
             <p class="activity-title">${playingAct.name}</p>
-
             <p>${playingAct.details || ""}</p>
-
             <p>${playingAct.state || ""}</p>
-
           </div>
-
-        </div>`;
+        </div>
+      `;
     }
   } catch (err) {
     console.error("Lanyard Error:", err);
