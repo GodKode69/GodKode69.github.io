@@ -25,7 +25,7 @@ export const skillCategoryDescriptions: Record<Skill["category"], string> = {
   "Tooling / Workflow":
     "Practical tools and habits that speed up building and debugging.",
   Specialized:
-    "Niche areas and experiments beyond standard web application work.",
+    "Niche areas and experiments beyond standard work.",
 };
 
 export const skills: Skill[] = [
