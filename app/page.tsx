@@ -10,7 +10,7 @@ export default function Home() {
       <Hero />
       <Skills />
       <Work />
-      <Contact />
+      {/*<Contact />*/}
       <Footer />
     </main>
   );
