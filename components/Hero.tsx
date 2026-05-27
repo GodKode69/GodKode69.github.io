@@ -156,7 +156,7 @@ export default function Hero() {
                       }`}
                     />
                     <div className={styles.flipBubble}>
-                      click to flip profile card
+                      Click here to flip me!
                     </div>
                   </div>
                 </div>
