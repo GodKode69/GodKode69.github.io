@@ -23,6 +23,7 @@ function getActivityImage(
 export default function Hero() {
   const [flipped, setFlipped] = useState(false);
   const { discord, statusLabel } = useDiscord();
+  const [copied, setCopied] = useState(false);
 
   return (
     <header className={styles.hero}>
@@ -87,7 +88,7 @@ export default function Hero() {
               <div className={`${styles.cardFront} reveal active`}>
                 <div className={styles.cardBanner}>
                   <img
-                    src="/assets/img/banner.jpeg"
+                    src="/assets/profile/banner.jpeg"
                     alt="Banner"
                     className={styles.bannerImage}
                   />
@@ -251,6 +252,36 @@ export default function Hero() {
                         </div>
                       </div>
                     </a>
+
+                    <div
+                      onClick={async () => {
+                        await navigator.clipboard.writeText(
+                          "godkode@godkode.xyz",
+                        );
+
+                        setCopied(true);
+
+                        setTimeout(() => {
+                          setCopied(false);
+                        }, 2000);
+                      }}
+                      className={styles.statCard}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <div className={styles.statTop}>
+                        <img
+                          src="/assets/img/email.png"
+                          alt="Email"
+                          className={styles.statIcon}
+                        />
+
+                        <div>
+                          <p className={styles.aboutText}>
+                            {copied ? "Copied!" : "Email"}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
 
                     <a
                       href="https://www.linkedin.com/in/raghav-bhati-a22349365/"
