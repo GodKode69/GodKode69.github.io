@@ -38,12 +38,59 @@
 }
 
 .links li {
+  position: relative;
   display: flex;
   align-items: center;
 }
 
 .links a {
   white-space: nowrap;
+}
+
+.contactItem {
+  position: relative;
+}
+
+.contactButton {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.contactBubble {
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  padding: 0.7rem 1rem;
+  border-radius: 18px;
+  background: rgba(20, 20, 24, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  font-family: var(--font-space-mono), monospace;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+  animation: navBubbleFloat 3s ease-in-out infinite;
+}
+
+.contactBubble::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  right: 20px;
+  width: 14px;
+  height: 14px;
+  background: rgba(20, 20, 24, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  transform: rotate(-45deg);
 }
 
 .socials {
@@ -65,4 +112,15 @@
 
   white-space: nowrap;
   text-decoration: none;
+}
+
+@keyframes navBubbleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
