@@ -2,16 +2,19 @@
 
 import { useEffect, useRef } from "react";
 
+const HOVER_SELECTOR = "a, button, .hover-link, .tech-stack span";
+
 export default function Cursor() {
-  const cursorRef   = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const cursor   = cursorRef.current;
+    const cursor = cursorRef.current;
     const follower = followerRef.current;
     if (!cursor || !follower) return;
 
-    let posX = 0, posY = 0;
+    let posX = 0,
+      posY = 0;
     let mouseX = 0, mouseY = 0;
     let rafId: number;
 
@@ -38,36 +41,58 @@ export default function Cursor() {
     };
 
     animate();
-    document.addEventListener("mousemove", onMove);
 
-    // grow on hover-links
-    const onEnter = () => follower.classList.add("cursor-grow");
-    const onLeave = () => follower.classList.remove("cursor-grow");
-
-    const attachHover = () => {
-      document
-        .querySelectorAll("a, .hover-link, .tech-stack span")
-        .forEach((el) => {
-          el.addEventListener("mouseenter", onEnter);
-          el.addEventListener("mouseleave", onLeave);
-        });
+    const setVisible = () => {
+      cursor.classList.add("cursor-visible");
+      follower.classList.add("cursor-visible");
     };
 
-    // attach immediately + re-attach if DOM changes (skills loaded async)
-    attachHover();
-    const mo = new MutationObserver(attachHover);
-    mo.observe(document.body, { childList: true, subtree: true });
+    const setHidden = () => {
+      cursor.classList.remove("cursor-visible");
+      follower.classList.remove("cursor-visible");
+      follower.classList.remove("cursor-grow");
+    };
+
+    const onPointerOver = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest(HOVER_SELECTOR)) {
+        follower.classList.add("cursor-grow");
+      }
+    };
+
+    const onPointerOut = (event: MouseEvent) => {
+      const target = event.target;
+      const relatedTarget = event.relatedTarget;
+      if (!(target instanceof Element)) return;
+      if (!target.closest(HOVER_SELECTOR)) return;
+      if (relatedTarget instanceof Element && relatedTarget.closest(HOVER_SELECTOR)) {
+        return;
+      }
+      follower.classList.remove("cursor-grow");
+    };
+
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseover", onPointerOver);
+    document.addEventListener("mouseout", onPointerOut);
+    window.addEventListener("blur", setHidden);
+    document.addEventListener("mouseleave", setHidden);
+    document.addEventListener("mouseenter", setVisible);
 
     return () => {
       document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onPointerOver);
+      document.removeEventListener("mouseout", onPointerOut);
+      window.removeEventListener("blur", setHidden);
+      document.removeEventListener("mouseleave", setHidden);
+      document.removeEventListener("mouseenter", setVisible);
       cancelAnimationFrame(rafId);
-      mo.disconnect();
     };
   }, []);
 
   return (
     <>
-      <div ref={cursorRef}   className="cursor" />
+      <div ref={cursorRef} className="cursor" />
       <div ref={followerRef} className="cursor-follower" />
     </>
   );

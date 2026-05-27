@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 type StrandPoint = { x: number; y: number; t: number };
+const STRAND_GREEN = "74, 222, 128";
+const STRAND_YELLOW = "250, 204, 21";
 
 function getTaperedBlobPath(
   pts: StrandPoint[],
@@ -119,19 +121,19 @@ export default function Helix() {
         style={{ overflow: "visible" }}
       >
         <defs>
-          <filter id="glow-cyan" x="-80%" y="-80%" width="260%" height="260%">
+          <filter id="glow-green" x="-80%" y="-80%" width="260%" height="260%">
             <feGaussianBlur stdDeviation="2.5" result="blur" />
             <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
-          <filter id="glow-pink" x="-80%" y="-80%" width="260%" height="260%">
+          <filter id="glow-yellow" x="-80%" y="-80%" width="260%" height="260%">
             <feGaussianBlur stdDeviation="2.5" result="blur" />
             <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
-          <filter id="blob-cyan" x="-150%" y="-150%" width="400%" height="400%">
+          <filter id="blob-green" x="-150%" y="-150%" width="400%" height="400%">
             <feGaussianBlur stdDeviation="5" result="blur" />
             <feMerge><feMergeNode in="blur" /><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
-          <filter id="blob-pink" x="-150%" y="-150%" width="400%" height="400%">
+          <filter id="blob-yellow" x="-150%" y="-150%" width="400%" height="400%">
             <feGaussianBlur stdDeviation="5" result="blur" />
             <feMerge><feMergeNode in="blur" /><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
@@ -165,17 +167,17 @@ export default function Helix() {
 
         <g clipPath="url(#bar-clip)">
           {/* ── dim base strands — always full length, always dim ── */}
-          <polyline points={toPolyline(strandA)} fill="none" stroke="rgba(0,230,255,0.12)"  strokeWidth="1.5" />
-          <polyline points={toPolyline(strandB)} fill="none" stroke="rgba(255,60,220,0.12)" strokeWidth="1.5" />
+          <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${STRAND_GREEN},0.14)`} strokeWidth="1.5" />
+          <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.14)`} strokeWidth="1.5" />
 
           {/* ── glowing trail — thin core with a halo that tapers off down the tail ── */}
           <g mask="url(#trail-core-mask)">
-            <polyline points={toPolyline(strandA)} fill="none" stroke="rgba(0,230,255,0.95)"  strokeWidth="1.5" />
-            <polyline points={toPolyline(strandB)} fill="none" stroke="rgba(255,60,220,0.95)" strokeWidth="1.5" />
+            <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${STRAND_GREEN},0.95)`} strokeWidth="1.5" />
+            <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.95)`} strokeWidth="1.5" />
           </g>
           <g mask="url(#trail-halo-mask)">
-            <polyline points={toPolyline(strandA)} fill="none" stroke="rgba(0,230,255,0.95)"  strokeWidth="2.1" filter="url(#glow-cyan)" />
-            <polyline points={toPolyline(strandB)} fill="none" stroke="rgba(255,60,220,0.95)" strokeWidth="2.1" filter="url(#glow-pink)" />
+            <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${STRAND_GREEN},0.95)`} strokeWidth="2.1" filter="url(#glow-green)" />
+            <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.95)`} strokeWidth="2.1" filter="url(#glow-yellow)" />
           </g>
 
           {/* ── base-pair rungs ── */}
@@ -197,8 +199,8 @@ export default function Helix() {
             const depthB = (b.t + 1) / 2;
             return (
               <g key={i}>
-                <circle cx={a.x} cy={a.y} r={1.5 + depthA * 2} fill={`rgba(0,230,255,${0.2 + depthA * 0.8})`}  filter="url(#glow-cyan)" />
-                <circle cx={b.x} cy={b.y} r={1.5 + depthB * 2} fill={`rgba(255,60,220,${0.2 + depthB * 0.8})`} filter="url(#glow-pink)" />
+                <circle cx={a.x} cy={a.y} r={1.5 + depthA * 2} fill={`rgba(${STRAND_GREEN},${0.2 + depthA * 0.8})`} filter="url(#glow-green)" />
+                <circle cx={b.x} cy={b.y} r={1.5 + depthB * 2} fill={`rgba(${STRAND_YELLOW},${0.2 + depthB * 0.8})`} filter="url(#glow-yellow)" />
               </g>
             );
           })}
@@ -206,14 +208,14 @@ export default function Helix() {
           {/* ── blob ── */}
           {blobPathA && blobCorePathA && (
             <>
-              <path d={blobPathA} fill="rgba(0,230,255,0.2)" filter="url(#blob-cyan)" />
-              <path d={blobCorePathA} fill="rgba(0,230,255,1)" filter="url(#blob-cyan)" />
+              <path d={blobPathA} fill={`rgba(${STRAND_GREEN},0.2)`} filter="url(#blob-green)" />
+              <path d={blobCorePathA} fill={`rgba(${STRAND_GREEN},1)`} filter="url(#blob-green)" />
             </>
           )}
           {blobPathB && blobCorePathB && (
             <>
-              <path d={blobPathB} fill="rgba(255,60,220,0.2)" filter="url(#blob-pink)" />
-              <path d={blobCorePathB} fill="rgba(255,60,220,1)" filter="url(#blob-pink)" />
+              <path d={blobPathB} fill={`rgba(${STRAND_YELLOW},0.2)`} filter="url(#blob-yellow)" />
+              <path d={blobCorePathB} fill={`rgba(${STRAND_YELLOW},1)`} filter="url(#blob-yellow)" />
             </>
           )}
 
@@ -224,7 +226,7 @@ export default function Helix() {
             if (!a || !b) return null;
             return (
               <line x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-                stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" filter="url(#glow-cyan)" />
+                stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" filter="url(#glow-green)" />
             );
           })()}
         </g>

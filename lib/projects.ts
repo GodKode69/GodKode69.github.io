@@ -55,7 +55,7 @@ export const projects: Project[] = [
     year: "2025",
     type: "Discord CLI Tool",
     title: "Project Nebula",
-    desc: "A multipurpose discord CLI tool with QOL features and capalibilities such as cloning and backing up discord servers.",
+    desc: "A multipurpose Discord CLI tool with QOL features and capabilities such as cloning and backing up Discord servers.",
     links: [
       { label: "Not Live" },
       { label: "Github", href: "https://github.com/GodKode69/meta-cloner" },
@@ -66,10 +66,10 @@ export const projects: Project[] = [
     year: "2026",
     type: "API",
     title: "Fabric-API",
-    desc: "A multipurpose discord CLI tool with QOL features and capalibilities such as cloning and backing up discord servers.",
+    desc: "An API layer for the Fabric ecosystem, focused on exposing reusable bot and platform functionality.",
     links: [
       { label: "Visit", href: "https://api.godkode.xyz" },
-      { label: "Github", href: "https://github.com/GodKode69/meta-cloner" },
+      { label: "Github", href: "https://github.com/GodKode69" },
       { label: "Learn More ↗", href: "https" },
     ],
   },

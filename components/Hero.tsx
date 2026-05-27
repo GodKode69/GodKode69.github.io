@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useDiscord } from "@/hooks/useDiscord";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { useDiscord, type DiscordData } from "@/hooks/useDiscord";
 import styles from "./Hero.module.css";
 
 function getActivityImage(
@@ -20,13 +21,54 @@ function getActivityImage(
   return `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;
 }
 
+function getStatusClass(status: DiscordData["status"] | undefined): string {
+  switch (status) {
+    case "online":
+      return styles.statusOnline;
+    case "idle":
+      return styles.statusIdle;
+    case "dnd":
+      return styles.statusDnd;
+    default:
+      return styles.statusOffline;
+  }
+}
+
 export default function Hero() {
   const [flipped, setFlipped] = useState(false);
   const { discord, statusLabel } = useDiscord();
   const [copied, setCopied] = useState(false);
+  const copyTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        window.clearTimeout(copyTimeoutRef.current);
+      }
+    };
+  }, []);
 
   function stopFlip(e: React.MouseEvent) {
     e.stopPropagation();
+  }
+
+  async function handleCopyEmail(e: React.MouseEvent) {
+    e.stopPropagation();
+
+    try {
+      await navigator.clipboard.writeText("godkode@godkode.xyz");
+      setCopied(true);
+
+      if (copyTimeoutRef.current) {
+        window.clearTimeout(copyTimeoutRef.current);
+      }
+
+      copyTimeoutRef.current = window.setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch {
+      setCopied(false);
+    }
   }
 
   return (
@@ -49,15 +91,7 @@ export default function Hero() {
                 Entity{" "}
                 <span style={{ color: "white" }}>@{discord.username}</span> is{" "}
                 <span
-                  className={`${styles.statusText} ${
-                    discord?.status === "online"
-                      ? styles.statusOnline
-                      : discord?.status === "idle"
-                        ? styles.statusIdle
-                        : discord?.status === "dnd"
-                          ? styles.statusDnd
-                          : styles.statusOffline
-                  }`}
+                  className={`${styles.statusText} ${getStatusClass(discord?.status)}`}
                 >
                   {statusLabel}
                 </span>
@@ -91,20 +125,27 @@ export default function Hero() {
               {/* FRONT */}
               <div className={`${styles.cardFront} reveal active`}>
                 <div className={styles.cardBanner}>
-                  <img
+                  <Image
                     src="/assets/profile/banner.jpeg"
                     alt="Banner"
                     className={styles.bannerImage}
+                    fill
+                    sizes="350px"
+                    priority
                   />
                 </div>
 
                 <div className={styles.cardHeader}>
                   <div className={styles.avatarWrapper}>
                     {discord?.avatarUrl && (
-                      <img
+                      <Image
                         src={discord.avatarUrl}
                         alt="Avatar"
                         className={styles.avatar}
+                        width={70}
+                        height={70}
+                        sizes="70px"
+                        unoptimized
                       />
                     )}
                     <div
@@ -132,17 +173,7 @@ export default function Hero() {
                     <p className={styles.sectionLabel}>ABOUT ME</p>
                     <p className={styles.aboutText}>
                       Hey there! I&apos;m{" "}
-                      <strong
-                        className={`${styles.statusText} ${
-                          discord?.status === "online"
-                            ? styles.statusOnline
-                            : discord?.status === "idle"
-                              ? styles.statusIdle
-                              : discord?.status === "dnd"
-                                ? styles.statusDnd
-                                : styles.statusOffline
-                        }`}
-                      >
+                      <strong className={`${styles.statusText} ${getStatusClass(discord?.status)}`}>
                         GodKode
                       </strong>
                       , a developer building web and desktop apps, backend
@@ -157,7 +188,7 @@ export default function Hero() {
                     <br />
                     <p className={styles.aboutText}>
                       Outside coding, I&apos;m usually reading docs, listening
-                      to music, gaming, or consuming digial while debugging
+                      to music, gaming, or consuming digital media while debugging
                       something at 2AM.
                     </p>
                   </div>
@@ -168,10 +199,14 @@ export default function Hero() {
                         Listening to Spotify
                       </p>
                       <div className={styles.activityItem}>
+                        {/* Spotify artwork host varies, so this stays a plain img. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={discord.spotify.album_art_url}
                           alt="album"
                           className={styles.activityImg}
+                          loading="lazy"
+                          decoding="async"
                         />
                         <div>
                           <p className={styles.activityTitle}>
@@ -189,10 +224,14 @@ export default function Hero() {
                     <div className={styles.section}>
                       <p className={styles.sectionLabel}>Playing</p>
                       <div className={styles.activityItem}>
+                        {/* Activity assets can come from arbitrary external providers. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={getActivityImage(discord.activity)}
                           alt="activity"
                           className={styles.activityImg}
+                          loading="lazy"
+                          decoding="async"
                         />
                         <div>
                           <p className={styles.activityTitle}>
@@ -232,10 +271,12 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/github.png"
                           alt="GitHub"
                           className={styles.statIcon}
+                          width={18}
+                          height={18}
                         />
                         <div>
                           <p className={styles.aboutText}>GitHub</p>
@@ -246,20 +287,15 @@ export default function Hero() {
                     <div
                       className={`${styles.statCard} ${styles.statCardEmail}`}
                       style={{ cursor: "pointer" }}
-                      onClick={async function (e: React.MouseEvent) {
-                        e.stopPropagation();
-                        await navigator.clipboard.writeText(
-                          "godkode@godkode.xyz",
-                        );
-                        setCopied(true);
-                        setTimeout(() => setCopied(false), 2000);
-                      }}
+                      onClick={handleCopyEmail}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/email.png"
                           alt="Email"
                           className={styles.statIcon}
+                          width={18}
+                          height={18}
                         />
                         <div>
                           <p className={styles.aboutText}>
@@ -277,10 +313,12 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/linkedin.png"
                           alt="LinkedIn"
                           className={styles.statIcon}
+                          width={18}
+                          height={18}
                         />
                         <div>
                           <p className={styles.aboutText}>LinkedIn</p>
@@ -296,10 +334,12 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/twitter.png"
                           alt="X.com"
                           className={styles.statIcon}
+                          width={18}
+                          height={18}
                         />
                         <div>
                           <p className={styles.aboutText}>X.com</p>
@@ -315,10 +355,12 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/spotify.png"
                           alt="Spotify"
                           className={styles.statIcon}
+                          width={18}
+                          height={18}
                         />
                         <div>
                           <p className={styles.aboutText}>Spotify</p>
@@ -334,10 +376,12 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/instagram.png"
                           alt="Instagram"
                           className={styles.statIcon}
+                          width={18}
+                          height={18}
                         />
                         <div>
                           <p className={styles.aboutText}>Instagram</p>

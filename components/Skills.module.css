@@ -24,7 +24,7 @@
 }
 
 .cardTitle {
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
   font-size: 0.95rem;
   color: #fff;
   text-transform: uppercase;
@@ -32,7 +32,7 @@
 }
 
 .cardCount {
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
   font-size: 0.75rem;
   color: var(--accent-color);
   border: 1px solid rgba(95, 158, 160, 0.35);
@@ -59,7 +59,7 @@
   position: relative;
   border: 1px solid #333;
   padding: 0.5rem 1rem;
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
   font-size: 0.8rem;
   transition: 0.3s;
 }
@@ -114,7 +114,7 @@
   font-weight: 700;
   font-size: 0.9rem;
   color: #fff;
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
   border: none;
   background: transparent;
   padding: 0;
@@ -130,7 +130,7 @@
 }
 
 .proficiencyText {
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
   font-size: 0.7rem;
   color: #b5bac1;
   margin-bottom: 6px;

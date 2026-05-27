@@ -39,7 +39,7 @@
   font-size: 0.9rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
 }
 
 .statusDot {
@@ -194,7 +194,7 @@
 .tag {
   font-size: 0.85rem;
   color: #b5bac1;
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
 }
 
 .section {
@@ -261,7 +261,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
   z-index: 5;
   opacity: 0.8;
   animation: float 2.5s ease-in-out infinite;
@@ -412,7 +412,7 @@
   text-align: center;
   font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.35);
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
   padding-top: 1.2rem;
 }
 
@@ -444,7 +444,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   color: rgba(255, 255, 255, 0.5);
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
 }
 
 .backBadge {
@@ -454,7 +454,7 @@
   background: rgba(35, 165, 90, 0.14);
   border: 1px solid rgba(35, 165, 90, 0.3);
   color: #7dffae;
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
 }
 
 .statTop {
@@ -529,7 +529,7 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   color: rgba(255, 255, 255, 0.82);
   font-size: 0.78rem;
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow:

@@ -35,9 +35,14 @@ const STATUS_LABEL: Record<string, string> = {
   offline: "offline",
 };
 
-async function fetchLanyard(): Promise<DiscordData | null> {
+async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
   try {
-    const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+    const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`, {
+      cache: "no-store",
+      signal,
+    });
+    if (!res.ok) return null;
+
     const { data, success } = await res.json();
     if (!success) return null;
 
@@ -53,7 +58,10 @@ async function fetchLanyard(): Promise<DiscordData | null> {
       spotify: data.listening_to_spotify ? data.spotify : null,
       activity: playingAct ?? null,
     };
-  } catch {
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      return null;
+    }
     return null;
   }
 }
@@ -62,9 +70,45 @@ export function useDiscord() {
   const [discord, setDiscord] = useState<DiscordData | null>(null);
 
   useEffect(() => {
-    fetchLanyard().then(setDiscord);
-    const id = setInterval(() => fetchLanyard().then(setDiscord), 15_000);
-    return () => clearInterval(id);
+    let mounted = true;
+    let inFlight = false;
+    let controller: AbortController | null = null;
+
+    const poll = async () => {
+      if (inFlight || document.visibilityState === "hidden") return;
+
+      inFlight = true;
+      controller?.abort();
+      controller = new AbortController();
+
+      const nextDiscord = await fetchLanyard(controller.signal);
+      if (mounted && nextDiscord) {
+        setDiscord(nextDiscord);
+      }
+
+      inFlight = false;
+    };
+
+    void poll();
+
+    const intervalId = setInterval(() => {
+      void poll();
+    }, 15_000);
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        void poll();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      mounted = false;
+      clearInterval(intervalId);
+      controller?.abort();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   const statusLabel = discord ? STATUS_LABEL[discord.status] ?? discord.status : "";

@@ -54,7 +54,7 @@
 
   margin-left: 2.5rem;
 
-  font-family: "Maple Mono", monospace;
+  font-family: var(--font-space-mono), monospace;
 }
 
 .socials a {
