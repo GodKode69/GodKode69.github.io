@@ -6,9 +6,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-
-  basePath: "/GodKode69.github.io",
-  assetPrefix: "/GodKode69.github.io/",
 };
 
 export default nextConfig;
