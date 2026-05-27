@@ -25,6 +25,10 @@ export default function Hero() {
   const { discord, statusLabel } = useDiscord();
   const [copied, setCopied] = useState(false);
 
+  function stopFlip(e: React.MouseEvent) {
+    e.stopPropagation();
+  }
+
   return (
     <header className={styles.hero}>
       <div className={styles.container}>
@@ -68,9 +72,9 @@ export default function Hero() {
               ⌈<br />⌊
             </span>
             <p className={styles.subtitle}>
-              <a style={{ color: "cadetblue" }}>Out of </a> Reach &amp;
+              <span style={{ color: "cadetblue" }}>Out of </span> Reach &amp;
               <br />
-              Into <a style={{ color: "cadetblue" }}>the Breach</a>
+              Into <span style={{ color: "cadetblue" }}>the Breach</span>
             </p>
             <span className={styles.bracket} style={{ color: "aliceblue" }}>
               ⌉<br />⌋
@@ -103,7 +107,6 @@ export default function Hero() {
                         className={styles.avatar}
                       />
                     )}
-
                     <div
                       className={`${styles.avatarStatusDot} ${
                         discord?.status
@@ -122,13 +125,11 @@ export default function Hero() {
                     <span className={styles.name}>
                       {discord?.globalName ?? "Raghav"}
                     </span>
-
                     <span className={styles.tag}>adhuraghav • god</span>
                   </div>
 
                   <div className={styles.section}>
                     <p className={styles.sectionLabel}>ABOUT ME</p>
-
                     <p className={styles.aboutText}>
                       Hey there! I&apos;m{" "}
                       <strong
@@ -148,16 +149,12 @@ export default function Hero() {
                       systems, custom interfaces, automation tools, and
                       innovative digital experiences.
                     </p>
-
                     <br />
-
                     <p className={styles.aboutText}>
                       I mostly work with Linux, NodeJS, Python and Software
                       integrations.
                     </p>
-
                     <br />
-
                     <p className={styles.aboutText}>
                       Outside coding, I&apos;m usually reading docs, listening
                       to music, gaming, or consuming digial while debugging
@@ -170,19 +167,16 @@ export default function Hero() {
                       <p className={styles.sectionLabel}>
                         Listening to Spotify
                       </p>
-
                       <div className={styles.activityItem}>
                         <img
                           src={discord.spotify.album_art_url}
                           alt="album"
                           className={styles.activityImg}
                         />
-
                         <div>
                           <p className={styles.activityTitle}>
                             {discord.spotify.song}
                           </p>
-
                           <p className={styles.activitySub}>
                             by {discord.spotify.artist}
                           </p>
@@ -194,25 +188,21 @@ export default function Hero() {
                   {discord?.activity && (
                     <div className={styles.section}>
                       <p className={styles.sectionLabel}>Playing</p>
-
                       <div className={styles.activityItem}>
                         <img
                           src={getActivityImage(discord.activity)}
                           alt="activity"
                           className={styles.activityImg}
                         />
-
                         <div>
                           <p className={styles.activityTitle}>
                             {discord.activity.name}
                           </p>
-
                           {discord.activity.details && (
                             <p className={styles.activitySub}>
                               {discord.activity.details}
                             </p>
                           )}
-
                           {discord.activity.state && (
                             <p className={styles.activitySub}>
                               {discord.activity.state}
@@ -239,14 +229,14 @@ export default function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.statCard}
+                      onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/img/github.png"
+                          src="/assets/icons/github.png"
                           alt="GitHub"
                           className={styles.statIcon}
                         />
-
                         <div>
                           <p className={styles.aboutText}>GitHub</p>
                         </div>
@@ -254,27 +244,23 @@ export default function Hero() {
                     </a>
 
                     <div
-                      onClick={async () => {
+                      className={`${styles.statCard} ${styles.statCardEmail}`}
+                      style={{ cursor: "pointer" }}
+                      onClick={async function (e: React.MouseEvent) {
+                        e.stopPropagation();
                         await navigator.clipboard.writeText(
                           "godkode@godkode.xyz",
                         );
-
                         setCopied(true);
-
-                        setTimeout(() => {
-                          setCopied(false);
-                        }, 2000);
+                        setTimeout(() => setCopied(false), 2000);
                       }}
-                      className={styles.statCard}
-                      style={{ cursor: "pointer" }}
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/img/email.png"
+                          src="/assets/icons/email.png"
                           alt="Email"
                           className={styles.statIcon}
                         />
-
                         <div>
                           <p className={styles.aboutText}>
                             {copied ? "Copied!" : "Email"}
@@ -288,14 +274,14 @@ export default function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.statCard}
+                      onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/img/linkedin.png"
+                          src="/assets/icons/linkedin.png"
                           alt="LinkedIn"
                           className={styles.statIcon}
                         />
-
                         <div>
                           <p className={styles.aboutText}>LinkedIn</p>
                         </div>
@@ -307,14 +293,14 @@ export default function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.statCard}
+                      onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/img/twitter.png"
+                          src="/assets/icons/twitter.png"
                           alt="X.com"
                           className={styles.statIcon}
                         />
-
                         <div>
                           <p className={styles.aboutText}>X.com</p>
                         </div>
@@ -326,14 +312,14 @@ export default function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.statCard}
+                      onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/img/spotify.png"
+                          src="/assets/icons/spotify.png"
                           alt="Spotify"
                           className={styles.statIcon}
                         />
-
                         <div>
                           <p className={styles.aboutText}>Spotify</p>
                         </div>
@@ -345,14 +331,14 @@ export default function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.statCard}
+                      onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/img/instagram.png"
+                          src="/assets/icons/instagram.png"
                           alt="Instagram"
                           className={styles.statIcon}
                         />
-
                         <div>
                           <p className={styles.aboutText}>Instagram</p>
                         </div>

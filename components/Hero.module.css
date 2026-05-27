@@ -124,11 +124,8 @@
 .bannerImage {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
   opacity: 0.9;
-
   transform: scale(1.02);
 }
 
@@ -170,15 +167,11 @@
   position: absolute;
   bottom: 5px;
   right: 5px;
-
   width: 18px;
   height: 18px;
-
   border-radius: 50%;
   border: 4px solid #111214;
-
   z-index: 2;
-
   transition: all 0.3s ease;
 }
 
@@ -286,7 +279,6 @@
     transform: translateY(0px);
     opacity: 0.7;
   }
-
   50% {
     transform: translateY(-8px);
     opacity: 1;
@@ -327,7 +319,6 @@
 
 .statusOnline {
   color: #4ade80;
-
   text-shadow:
     0 0 4px rgba(74, 222, 128, 0.9),
     0 0 8px rgba(74, 222, 128, 0.8),
@@ -336,7 +327,6 @@
 
 .statusIdle {
   color: #facc15;
-
   text-shadow:
     0 0 4px rgba(250, 204, 21, 0.9),
     0 0 8px rgba(250, 204, 21, 0.8),
@@ -345,7 +335,6 @@
 
 .statusDnd {
   color: #f87171;
-
   text-shadow:
     0 0 4px rgba(248, 113, 113, 0.9),
     0 0 8px rgba(248, 113, 113, 0.8),
@@ -354,7 +343,6 @@
 
 .statusOffline {
   color: #9ca3af;
-
   text-shadow:
     0 0 4px rgba(156, 163, 175, 0.75),
     0 0 8px rgba(156, 163, 175, 0.55);
@@ -364,21 +352,16 @@
 
 .cardScene {
   perspective: 1800px;
-
   width: 350px;
   height: 540px;
-
   overflow: visible;
 }
 
 .card3d {
   position: relative;
-
   width: 100%;
   height: 100%;
-
   transform-style: preserve-3d;
-
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -389,207 +372,130 @@
 .cardBack {
   position: absolute;
   inset: 0;
-
   border-radius: 18px;
-
   overflow-y: auto;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(14,14,16,0.98),
-      rgba(10,10,12,0.98)
-    );
-
+  background: linear-gradient(
+    180deg,
+    rgba(14, 14, 16, 0.98),
+    rgba(10, 10, 12, 0.98)
+  );
   backface-visibility: hidden;
-
   transform: rotateY(180deg);
-
-  border: 1px solid rgba(255,255,255,0.06);
-
+  border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 1.4rem;
 }
 
 .backContent {
   width: 100%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
 }
 
 .backGrid {
   display: grid;
-
   grid-template-columns: repeat(2, minmax(0, 1fr));
-
   gap: 0.8rem;
-
   margin-top: 1.5rem;
 }
 
 .backHeader {
   grid-column: 1 / -1;
-
   display: flex;
-
   justify-content: space-between;
   align-items: center;
-
   margin-bottom: 0.2rem;
 }
 
 .backFooter {
   margin-top: auto;
-
   text-align: center;
-
   font-size: 0.72rem;
-
-  color: rgba(255,255,255,0.35);
-
+  color: rgba(255, 255, 255, 0.35);
   font-family: "Maple Mono", monospace;
-
   padding-top: 1.2rem;
 }
 
 .statCard {
-  background: rgba(255,255,255,0.04);
-
-  border: 1px solid rgba(255,255,255,0.08);
-
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
-
   padding: 0.65rem 0.9rem;
-
   height: fit-content;
-
   min-height: unset;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   text-decoration: none;
-
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
     background 0.2s ease;
-
   backdrop-filter: blur(10px);
 }
 
 .statCard:hover {
   transform: translateY(-2px);
-
-  border-color: rgba(255,255,255,0.18);
-
-  background: rgba(255,255,255,0.07);
-}
-
-.backHeader {
-  display: flex;
-
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 0.5rem;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .backTitle {
   font-size: 0.72rem;
-
   letter-spacing: 0.14em;
-
-  color: rgba(255,255,255,0.5);
-
+  color: rgba(255, 255, 255, 0.5);
   font-family: "Maple Mono", monospace;
 }
 
 .backBadge {
   font-size: 0.65rem;
-
   padding: 0.25rem 0.55rem;
-
   border-radius: 999px;
-
-  background: rgba(35,165,90,0.14);
-
-  border: 1px solid rgba(35,165,90,0.3);
-
+  background: rgba(35, 165, 90, 0.14);
+  border: 1px solid rgba(35, 165, 90, 0.3);
   color: #7dffae;
-
   font-family: "Maple Mono", monospace;
 }
 
 .statTop {
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   gap: 0.55rem;
-
   width: 100%;
 }
 
 .statIcon {
   width: 18px;
   height: 18px;
-
   object-fit: contain;
-
   flex-shrink: 0;
 }
 
 .statCard .aboutText {
   margin: 0;
-
   font-size: 0.78rem;
-
   line-height: 1;
-
   white-space: nowrap;
-}
-
-.backFooter {
-  margin-top: auto;
-
-  text-align: center;
-
-  font-size: 0.72rem;
-
-  color: rgba(255,255,255,0.35);
-
-  font-family: "Maple Mono", monospace;
 }
 
 .cardFront,
 .cardBack {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   border-radius: 12px;
-
   overflow: hidden;
-
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
 .cardFront {
   background: #111214;
-
-  border: 1px solid rgba(255,255,255,0.05);
-
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
-
   scrollbar-width: none;
 }
 
@@ -599,74 +505,75 @@
 
 .cardBack {
   transform: rotateY(180deg);
-
   background: #0d0d0d;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border: 1px solid rgba(255,255,255,0.05);
-
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 .backImage {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
 .flipBubble {
   position: absolute;
-
   left: 95px;
   top: 22px;
-
   padding: 0.7rem 1rem;
-
   border-radius: 18px;
-
   background: rgba(20, 20, 24, 0.92);
-
-  border: 1px solid rgba(255,255,255,0.06);
-
-  color: rgba(255,255,255,0.82);
-
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 0.78rem;
-
   font-family: "Maple Mono", monospace;
-
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-
   box-shadow:
-    0 6px 18px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.04);
-
+    0 6px 18px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
   white-space: nowrap;
-
   animation: bubbleFloat 3s ease-in-out infinite;
 }
 
 .flipBubble::before {
   content: "";
-
   position: absolute;
-
   left: -7px;
   top: 50%;
-
   width: 14px;
   height: 14px;
-
   background: rgba(20, 20, 24, 0.92);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transform: translateY(-50%) rotate(45deg);
+}
 
-  border-left: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+/* ───────────────── EMAIL CARD ANIMATION ───────────────── */
 
-  transform:
-    translateY(-50%)
-    rotate(45deg);
+@keyframes emailPulse {
+  0%,
+  100% {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.04);
+  }
+  50% {
+    border-color: rgba(100, 210, 255, 0.5);
+    box-shadow:
+      0 0 10px rgba(100, 210, 255, 0.2),
+      inset 0 0 10px rgba(100, 210, 255, 0.06);
+    background: rgba(100, 210, 255, 0.07);
+  }
+}
+
+.statCardEmail {
+  animation: emailPulse 2.4s ease-in-out infinite;
+}
+
+.statCardEmail:hover {
+  animation-play-state: paused;
 }

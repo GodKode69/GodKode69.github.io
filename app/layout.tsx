@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     images: ["https://godkode.xyz/assets/img/wink.png"],
   },
   twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
   themeColor: "#5f9ea0",
 };
 
