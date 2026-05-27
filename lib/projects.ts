@@ -24,8 +24,11 @@ export const projects: Project[] = [
     title: "Fabric",
     desc: "An all-in-one discord.js bot with unique features.",
     links: [
-      { label: "Invite", href: "" },
-      { label: "Not open-source" },
+      {
+        label: "Invite",
+        href: "https://discord.com/oauth2/authorize?client_id=1226510987407130624",
+      },
+      { label: "Not Yet" },
       { label: "Learn More ↗", href: "https://fabric.godkode.xyz" },
     ],
   },
@@ -36,7 +39,7 @@ export const projects: Project[] = [
     desc: "An Auto Catcher For The Discord Bot @Pokétwo#8236.",
     links: [
       { label: "Not live" },
-      { label: "Not open-source" },
+      { label: "Not Yet" },
       { label: "Learn More ↗", href: "./projects/monteria" },
     ],
   },
