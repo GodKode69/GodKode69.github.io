@@ -3,6 +3,7 @@
   grid-template-columns: minmax(260px, 0.3fr) minmax(0, 0.7fr);
   gap: 1.5rem;
   min-height: 620px;
+  --review-scale: 1;
 }
 
 .composer,
@@ -38,7 +39,12 @@
   gap: 1rem;
 }
 
+/* --- status dot styling --- */
+
 .syncStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-top: -0.3rem;
   font-family: var(--font-space-mono), monospace;
   font-size: 0.72rem;
@@ -47,17 +53,30 @@
   color: rgba(255, 255, 255, 0.46);
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
+.statusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
 }
+
+.statusDotOnline {
+  background: #23a55a;
+  box-shadow: 0 0 14px rgba(35, 165, 90, 0.6);
+}
+
+.statusDotOffline {
+  background: #f23f43;
+  box-shadow: 0 0 14px rgba(242, 63, 67, 0.6);
+}
+
+/* --- composer form fields --- */
 
 .field span,
 .savedAlias span,
-.replyBanner,
-.review header span,
-.review footer {
+.replyBanner {
   font-family: var(--font-space-mono), monospace;
   font-size: 0.7rem;
   letter-spacing: 0.08em;
@@ -122,7 +141,6 @@
 .replyBanner button,
 .savedAlias button,
 .aliasActions button,
-.review button,
 .submit {
   border: 0;
   color: inherit;
@@ -187,6 +205,8 @@
   color: rgba(255, 255, 255, 0.42);
 }
 
+/* --- board layout and grids --- */
+
 .board {
   position: relative;
   min-height: 620px;
@@ -197,22 +217,6 @@
     linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: auto, 38px 38px, 38px 38px;
-  touch-action: none;
-}
-
-.links {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.links line {
-  stroke: rgba(95, 158, 160, 0.5);
-  stroke-width: 1.2;
-  stroke-dasharray: 12 10;
-  filter: drop-shadow(0 0 6px rgba(95, 158, 160, 0.18));
 }
 
 .emptyState {
@@ -231,81 +235,215 @@
   color: rgba(255, 255, 255, 0.38);
 }
 
-.review {
+/* --- svg links connecting reviews --- */
+
+.links {
   position: absolute;
-  width: min(310px, 48%);
-  min-height: 78px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.links line {
+  transition: stroke 0.4s ease, stroke-width 0.4s ease, opacity 0.4s ease;
+}
+
+.dimmedLink {
+  stroke: rgba(95, 158, 160, 0.15);
+  stroke-width: 0.8;
+  stroke-dasharray: 6 6;
+  opacity: 0.25;
+}
+
+.activeLink {
+  stroke: rgba(95, 158, 160, 0.85);
+  stroke-width: 1.8;
+  stroke-dasharray: 8 5;
+  filter: drop-shadow(0 0 6px rgba(95, 158, 160, 0.35));
+  animation: chainFlow 1.2s linear infinite;
+  opacity: 1;
+}
+
+@keyframes chainFlow {
+  to {
+    stroke-dashoffset: -13;
+  }
+}
+
+/* --- review card states and animations --- */
+
+.reviewCard {
+  position: absolute;
+  width: max-content;
+  min-width: 80px;
+  white-space: nowrap;
+  min-height: 38px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.7rem 0.85rem;
+  justify-content: center;
+  padding: 0.35rem 0.7rem;
   border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 18px;
+  border-radius: 20px;
   background:
     linear-gradient(180deg, rgba(18, 21, 22, 0.94), rgba(7, 7, 8, 0.92)),
     rgba(10, 10, 12, 0.92);
   box-shadow:
-    0 18px 52px rgba(0, 0, 0, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   translate: -50% -50%;
+  transform-origin: center center;
+  scale: var(--review-scale, 1);
   animation: float 7s ease-in-out infinite;
   animation-delay: var(--float-delay);
   user-select: none;
   z-index: 1;
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    left 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    top 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    min-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease,
+    filter 0.3s ease;
 }
 
-.review:hover,
-.review.active {
+.reviewCard.expanded {
+  width: 310px;
+  max-width: 310px;
+  white-space: normal;
+  min-height: 110px;
+  padding: 0.7rem 0.85rem;
+  border-radius: 18px;
   border-color: rgba(95, 158, 160, 0.42);
   box-shadow:
     0 24px 68px rgba(0, 0, 0, 0.44),
     0 0 0 1px rgba(95, 158, 160, 0.16);
   z-index: 5;
+  animation-play-state: paused;
 }
 
-.review header,
-.review footer {
+.reviewCard.dimmed {
+  opacity: 0.25;
+  filter: blur(1px);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.cardHeader strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #f8ffff;
+  font-size: 0.88rem;
+  transition: font-size 0.3s ease;
+}
+
+.expanded .cardHeader strong {
+  font-size: 0.95rem;
+}
+
+.cardDate {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.56);
+  transition: opacity 0.3s ease;
+}
+
+.expanded .cardDate {
+  position: static;
+  visibility: visible;
+  opacity: 1;
+}
+
+.cardDetails {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition:
+    grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+}
+
+.expanded .cardDetails {
+  position: static;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  grid-template-rows: 1fr;
+  margin-top: 0.45rem;
+}
+
+.cardDetailsInner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cardBody {
+  color: rgba(224, 224, 224, 0.84);
+  font-size: 0.82rem;
+  line-height: 1.38;
+}
+
+.cardFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
 }
 
-.review header strong {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  color: #f8ffff;
-  font-size: 0.95rem;
-}
-
-.review p {
-  flex: 1;
-  color: rgba(224, 224, 224, 0.84);
-  font-size: 0.82rem;
-  line-height: 1.38;
-}
-
-.review button {
+.cardFooter button {
   background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
   font-family: var(--font-space-mono), monospace;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
+.depthLabel {
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(95, 158, 160, 0.7);
+  padding: 0.12rem 0.35rem;
+  border: 1px solid rgba(95, 158, 160, 0.2);
+  border-radius: 6px;
+  background: rgba(95, 158, 160, 0.06);
+}
+
 @keyframes float {
   0%,
   100% {
-    transform: translate3d(0, -5px, 0) rotate(-0.4deg);
+    transform: translate3d(0, -3px, 0) rotate(-0.2deg);
   }
-
   50% {
-    transform: translate3d(0, 7px, 0) rotate(0.4deg);
+    transform: translate3d(0, 5px, 0) rotate(0.2deg);
   }
 }
+
+/* --- responsive media query rules --- */
 
 @media (max-width: 900px) {
   .shell {
@@ -321,15 +459,11 @@
 @media (max-width: 560px) {
   .composer,
   .board,
-  .review {
+  .reviewCard {
     border-radius: 16px;
   }
 
   .board {
     min-height: 680px;
-  }
-
-  .review {
-    width: min(280px, 76%);
   }
 }
