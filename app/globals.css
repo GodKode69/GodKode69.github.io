@@ -20,6 +20,15 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input,
+textarea {
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 h1,
@@ -183,6 +192,21 @@ body::before {
 }
 
 @media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    line-height: 1.55;
+  }
+
+  .helix-rail {
+    display: none !important;
+  }
+
   .cursor,
   .cursor-follower {
     display: none;

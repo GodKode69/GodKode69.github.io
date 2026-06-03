@@ -305,8 +305,28 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: 100svh;
+    height: auto;
+    padding-top: 140px;
+    padding-bottom: 4rem;
+  }
+
   .content h1 {
     font-size: 15vw;
+    letter-spacing: 0;
+  }
+
+  .subtitleWrapper {
+    justify-content: center;
+  }
+
+  .subtitle {
+    font-size: 1.08rem;
+  }
+
+  .scrollIndicator {
+    display: none;
   }
 }
 

@@ -226,6 +226,30 @@
   }
 }
 
+@media (max-width: 560px) {
+  .card {
+    padding: 1rem;
+  }
+
+  .stack {
+    gap: 0.75rem;
+  }
+
+  .chip {
+    width: 100%;
+  }
+
+  .popup {
+    left: 0;
+    width: min(260px, calc(100vw - 3rem));
+    transform: translateY(10px);
+  }
+
+  .chip:hover .popup {
+    transform: translateY(0);
+  }
+}
+
 @keyframes barSweep {
   0% {
     transform: translateX(-130%);

@@ -124,3 +124,42 @@
     transform: translateY(-4px);
   }
 }
+
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    padding: 1rem 5%;
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  .links {
+    order: 3;
+    width: 100%;
+    gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .socials {
+    margin-left: 0;
+    gap: 0.75rem;
+  }
+
+  .contactBubble {
+    right: auto;
+    left: 0;
+  }
+
+  .contactBubble::before {
+    right: auto;
+    left: 20px;
+  }
+}

@@ -46,7 +46,6 @@ export default function Helix() {
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    let mounted = true;
     const handleScroll = () => {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(docHeight > 0 ? window.scrollY / docHeight : 0);
@@ -112,7 +111,7 @@ export default function Helix() {
   const trailEndY = strandA[blobEnd]?.y ?? 0;
 
   return (
-    <div className="fixed right-[-10px] top-0 h-screen w-16 pointer-events-none z-50 flex items-center justify-center">
+    <div className="helix-rail fixed right-[-10px] top-0 h-screen w-16 pointer-events-none z-50 flex items-center justify-center">
       <svg
         width={W}
         height="100%"

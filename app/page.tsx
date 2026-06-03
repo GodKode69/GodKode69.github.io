@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import Skills from "@/components/Skills";
 import Work from "@/components/Work";
-import Contact from "@/components/Contact";
+import Reviews from "@/components/Reviews";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       <Hero />
       <Skills />
       <Work />
-      {/*<Contact />*/}
+      <Reviews />
       <Footer />
     </main>
   );

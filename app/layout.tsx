@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Cursor from "@/components/Cursor";
 import Helix from "@/components/Helix";
+import SiteGuards from "@/components/SiteGuards";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html suppressHydrationWarning lang="en" className={`${spaceGrotesk.variable} ${spaceMono.variable}`}>
       <body suppressHydrationWarning className={spaceGrotesk.className}>
         <Cursor />
+        <SiteGuards />
         <Nav />
         <Helix />
         {children}
