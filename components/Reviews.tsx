@@ -283,21 +283,21 @@ export default function Reviews() {
     for (let iter = 0; iter < 3; iter++) {
       for (let i = 0; i < coords.length; i++) {
         const c1 = coords[i];
-        const w1 = c1.isExpanded ? 36 : 14;
-        const h1 = c1.isExpanded ? 18 : 6;
+        const w1 = c1.isExpanded ? 44 : 18;
+        const h1 = c1.isExpanded ? 22 : 8;
         const hw1 = w1 / 2;
         const hh1 = h1 / 2;
 
         for (let j = 0; j < coords.length; j++) {
           if (i === j) continue;
           const c2 = coords[j];
-          const w2 = c2.isExpanded ? 36 : 14;
-          const h2 = c2.isExpanded ? 18 : 6;
+          const w2 = c2.isExpanded ? 44 : 18;
+          const h2 = c2.isExpanded ? 22 : 8;
           const hw2 = w2 / 2;
           const hh2 = h2 / 2;
 
-          const minDx = hw1 + hw2 + 3.0;
-          const minDy = hh1 + hh2 + 3.0;
+          const minDx = hw1 + hw2 + 4.0;
+          const minDy = hh1 + hh2 + 4.0;
 
           let diffX = c1.currX - c2.currX;
           let diffY = c1.currY - c2.currY;
@@ -326,10 +326,10 @@ export default function Reviews() {
     }
 
     return coords.map((c) => {
-      const minX = c.isExpanded ? 22 : 8;
-      const maxX = c.isExpanded ? 78 : 92;
-      const minY = c.isExpanded ? 14 : 8;
-      const maxY = c.isExpanded ? 86 : 92;
+      const minX = c.isExpanded ? 24 : 10;
+      const maxX = c.isExpanded ? 76 : 90;
+      const minY = c.isExpanded ? 16 : 10;
+      const maxY = c.isExpanded ? 84 : 90;
 
       return {
         ...c,
