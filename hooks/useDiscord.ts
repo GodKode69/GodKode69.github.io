@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const DISCORD_ID = "1243904701318037609";
+const DISCORD_ID = "1150339860725514320";
 
 export type DiscordActivity = {
   type: number;
