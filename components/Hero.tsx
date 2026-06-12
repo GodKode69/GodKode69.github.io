@@ -400,7 +400,7 @@ export default function Hero() {
 
       <div className={styles.scrollIndicator}>
         <span className={styles.scrollPath}>
-          /home/adhuraghav/Documents/README.md
+          ~/portfolio/README.md
         </span>
       </div>
     </header>

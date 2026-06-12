@@ -73,6 +73,7 @@ export function useDiscord() {
     let mounted = true;
     let inFlight = false;
     let controller: AbortController | null = null;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
 
     const poll = async () => {
       if (inFlight || document.visibilityState === "hidden") return;
@@ -89,15 +90,21 @@ export function useDiscord() {
       inFlight = false;
     };
 
-    void poll();
+    const startInterval = () => {
+      if (intervalId) clearInterval(intervalId);
+      intervalId = setInterval(() => void poll(), 15_000);
+    };
 
-    const intervalId = setInterval(() => {
-      void poll();
-    }, 15_000);
+    void poll();
+    startInterval();
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         void poll();
+        startInterval();
+      } else {
+        if (intervalId) clearInterval(intervalId);
+        intervalId = null;
       }
     };
 
@@ -105,7 +112,7 @@ export function useDiscord() {
 
     return () => {
       mounted = false;
-      clearInterval(intervalId);
+      if (intervalId) clearInterval(intervalId);
       controller?.abort();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };

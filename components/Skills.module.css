@@ -129,7 +129,7 @@
   border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-.proficiencyText {
+.tierLabel {
   font-family: var(--font-space-mono), monospace;
   font-size: 0.7rem;
   color: #b5bac1;
@@ -138,86 +138,49 @@
   letter-spacing: 1px;
 }
 
-.bar {
-  width: 100%;
-  height: 10px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.28)),
-    rgba(0, 0, 0, 0.32);
-  border-radius: 999px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.04),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+.tierBar {
+  display: flex;
+  gap: 4px;
 }
 
-.fill {
-  height: 100%;
-  width: var(--skill-level);
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    var(--bar-start) 0%,
-    var(--bar-mid) 58%,
-    var(--bar-end) 100%
-  );
-  box-shadow:
-    inset 0 0 10px rgba(255, 255, 255, 0.22),
-    0 0 16px var(--bar-glow);
-  position: relative;
-  transform-origin: left center;
-  transform: scaleX(0.08);
-  opacity: 0.82;
-  transition:
-    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.3s ease,
-    filter 0.3s ease;
-  filter: saturate(0.9);
+.tierSegment {
+  flex: 1;
+  height: 8px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.3s ease;
 }
 
-.chip:hover .fill {
-  transform: scaleX(1);
-  opacity: 1;
-  filter: saturate(1.12);
+.tierFilled {
+  background: var(--seg-color);
+  border-color: var(--seg-color);
+  box-shadow: 0 0 10px var(--seg-glow), inset 0 0 6px rgba(255, 255, 255, 0.15);
 }
 
-.fill::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    110deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 35%,
-    rgba(255, 255, 255, 0.38) 50%,
-    rgba(255, 255, 255, 0.05) 65%,
-    transparent 100%
-  );
-  transform: translateX(-130%);
+.chip:hover .tierSegment {
+  animation: segPulse 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.fill::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -7px;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.28) 48%, transparent 72%);
-  transform: translateY(-50%);
-  filter: blur(0.6px);
-  opacity: 0.45;
+.chip:hover .tierFilled {
+  animation: segGlow 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 }
 
-.chip:hover .fill::before {
-  animation: barSweep 1.5s linear infinite;
+@keyframes segPulse {
+  0% { transform: scaleY(0.6); opacity: 0.7; }
+  50% { transform: scaleY(1.25); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 1; }
 }
 
-.chip:hover .fill::after {
-  animation: barHeadPulse 1s ease-in-out infinite alternate;
+@keyframes segGlow {
+  0% {
+    box-shadow: 0 0 8px var(--seg-glow), inset 0 0 6px rgba(255, 255, 255, 0.12);
+    filter: brightness(0.85);
+  }
+  100% {
+    box-shadow: 0 0 18px var(--seg-glow), 0 0 24px var(--seg-glow), inset 0 0 8px rgba(255, 255, 255, 0.2);
+    filter: brightness(1.1);
+  }
 }
 
 @media (max-width: 900px) {
@@ -247,29 +210,5 @@
 
   .chip:hover .popup {
     transform: translateY(0);
-  }
-}
-
-@keyframes barSweep {
-  0% {
-    transform: translateX(-130%);
-  }
-
-  100% {
-    transform: translateX(130%);
-  }
-}
-
-@keyframes barHeadPulse {
-  0% {
-    opacity: 0.45;
-    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
-  }
-
-  100% {
-    opacity: 0.95;
-    box-shadow:
-      0 0 10px rgba(255, 255, 255, 0.55),
-      0 0 18px rgba(255, 255, 255, 0.28);
   }
 }

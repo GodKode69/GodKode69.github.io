@@ -273,7 +273,7 @@ export default function Reviews() {
   }, [reviews, expandedIds]);
 
   const positionedReviews = useMemo(() => {
-    let coords = visibleReviews.map((r) => ({
+    const coords = visibleReviews.map((r) => ({
       ...r,
       currX: r.x,
       currY: r.y,

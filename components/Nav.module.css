@@ -127,21 +127,15 @@
 
 @media (max-width: 768px) {
   .nav {
-    flex-wrap: wrap;
     gap: 0.85rem;
     padding: 1rem 5%;
   }
 
-  .logo {
-    width: 100%;
-  }
-
   .links {
-    order: 3;
-    width: 100%;
     gap: 1rem;
     overflow-x: auto;
     scrollbar-width: none;
+    margin-left: auto;
   }
 
   .links::-webkit-scrollbar {

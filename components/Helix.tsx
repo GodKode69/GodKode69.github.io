@@ -53,11 +53,14 @@ export default function Helix() {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
 
-    // slow animation tick so the helix gently rotates independent of scroll
     let frame = 0;
     const loop = () => {
+      if (document.documentElement.dataset.reducedMotion === "true") {
+        rafRef.current = requestAnimationFrame(loop);
+        return;
+      }
       frame++;
-      if (frame % 2 === 0) setTick(t => t + 1); // update every 2 frames ~30fps is enough
+      if (frame % 2 === 0) setTick(t => t + 1);
       rafRef.current = requestAnimationFrame(loop);
     };
     rafRef.current = requestAnimationFrame(loop);

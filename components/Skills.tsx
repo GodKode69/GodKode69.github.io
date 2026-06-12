@@ -1,46 +1,19 @@
 "use client";
 
-import type { CSSProperties } from "react";
-import { skillCategoryDescriptions, skills } from "@/lib/skills";
+import { skills, skillCategoryDescriptions, type Tier } from "@/lib/skills";
 import styles from "./Skills.module.css";
 import sectionStyles from "./Section.module.css";
 import Image from "next/image";
 
-function getBarPalette(level: number) {
-  if (level >= 75) {
-    return {
-      start: "#7dffae",
-      mid: "#4ade80",
-      end: "#23c55e",
-      glow: "rgba(74, 222, 128, 0.7)",
-    };
-  }
+const TIER_CONFIG: Record<Tier, { segments: number; color: string; glow: string }> = {
+  Beginner:     { segments: 1, color: "#fb7185", glow: "rgba(244, 114, 132, 0.55)" },
+  Intermediate: { segments: 2, color: "#fb923c", glow: "rgba(249, 115, 22, 0.55)" },
+  Advanced:     { segments: 3, color: "#facc15", glow: "rgba(250, 204, 21, 0.55)" },
+  Expert:       { segments: 4, color: "#4ade80", glow: "rgba(74, 222, 128, 0.55)" },
+  Master:       { segments: 5, color: "#22d3ee", glow: "rgba(34, 211, 238, 0.55)" },
+};
 
-  if (level >= 50) {
-    return {
-      start: "#ffe56f",
-      mid: "#facc15",
-      end: "#eab308",
-      glow: "rgba(250, 204, 21, 0.65)",
-    };
-  }
-
-  if (level >= 25) {
-    return {
-      start: "#ffc978",
-      mid: "#fb923c",
-      end: "#f97316",
-      glow: "rgba(249, 115, 22, 0.65)",
-    };
-  }
-
-  return {
-    start: "#ff9eb5",
-    mid: "#fb7185",
-    end: "#e11d48",
-    glow: "rgba(244, 63, 94, 0.65)",
-  };
-}
+const TOTAL_SEGMENTS = 5;
 
 export default function Skills() {
   const groupedSkills = Object.entries(
@@ -69,15 +42,7 @@ export default function Skills() {
               </p>
               <div className={`tech-stack ${styles.stack}`}>
                 {categorySkills.map((skill) => {
-                  const palette = getBarPalette(skill.level);
-                  const fillStyle = {
-                    "--skill-level": `${skill.level}%`,
-                    "--bar-start": palette.start,
-                    "--bar-mid": palette.mid,
-                    "--bar-end": palette.end,
-                    "--bar-glow": palette.glow,
-                  } as CSSProperties;
-
+                  const cfg = TIER_CONFIG[skill.tier];
                   return (
                     <span key={skill.name} className={`hover-link ${styles.chip}`}>
                       {skill.name}
@@ -88,9 +53,18 @@ export default function Skills() {
                         </div>
                         <p className={styles.popupDesc}>{skill.desc}</p>
                         <div className={styles.visualize}>
-                          <div className={styles.proficiencyText}>Proficiency: {skill.level}%</div>
-                          <div className={styles.bar}>
-                            <div className={styles.fill} style={fillStyle} />
+                          <div className={styles.tierLabel}>{skill.tier}</div>
+                          <div className={styles.tierBar}>
+                            {Array.from({ length: TOTAL_SEGMENTS }, (_, i) => (
+                              <div
+                                key={i}
+                                className={`${styles.tierSegment} ${i < cfg.segments ? styles.tierFilled : ""}`}
+                                style={{
+                                  ["--seg-color" as string]: cfg.color,
+                                  ["--seg-glow" as string]: cfg.glow,
+                                }}
+                              />
+                            ))}
                           </div>
                         </div>
                       </div>

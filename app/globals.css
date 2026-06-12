@@ -43,8 +43,62 @@ a {
   color: inherit;
 }
 
-#projects {
-  color: aqua;
+/* --- Context Menu --- */
+
+.ctx-menu {
+   position: fixed;
+   z-index: 9998;
+   background: rgba(14, 14, 16, 0.95);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   border-radius: 8px;
+   padding: 0.35rem 0;
+   min-width: 180px;
+   backdrop-filter: blur(14px);
+   -webkit-backdrop-filter: blur(14px);
+   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+   animation: ctx-in 0.12s ease-out;
+ }
+
+.ctx-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.9rem;
+  background: none;
+  border: none;
+  color: #dbdee1;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.78rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ctx-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ctx-icon {
+  font-size: 0.7rem;
+  color: var(--accent-color);
+}
+
+@keyframes ctx-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* --- Reduced Motion --- */
+
+[data-reduced-motion="true"] *,
+[data-reduced-motion="true"] *::before,
+[data-reduced-motion="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
 }
 
 .mono-text {

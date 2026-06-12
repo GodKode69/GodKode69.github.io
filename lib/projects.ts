@@ -14,7 +14,7 @@ export const projects: Project[] = [
     desc: "A virtual input system working on three major operating systems.",
     links: [
       { label: "Not live" },
-      { label: "GitHub ↗", href: "https://GitHub ↗.com/godkode69/open-gestures" },
+      { label: "GitHub ↗", href: "https://github.com/godkode69/open-gestures" },
       { label: "Learn More ↗", href: "https://open-gestures.godkode.xyz" },
     ],
   },
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     desc: "Open-source manga downloader application for desktop devices. Made in collaboration with Siddhartha412.",
     links: [
       { label: "Not live" },
-      { label: "GitHub ↗", href: "https://GitHub ↗.com/siddhartha412/manga-app" },
+      { label: "GitHub ↗", href: "https://github.com/siddhartha412/manga-app" },
       { label: "Learn More ↗", href: "projects/manga-app" },
     ],
   },
@@ -61,7 +61,7 @@ export const projects: Project[] = [
     desc: "A multipurpose Discord CLI tool with QOL features and capabilities such as cloning and backing up Discord servers.",
     links: [
       { label: "Not Live" },
-      { label: "GitHub ↗", href: "https://GitHub ↗.com/GodKode69/meta-cloner" },
+      { label: "GitHub ↗", href: "https://github.com/GodKode69/meta-cloner" },
       { label: "Learn More ↗", href: "./projects/nebula" },
     ],
   },
@@ -72,7 +72,7 @@ export const projects: Project[] = [
     desc: "An API layer for the Fabric ecosystem, focused on exposing reusable bot and platform functionality.",
     links: [
       { label: "Visit", href: "https://api.godkode.xyz" },
-      { label: "GitHub ↗", href: "https://GitHub ↗.com/GodKode69/fabric-api" },
+      { label: "GitHub ↗", href: "https://github.com/GodKode69/fabric-api" },
       { label: "Learn More ↗", href: "https" },
     ],
   },
