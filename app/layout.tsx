@@ -1,11 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
-import "@fontsource/maple-mono/400.css";
-import "@fontsource/maple-mono/700.css";
 import "./globals.css";
 import Nav from "@/components/Nav";
-import Cursor from "@/components/Cursor";
-import Helix from "@/components/Helix";
+import ClientShell from "@/components/ClientShell";
 import SiteGuards from "@/components/SiteGuards";
 
 const spaceGrotesk = Space_Grotesk({
@@ -60,11 +57,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html suppressHydrationWarning lang="en" className={`${spaceGrotesk.variable} ${spaceMono.variable}`}>
+      <head>
+        <link rel="preload" href="/fonts/maple-mono-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/maple-mono-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body suppressHydrationWarning className={spaceGrotesk.className}>
-        <Cursor />
+        <ClientShell />
         <SiteGuards />
         <Nav />
-        <Helix />
         {children}
       </body>
     </html>

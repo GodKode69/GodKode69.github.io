@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Maple Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/maple-mono-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/maple-mono-700.woff2") format("woff2");
+}
+
 :root {
   --background: #000000;
   --foreground: #ffffff;

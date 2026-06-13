@@ -5,88 +5,59 @@ export const alt = "GodKode | Portfolio";
 export const contentType = "image/png";
 export const size = { width: 1200, height: 630 };
 
+const gridSvg = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Cpath d='M50 0L50 50M0 0L50 0' stroke='rgba(255,255,255,0.03)' stroke-width='1' fill='none'/%3E%3C/svg%3E")`;
+
 export default async function Image() {
   return new ImageResponse(
-    (
-      <div
+    <div
+      style={{
+        background: "#050505",
+        backgroundImage: `${gridSvg}, linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+        backgroundSize: "50px 50px, 50px 50px, 50px 50px",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "20px",
+      }}
+    >
+      <span
         style={{
-          background: "#050505",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "24px",
+          fontSize: "72px",
+          fontWeight: 700,
+          color: "#ffffff",
+          letterSpacing: "-2px",
+          lineHeight: 1,
+          fontFamily: "monospace",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-          }}
-        >
-          <div
-            style={{
-              width: "72px",
-              height: "72px",
-              borderRadius: "50%",
-              background: "linear-gradient(135deg, #5f9ea0 0%, #2dd4bf 100%)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "32px",
-              fontWeight: 700,
-              color: "#050505",
-              fontFamily: "monospace",
-            }}
-          >
-            GK
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "64px",
-                fontWeight: 700,
-                color: "#ffffff",
-                letterSpacing: "-2px",
-                lineHeight: 1,
-                fontFamily: "monospace",
-              }}
-            >
-              GODKODE
-            </span>
-          </div>
-        </div>
-        <span
-          style={{
-            fontSize: "24px",
-            color: "#5f9ea0",
-            fontFamily: "monospace",
-            letterSpacing: "2px",
-          }}
-        >
-          Web &amp; Desktop Developer
-        </span>
-        <span
-          style={{
-            fontSize: "16px",
-            color: "rgba(255,255,255,0.35)",
-            fontFamily: "monospace",
-            position: "absolute",
-            bottom: "40px",
-          }}
-        >
-          godkode.xyz
-        </span>
-      </div>
-    ),
-    { ...size }
+        GODKODE
+      </span>
+      <span
+        style={{
+          fontSize: "24px",
+          color: "#5f9ea0",
+          fontFamily: "monospace",
+          letterSpacing: "4px",
+          textTransform: "uppercase",
+        }}
+      >
+        Software Developer
+      </span>
+      <span
+        style={{
+          fontSize: "16px",
+          color: "rgba(255,255,255,0.35)",
+          fontFamily: "monospace",
+          position: "absolute",
+          bottom: "40px",
+        }}
+      >
+        godkode.xyz
+      </span>
+    </div>,
+    { ...size },
   );
 }
