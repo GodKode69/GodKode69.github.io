@@ -45,6 +45,11 @@
 
 .links a {
   white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.links a:active {
+  color: #5f9ea0;
 }
 
 .contactItem {
@@ -58,6 +63,11 @@
   color: inherit;
   font: inherit;
   white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.contactButton:active {
+  color: #5f9ea0;
 }
 
 .contactBubble {

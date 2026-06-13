@@ -40,7 +40,7 @@ export const projects: Project[] = [
     links: [
       { label: "Not live" },
       { label: "Not Yet" },
-      { label: "Learn More ↗", href: "" },
+      { label: "Not Yet" },
     ],
   },
   {
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     links: [
       { label: "Not live" },
       { label: "GitHub ↗", href: "https://github.com/siddhartha412/manga-app" },
-      { label: "Learn More ↗", href: "projects/manga-app" },
+      { label: "Learn More ↗", href: "/projects/manga-app" },
     ],
   },
   {
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     links: [
       { label: "Not Live" },
       { label: "GitHub ↗", href: "https://github.com/GodKode69/meta-cloner" },
-      { label: "Learn More ↗", href: "./projects/nebula" },
+      { label: "Learn More ↗", href: "/projects/nebula" },
     ],
   },
   {
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     links: [
       { label: "Visit", href: "https://api.godkode.xyz" },
       { label: "GitHub ↗", href: "https://github.com/GodKode69/fabric-api" },
-      { label: "Learn More ↗", href: "https" },
+      { label: "Learn More ↗", href: "https://fabric.godkode.xyz" },
     ],
   },
 ];
