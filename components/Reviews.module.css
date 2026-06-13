@@ -9,10 +9,10 @@
 
 .composer,
 .reviewPanel {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-default);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)),
-    rgba(10, 10, 12, 0.9);
+    var(--bg-surface);
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -25,7 +25,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.7rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--border-subtle);
   border-radius: 20px 20px 0 0;
   user-select: none;
 }
@@ -56,7 +56,7 @@
 .shellPrompt {
   font-family: "Maple Mono", monospace;
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.38);
+  color: var(--text-dim);
   letter-spacing: 0.05em;
 }
 
@@ -121,8 +121,8 @@
 }
 
 .reviewItemDimmed .reviewRow {
-  background: rgba(95, 158, 160, 0.03);
-  border-left-color: rgba(95, 158, 160, 0.15);
+  background: color-mix(in srgb, var(--accent) 3%, transparent);
+  border-left-color: color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
 @keyframes reviewReveal {
@@ -152,21 +152,21 @@
 }
 
 .reviewRow:hover {
-  background: rgba(95, 158, 160, 0.06);
-  border-left-color: rgba(95, 158, 160, 0.3);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border-left-color: color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
 .reviewRowActive {
-  background: rgba(95, 158, 160, 0.08);
-  border-left-color: rgba(95, 158, 160, 0.5);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border-left-color: color-mix(in srgb, var(--accent) 50%, transparent);
 }
 
 .reviewRowActive:hover {
-  background: rgba(95, 158, 160, 0.1);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .reviewArrow {
-  color: rgba(95, 158, 160, 0.7);
+  color: color-mix(in srgb, var(--accent) 70%, transparent);
   font-size: 0.82rem;
   flex-shrink: 0;
   width: 1rem;
@@ -175,13 +175,13 @@
 }
 
 .reviewRowActive .reviewArrow {
-  color: rgba(95, 158, 160, 1);
+  color: var(--accent);
 }
 
 .reviewNumber {
   font-family: "Maple Mono", monospace;
   font-size: 0.72rem;
-  color: rgba(95, 158, 160, 0.75);
+  color: color-mix(in srgb, var(--accent) 75%, transparent);
   flex-shrink: 0;
   margin-right: 0.15rem;
 }
@@ -211,11 +211,11 @@
   margin-left: auto;
   font-family: "Maple Mono", monospace;
   font-size: 0.68rem;
-  color: rgba(95, 158, 160, 0.7);
+  color: color-mix(in srgb, var(--accent) 70%, transparent);
   padding: 0.1rem 0.4rem;
-  border: 1px solid rgba(95, 158, 160, 0.15);
+  border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
   border-radius: 6px;
-  background: rgba(95, 158, 160, 0.06);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
   white-space: nowrap;
 }
 
@@ -257,7 +257,7 @@
 .reviewTree {
   margin-top: 0.5rem;
   padding-left: 0.5rem;
-  border-left: 1px solid rgba(95, 158, 160, 0.15);
+  border-left: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
 .treeItem {
@@ -273,7 +273,7 @@
 }
 
 .treeConnector {
-  color: rgba(95, 158, 160, 0.5);
+  color: color-mix(in srgb, var(--accent) 50%, transparent);
   font-size: 0.72rem;
   flex-shrink: 0;
 }
@@ -317,11 +317,11 @@
   font-size: 0.58rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(95, 158, 160, 0.7);
+  color: color-mix(in srgb, var(--accent) 70%, transparent);
   padding: 0.12rem 0.35rem;
-  border: 1px solid rgba(95, 158, 160, 0.2);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
   border-radius: 6px;
-  background: rgba(95, 158, 160, 0.06);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
 }
 
 .replyBtn {
@@ -331,13 +331,13 @@
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(95, 158, 160, 0.7);
+  color: color-mix(in srgb, var(--accent) 70%, transparent);
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .replyBtn:hover {
-  color: rgba(95, 158, 160, 1);
+  color: var(--accent);
 }
 
 /* ─────────────── REPLY HINT ─────────────── */

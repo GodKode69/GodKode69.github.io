@@ -187,13 +187,13 @@
 .name {
   display: block;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #fff;
   font-size: 1.1rem;
 }
 
 .tag {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: #b5bac1;
   font-family: var(--font-space-mono), monospace;
 }
 
@@ -204,14 +204,14 @@
 .sectionLabel {
   font-size: 0.65rem;
   font-weight: 800;
-  color: var(--text-secondary);
+  color: #b5bac1;
   margin: 15px 0 6px;
   text-transform: uppercase;
 }
 
 .aboutText {
   font-size: 0.85rem;
-  color: var(--text-body);
+  color: #dbdee1;
   line-height: 1.4;
 }
 
@@ -220,10 +220,10 @@
   gap: 12px;
   margin-top: 10px;
   align-items: center;
-  background: var(--border-subtle);
+  background: rgba(255, 255, 255, 0.03);
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .activityImg {
@@ -235,7 +235,7 @@
 
 .activityTitle {
   font-weight: 700;
-  color: var(--text-primary);
+  color: #fff;
   font-size: 0.85rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -245,7 +245,7 @@
 
 .activitySub {
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: #b5bac1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -471,14 +471,14 @@
   margin-top: auto;
   text-align: center;
   font-size: 0.72rem;
-  color: var(--text-faint);
+  color: rgba(255, 255, 255, 0.35);
   font-family: var(--font-space-mono), monospace;
   padding-top: 1.2rem;
 }
 
 .statCard {
-  background: var(--border-subtle);
-  border: 1px solid var(--border-default);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   padding: 0.65rem 0.9rem;
   height: fit-content;
@@ -503,7 +503,7 @@
 .backTitle {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
-  color: var(--text-dim);
+  color: rgba(255, 255, 255, 0.5);
   font-family: var(--font-space-mono), monospace;
 }
 
@@ -585,9 +585,9 @@
   top: 22px;
   padding: 0.7rem 1rem;
   border-radius: 18px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-body);
+  background: rgba(20, 20, 24, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 0.78rem;
   font-family: var(--font-space-mono), monospace;
   backdrop-filter: blur(12px);
@@ -606,9 +606,9 @@
   top: 50%;
   width: 14px;
   height: 14px;
-  background: var(--bg-elevated);
-  border-left: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(20, 20, 24, 0.92);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   transform: translateY(-50%) rotate(45deg);
 }
 
