@@ -321,7 +321,8 @@ export default function Reviews() {
                 <span className={styles.treeConnector}>
                   {isLastChild ? "└──" : "├──"}
                 </span>
-                <span className={styles.treeAlias}>@{child.alias}</span>
+                <span className={styles.atSymbol}>@</span>
+                <span className={styles.treeAlias}>{child.alias}</span>
                 <span className={styles.treeDot}>·</span>
                 <span className={styles.treeDate}>
                   {formatDate(child.createdAt)}
@@ -487,7 +488,7 @@ export default function Reviews() {
                 const replyCount = countReplies(review.id, reviews);
 
                 return (
-                  <div key={review.id} className={`${styles.reviewItem} ${isExpanded ? styles.reviewItemExpanded : ""}`}>
+                  <div key={review.id} className={`${styles.reviewItem} ${isExpanded ? styles.reviewItemExpanded : ""} ${expandedId && !isExpanded ? styles.reviewItemDimmed : ""}`}>
                     <button
                       type="button"
                       className={`${styles.reviewRow} ${isExpanded ? styles.reviewRowActive : ""}`}
@@ -500,7 +501,8 @@ export default function Reviews() {
                       <span className={styles.reviewArrow}>
                         {isExpanded ? "▾" : "▸"}
                       </span>
-                      <span className={styles.reviewAlias}>@{review.alias}</span>
+                      <span className={styles.atSymbol}>@</span>
+                      <span className={styles.reviewAlias}>{review.alias}</span>
                       <span className={styles.reviewDate}>
                         · {formatDate(review.createdAt)}
                       </span>

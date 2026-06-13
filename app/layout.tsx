@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
+import "@fontsource/maple-mono/400.css";
+import "@fontsource/maple-mono/700.css";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Cursor from "@/components/Cursor";
