@@ -159,11 +159,13 @@
 }
 
 .chip:hover .tierSegment {
-  animation: segPulse 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: segPulse 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--seg-index) * 80ms);
 }
 
 .chip:hover .tierFilled {
   animation: segGlow 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  animation-delay: calc(var(--seg-index) * 80ms);
 }
 
 @keyframes segPulse {

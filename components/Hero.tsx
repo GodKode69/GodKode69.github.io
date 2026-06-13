@@ -39,6 +39,7 @@ export default function Hero() {
   const { discord, statusLabel } = useDiscord();
   const [copied, setCopied] = useState(false);
   const copyTimeoutRef = useRef<number | null>(null);
+  const [mobileWarningDismissed, setMobileWarningDismissed] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -73,6 +74,14 @@ export default function Hero() {
 
   return (
     <header className={styles.hero}>
+      {!mobileWarningDismissed && (
+        <div className="mobile-warning-overlay">
+          <div className="mobile-warning-content" onClick={(e) => e.stopPropagation()}>
+            <p>This website is optimized for desktop devices and is best experienced on one.</p>
+            <button type="button" className="hover-link mobile-warning-dismiss" onClick={() => setMobileWarningDismissed(true)}>Got it</button>
+          </div>
+        </div>
+      )}
       <div className={styles.container}>
         <div className={styles.content}>
           <h1 className="glitch" data-text="GODKODE">
@@ -117,7 +126,7 @@ export default function Hero() {
         </div>
 
         <div className={styles.visual}>
-          <div className={styles.cardScene}>
+          <div className={`${styles.cardScene} ${(discord?.spotify || discord?.activity) ? styles.cardSceneTall : ""}`}>
             <div
               className={`${styles.card3d} ${flipped ? styles.flipped : ""}`}
               onClick={() => setFlipped(!flipped)}
@@ -126,7 +135,7 @@ export default function Hero() {
               <div className={`${styles.cardFront} reveal active`}>
                 <div className={styles.cardBanner}>
                   <Image
-                    src="/assets/profile/banner.jpeg"
+                    src="/assets/profile/banner.png"
                     alt="Banner"
                     className={styles.bannerImage}
                     fill
@@ -166,14 +175,18 @@ export default function Hero() {
                     <span className={styles.name}>
                       {discord?.globalName ?? "Raghav"}
                     </span>
-                    <span className={styles.tag}>adhuraghav • god</span>
+                    <span className={styles.tag}>
+                      {discord?.username ?? "adhuraghav"} • god
+                    </span>
                   </div>
 
                   <div className={styles.section}>
                     <p className={styles.sectionLabel}>ABOUT ME</p>
                     <p className={styles.aboutText}>
                       Hey there! I&apos;m{" "}
-                      <strong className={`${styles.statusText} ${getStatusClass(discord?.status)}`}>
+                      <strong
+                        className={`${styles.statusText} ${getStatusClass(discord?.status)}`}
+                      >
                         GodKode
                       </strong>
                       , a developer building web and desktop apps, backend
@@ -188,8 +201,8 @@ export default function Hero() {
                     <br />
                     <p className={styles.aboutText}>
                       Outside coding, I&apos;m usually reading docs, listening
-                      to music, gaming, or consuming digital media while debugging
-                      something at 2AM.
+                      to music, gaming, or consuming digital media while
+                      debugging something at 2AM.
                     </p>
                   </div>
 
@@ -399,9 +412,7 @@ export default function Hero() {
       </div>
 
       <div className={styles.scrollIndicator}>
-        <span className={styles.scrollPath}>
-          ~/portfolio/README.md
-        </span>
+        <span className={styles.scrollPath}>~/portfolio/README.md</span>
       </div>
     </header>
   );

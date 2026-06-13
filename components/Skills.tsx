@@ -27,8 +27,7 @@ export default function Skills() {
   );
 
   return (
-    <section id="skill" className={sectionStyles.section}>
-      <div className={sectionStyles.container}>
+    <section id="skill" className={sectionStyles.section} suppressHydrationWarning={true}><div className={sectionStyles.container}>
         <h2 className={sectionStyles.title}>01 / Skill Tree - {skills.length}</h2>
         <div className={styles.grid}>
           {groupedSkills.map(([category, categorySkills]) => (
@@ -62,6 +61,7 @@ export default function Skills() {
                                 style={{
                                   ["--seg-color" as string]: cfg.color,
                                   ["--seg-glow" as string]: cfg.glow,
+                                  ["--seg-index" as string]: i,
                                 }}
                               />
                             ))}
