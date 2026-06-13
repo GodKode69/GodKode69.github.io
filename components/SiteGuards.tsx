@@ -70,13 +70,35 @@ export default function SiteGuards() {
   useEffect(() => {
     if (!menu) return;
 
+    const firstItem = menuRef.current?.querySelector<HTMLElement>("[role='menuitem']");
+    if (firstItem) firstItem.focus();
+
     const handleClick = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         close();
       }
     };
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") {
+        close();
+        return;
+      }
+
+      const items = menuRef.current?.querySelectorAll<HTMLElement>("[role='menuitem']");
+      if (!items || items.length === 0) return;
+
+      const focused = document.activeElement as HTMLElement | null;
+      const idx = focused ? Array.from(items).indexOf(focused) : -1;
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const next = idx < items.length - 1 ? idx + 1 : 0;
+        items[next].focus();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prev = idx > 0 ? idx - 1 : items.length - 1;
+        items[prev].focus();
+      }
     };
 
     document.addEventListener("mousedown", handleClick);
@@ -103,10 +125,13 @@ export default function SiteGuards() {
     <div
       ref={menuRef}
       className="ctx-menu"
+      role="menu"
       style={{ left: menu.x, top: menu.y }}
     >
       <button
         type="button"
+        role="menuitem"
+        tabIndex={0}
         className="ctx-item"
         onClick={() => {
           setReduced((r) => !r);
@@ -118,6 +143,8 @@ export default function SiteGuards() {
       </button>
       <button
         type="button"
+        role="menuitem"
+        tabIndex={0}
         className="ctx-item"
         onClick={() => toggleTheme()}
       >

@@ -149,7 +149,7 @@ export default function Hero() {
               <div className={`${styles.cardFront} reveal active`}>
                 <div className={styles.cardBanner}>
                   <Image
-                    src="/assets/profile/banner.png"
+                    src="/assets/profile/banner.webp"
                     alt="Banner"
                     className={styles.bannerImage}
                     fill
@@ -160,17 +160,15 @@ export default function Hero() {
 
                 <div className={styles.cardHeader}>
                   <div className={styles.avatarWrapper}>
-                    {discord?.avatarUrl && (
-                      <Image
-                        src={discord.avatarUrl}
-                        alt="Avatar"
-                        className={styles.avatar}
-                        width={70}
-                        height={70}
-                        sizes="70px"
-                        unoptimized
-                      />
-                    )}
+                    <Image
+                      src={discord?.avatarUrl ?? "/assets/profile/avatar.webp"}
+                      alt="Avatar"
+                      className={styles.avatar}
+                      width={70}
+                      height={70}
+                      sizes="70px"
+                      unoptimized
+                    />
                     <div
                       className={`${styles.avatarStatusDot} ${
                         discord?.status

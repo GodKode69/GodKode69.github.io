@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 const DISCORD_ID = "1150339860725514320";
+const AVATAR_CACHE_KEY = "godkode.avatarCache";
 
 export type DiscordActivity = {
   type: number;
@@ -24,6 +25,7 @@ export type DiscordData = {
   username: string;
   globalName: string;
   avatarUrl: string;
+  avatarHash: string | null;
   spotify: SpotifyData | null;
   activity: DiscordActivity | null;
 };
@@ -34,6 +36,25 @@ const STATUS_LABEL: Record<string, string> = {
   dnd: "on do not disturb",
   offline: "offline",
 };
+
+function readAvatarCache(): { hash: string; url: string } | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(AVATAR_CACHE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function writeAvatarCache(hash: string, url: string) {
+  try {
+    window.localStorage.setItem(AVATAR_CACHE_KEY, JSON.stringify({ hash, url }));
+  } catch {
+    // storage full or unavailable
+  }
+}
 
 async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
   try {
@@ -50,11 +71,15 @@ async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
       (a: DiscordActivity) => a.type === 0
     );
 
+    const avatarHash: string | null = data.discord_user.avatar ?? null;
+    const cdnUrl = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`;
+
     return {
       status: data.discord_status,
       username: data.discord_user.username,
       globalName: data.discord_user.global_name || data.discord_user.username,
-      avatarUrl: `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`,
+      avatarUrl: cdnUrl,
+      avatarHash,
       spotify: data.listening_to_spotify ? data.spotify : null,
       activity: playingAct ?? null,
     };
@@ -67,7 +92,20 @@ async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
 }
 
 export function useDiscord() {
-  const [discord, setDiscord] = useState<DiscordData | null>(null);
+  const [discord, setDiscord] = useState<DiscordData | null>(() => {
+    const cached = readAvatarCache();
+    return cached
+      ? {
+          status: "offline",
+          username: "adhuraghav",
+          globalName: "Raghav",
+          avatarUrl: cached.url,
+          avatarHash: null,
+          spotify: null,
+          activity: null,
+        }
+      : null;
+  });
 
   useEffect(() => {
     let mounted = true;
@@ -84,6 +122,19 @@ export function useDiscord() {
 
       const nextDiscord = await fetchLanyard(controller.signal);
       if (mounted && nextDiscord) {
+        const cached = readAvatarCache();
+
+        if (cached && cached.hash && nextDiscord.avatarHash && cached.hash !== nextDiscord.avatarHash) {
+          writeAvatarCache(nextDiscord.avatarHash, nextDiscord.avatarUrl);
+          nextDiscord.avatarUrl = nextDiscord.avatarUrl;
+        } else if (!cached || cached.hash !== nextDiscord.avatarHash) {
+          if (nextDiscord.avatarHash) {
+            writeAvatarCache(nextDiscord.avatarHash, nextDiscord.avatarUrl);
+          }
+        } else {
+          nextDiscord.avatarUrl = cached.url;
+        }
+
         setDiscord(nextDiscord);
       }
 

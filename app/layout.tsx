@@ -24,15 +24,33 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://godkode.xyz"),
   title: "GodKode | Portfolio",
-  description: "Teeny tiny wannabe gamedev",
+  description: "Developer building web apps, desktop tools, APIs, and automation systems.",
   openGraph: {
     type: "website",
-    title: "GodKode's Website",
-    description: "Teeny tiny wannabe gamedev",
-    images: ["https://godkode.xyz/assets/img/wink.png"],
+    url: "https://godkode.xyz",
+    siteName: "GodKode Portfolio",
+    title: "GodKode | Portfolio",
+    description: "Developer building web apps, desktop tools, APIs, and automation systems.",
+    images: [
+      {
+        url: "https://godkode.xyz/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "GodKode | Portfolio",
+      },
+    ],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: "GodKode | Portfolio",
+    description: "Developer building web apps, desktop tools, APIs, and automation systems.",
+    images: ["https://godkode.xyz/opengraph-image"],
+  },
+  icons: {
+    icon: "/assets/img/favicon.png",
+  },
 };
 
 export const viewport: Viewport = {
