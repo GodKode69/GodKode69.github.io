@@ -487,13 +487,16 @@ export default function Reviews() {
                 const replyCount = countReplies(review.id, reviews);
 
                 return (
-                  <div key={review.id} className={styles.reviewItem}>
+                  <div key={review.id} className={`${styles.reviewItem} ${isExpanded ? styles.reviewItemExpanded : ""}`}>
                     <button
                       type="button"
                       className={`${styles.reviewRow} ${isExpanded ? styles.reviewRowActive : ""}`}
                       style={{ ["--index" as string]: `${index}` }}
                       onClick={() => handleToggleReview(review.id)}
                     >
+                      <span className={styles.reviewNumber}>
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
                       <span className={styles.reviewArrow}>
                         {isExpanded ? "▾" : "▸"}
                       </span>
@@ -503,7 +506,7 @@ export default function Reviews() {
                       </span>
                       {replyCount > 0 && (
                         <span className={styles.reviewReplyCount}>
-                          💬 {replyCount}
+                          {replyCount}
                         </span>
                       )}
                     </button>

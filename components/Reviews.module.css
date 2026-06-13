@@ -54,7 +54,7 @@
 }
 
 .shellPrompt {
-  font-family: var(--font-space-mono), monospace;
+  font-family: var(--font-space-mono), maple-mono;
   font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.38);
   letter-spacing: 0.05em;
@@ -71,9 +71,12 @@
 
 .reviewList {
   flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
   overflow-y: auto;
   scrollbar-width: none;
-  padding: 0.25rem 0;
+  padding: 0.5rem;
 }
 
 .reviewList::-webkit-scrollbar {
@@ -100,6 +103,10 @@
   transform: translateY(8px);
   animation: reviewReveal 0.4s ease forwards;
   animation-delay: calc(var(--index, 0) * 60ms);
+}
+
+.reviewItemExpanded {
+  grid-column: 1 / -1;
 }
 
 @keyframes reviewReveal {
@@ -152,6 +159,14 @@
 
 .reviewRowActive .reviewArrow {
   color: rgba(95, 158, 160, 1);
+}
+
+.reviewNumber {
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.72rem;
+  color: rgba(95, 158, 160, 0.5);
+  flex-shrink: 0;
+  margin-right: 0.15rem;
 }
 
 .reviewAlias {
@@ -517,6 +532,10 @@
   .reviewPanel {
     order: 1;
   }
+
+  .reviewList {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 560px) {
@@ -531,5 +550,9 @@
 
   .reviewExpandContent {
     padding-left: 1.5rem;
+  }
+
+  .reviewList {
+    grid-template-columns: 1fr;
   }
 }
