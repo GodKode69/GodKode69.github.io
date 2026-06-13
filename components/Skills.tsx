@@ -3,7 +3,6 @@
 import { skills, skillCategoryDescriptions, type Tier } from "@/lib/skills";
 import styles from "./Skills.module.css";
 import sectionStyles from "./Section.module.css";
-import Image from "next/image";
 
 const TIER_CONFIG: Record<Tier, { segments: number; color: string; glow: string }> = {
   Beginner:     { segments: 1, color: "#fb7185", glow: "rgba(244, 114, 132, 0.55)" },
@@ -47,7 +46,7 @@ export default function Skills() {
                       {skill.name}
                       <div className={styles.popup}>
                         <div className={styles.popupHeader}>
-                          <Image src={skill.icon} alt={skill.name} width={24} height={24} unoptimized />
+                          <img src={skill.icon} alt={skill.name} width={24} height={24} />
                           <span className={styles.popupTitle}>{skill.name}</span>
                         </div>
                         <p className={styles.popupDesc}>{skill.desc}</p>

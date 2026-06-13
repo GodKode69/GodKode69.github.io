@@ -1,24 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import ClientShell from "@/components/ClientShell";
 import SiteGuards from "@/components/SiteGuards";
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "500", "700"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-space-mono",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://godkode.xyz"),
@@ -56,12 +40,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html suppressHydrationWarning lang="en" className={`${spaceGrotesk.variable} ${spaceMono.variable}`}>
+    <html suppressHydrationWarning lang="en">
       <head>
+        <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/space-mono-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/maple-mono-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/maple-mono-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body suppressHydrationWarning className={spaceGrotesk.className}>
+      <body suppressHydrationWarning className="space-grotesk">
         <ClientShell />
         <SiteGuards />
         <Nav />

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useDiscord, type DiscordData } from "@/hooks/useDiscord";
 import styles from "./Hero.module.css";
@@ -148,26 +147,21 @@ export default function Hero() {
               {/* FRONT */}
               <div className={`${styles.cardFront} reveal active`}>
                 <div className={styles.cardBanner}>
-                  <Image
+                  <img
                     src="/assets/profile/banner.webp"
                     alt="Banner"
                     className={styles.bannerImage}
-                    fill
-                    sizes="350px"
-                    priority
                   />
                 </div>
 
                 <div className={styles.cardHeader}>
                   <div className={styles.avatarWrapper}>
-                    <Image
+                    <img
                       src={discord?.avatarUrl ?? "/assets/profile/avatar.webp"}
                       alt="Avatar"
                       className={styles.avatar}
                       width={70}
                       height={70}
-                      sizes="70px"
-                      unoptimized
                     />
                     <div
                       className={`${styles.avatarStatusDot} ${
@@ -296,7 +290,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <Image
+                        <img
                           src="/assets/icons/github.png"
                           alt="GitHub"
                           className={styles.statIcon}
@@ -315,7 +309,7 @@ export default function Hero() {
                       onClick={handleCopyEmail}
                     >
                       <div className={styles.statTop}>
-                        <Image
+                        <img
                           src="/assets/icons/email.png"
                           alt="Email"
                           className={styles.statIcon}
@@ -338,7 +332,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <Image
+                        <img
                           src="/assets/icons/linkedin.png"
                           alt="LinkedIn"
                           className={styles.statIcon}
@@ -359,7 +353,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <Image
+                        <img
                           src="/assets/icons/twitter.png"
                           alt="X.com"
                           className={styles.statIcon}
@@ -380,7 +374,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <Image
+                        <img
                           src="/assets/icons/spotify.png"
                           alt="Spotify"
                           className={styles.statIcon}
@@ -401,7 +395,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <Image
+                        <img
                           src="/assets/icons/instagram.png"
                           alt="Instagram"
                           className={styles.statIcon}
