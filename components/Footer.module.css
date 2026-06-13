@@ -1,2 +1,2 @@
-.footer { padding: 2rem 5%; border-top: 1px solid #333; }
+.footer { padding: 2rem 5%; border-top: 1px solid var(--border-divider); }
 .container { max-width: 1200px; margin: 0 auto; }

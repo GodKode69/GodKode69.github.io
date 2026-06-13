@@ -14,7 +14,7 @@
   color: var(--accent-color);
   margin-bottom: 4rem;
   display: block;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-divider);
   padding-bottom: 1rem;
 }
 

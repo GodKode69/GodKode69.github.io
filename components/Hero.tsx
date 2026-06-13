@@ -110,7 +110,7 @@ export default function Hero() {
             {discord ? (
               <span>
                 Entity{" "}
-                <span style={{ color: "white" }}>@{discord.username}</span> is{" "}
+                <span style={{ color: "var(--text-primary)" }}>@{discord.username}</span> is{" "}
                 <span
                   className={`${styles.statusText} ${getStatusClass(discord?.status)}`}
                 >
@@ -123,15 +123,15 @@ export default function Hero() {
           </div>
 
           <div className={styles.subtitleWrapper}>
-            <span className={styles.bracket} style={{ color: "aliceblue" }}>
+            <span className={styles.bracket} style={{ color: "var(--text-primary)" }}>
               ⌈<br />⌊
             </span>
             <p className={styles.subtitle}>
-              <span style={{ color: "cadetblue" }}>Out of </span> Reach &amp;
+              <span style={{ color: "var(--accent)" }}>Out of </span> Reach &amp;
               <br />
-              Into <span style={{ color: "cadetblue" }}>the Breach</span>
+              Into <span style={{ color: "var(--accent)" }}>the Breach</span>
             </p>
-            <span className={styles.bracket} style={{ color: "aliceblue" }}>
+            <span className={styles.bracket} style={{ color: "var(--text-primary)" }}>
               ⌉<br />⌋
             </span>
           </div>
