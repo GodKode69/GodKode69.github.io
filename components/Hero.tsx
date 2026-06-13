@@ -76,9 +76,21 @@ export default function Hero() {
     <header className={styles.hero}>
       {!mobileWarningDismissed && (
         <div className="mobile-warning-overlay">
-          <div className="mobile-warning-content" onClick={(e) => e.stopPropagation()}>
-            <p>This website is optimized for desktop devices and is best experienced on one.</p>
-            <button type="button" className="hover-link mobile-warning-dismiss" onClick={() => setMobileWarningDismissed(true)}>Got it</button>
+          <div
+            className="mobile-warning-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p>
+              This website is optimized for desktop devices and is best
+              experienced on one.
+            </p>
+            <button
+              type="button"
+              className="hover-link mobile-warning-dismiss"
+              onClick={() => setMobileWarningDismissed(true)}
+            >
+              Got it
+            </button>
           </div>
         </div>
       )}
@@ -126,7 +138,9 @@ export default function Hero() {
         </div>
 
         <div className={styles.visual}>
-          <div className={`${styles.cardScene} ${(discord?.spotify || discord?.activity) ? styles.cardSceneTall : ""}`}>
+          <div
+            className={`${styles.cardScene} ${discord?.spotify && discord?.activity ? styles.cardSceneTallBoth : discord?.spotify || discord?.activity ? styles.cardSceneTall : ""}`}
+          >
             <div
               className={`${styles.card3d} ${flipped ? styles.flipped : ""}`}
               onClick={() => setFlipped(!flipped)}

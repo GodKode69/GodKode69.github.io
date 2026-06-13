@@ -344,10 +344,6 @@
     transition: height 0.4s ease;
   }
 
-  .cardSceneTall {
-    height: 850px;
-  }
-
   .flipBubble {
     left: 90px;
     top: 15px;
@@ -410,6 +406,15 @@
   width: 350px;
   height: 540px;
   overflow: visible;
+  transition: height 0.4s ease;
+}
+
+.cardSceneTall {
+  height: 625px;
+}
+
+.cardSceneTallBoth {
+  height: 735px;
 }
 
 .card3d {
