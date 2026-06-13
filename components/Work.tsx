@@ -34,12 +34,12 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         <p className={styles.desc}>{project.desc}</p>
       </div>
       <div className={styles.links}>
-        {project.links.map((link) => {
+        {project.links.map((link, i) => {
           const meta = getLinkMeta(link.href);
 
           if (!meta) {
             return (
-              <span key={link.label} className={`${styles.linkChip} ${styles.linkDisabled}`}>
+              <span key={i} className={`${styles.linkChip} ${styles.linkDisabled}`}>
                 {link.label}
               </span>
             );
@@ -48,7 +48,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
           if (meta.external) {
             return (
               <a
-                key={link.label}
+                key={i}
                 href={meta.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -61,7 +61,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 
           return (
             <Link
-              key={link.label}
+              key={i}
               href={meta.href}
               className={`${styles.linkChip} hover-link`}
             >
