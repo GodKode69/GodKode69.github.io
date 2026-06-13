@@ -147,44 +147,8 @@ function formatDate(value: string) {
   }).format(new Date(value));
 }
 
-function getDepth(review: Review, byId: Map<string, Review>): number {
-  let depth = 0;
-  let current = review;
-  while (current.replyTo) {
-    const parent = byId.get(current.replyTo);
-    if (!parent) break;
-    depth++;
-    current = parent;
-  }
-  return depth;
-}
-
-function getChainIds(
-  startId: string,
-  byId: Map<string, Review>,
-  allReviews: Review[],
-): Set<string> {
-  const chain = new Set<string>();
-
-  let current = byId.get(startId);
-  while (current) {
-    chain.add(current.id);
-    if (!current.replyTo) break;
-    current = byId.get(current.replyTo);
-  }
-
-  const queue = [...chain];
-  while (queue.length > 0) {
-    const id = queue.shift()!;
-    for (const r of allReviews) {
-      if (r.replyTo === id && !chain.has(r.id)) {
-        chain.add(r.id);
-        queue.push(r.id);
-      }
-    }
-  }
-
-  return chain;
+function countReplies(parentId: string, allReviews: Review[]): number {
+  return allReviews.filter((r) => r.replyTo === parentId).length;
 }
 
 /* --- reviews main react component --- */
@@ -192,7 +156,6 @@ function getChainIds(
 export default function Reviews() {
   const ref = useReveal<HTMLDivElement>();
   const reviewsRef = useRef<Review[]>(INITIAL_REVIEWS);
-  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
   const [alias, setAlias] = useState("");
@@ -202,7 +165,7 @@ export default function Reviews() {
   const [replyTo, setReplyTo] = useState<string | null>(null);
   const [isEditingAlias, setIsEditingAlias] = useState(false);
   const [syncState, setSyncState] = useState<SyncState>("loading");
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   /* --- component lifecycle effects --- */
 
@@ -218,9 +181,6 @@ export default function Reviews() {
 
     return () => {
       window.cancelAnimationFrame(frame);
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
     };
   }, []);
 
@@ -261,83 +221,10 @@ export default function Reviews() {
     return map;
   }, [reviews]);
 
-  const expandedIds = useMemo(() => {
-    if (!hoveredId) return new Set<string>();
-    return getChainIds(hoveredId, reviewById, reviews);
-  }, [hoveredId, reviewById, reviews]);
-
-  const visibleReviews = useMemo(() => {
-    return reviews.filter((review) => {
-      return !review.replyTo || expandedIds.has(review.id);
-    });
-  }, [reviews, expandedIds]);
-
-  const positionedReviews = useMemo(() => {
-    const coords = visibleReviews.map((r) => ({
-      ...r,
-      currX: r.x,
-      currY: r.y,
-      isExpanded: expandedIds.has(r.id),
-    }));
-
-    for (let iter = 0; iter < 3; iter++) {
-      for (let i = 0; i < coords.length; i++) {
-        const c1 = coords[i];
-        const w1 = c1.isExpanded ? 44 : 18;
-        const h1 = c1.isExpanded ? 22 : 8;
-        const hw1 = w1 / 2;
-        const hh1 = h1 / 2;
-
-        for (let j = 0; j < coords.length; j++) {
-          if (i === j) continue;
-          const c2 = coords[j];
-          const w2 = c2.isExpanded ? 44 : 18;
-          const h2 = c2.isExpanded ? 22 : 8;
-          const hw2 = w2 / 2;
-          const hh2 = h2 / 2;
-
-          const minDx = hw1 + hw2 + 4.0;
-          const minDy = hh1 + hh2 + 4.0;
-
-          let diffX = c1.currX - c2.currX;
-          let diffY = c1.currY - c2.currY;
-
-          if (diffX === 0 && diffY === 0) {
-            diffX = (i % 2 === 0 ? 1 : -1) * 0.5;
-            diffY = (i % 3 === 0 ? 1 : -1) * 0.5;
-          }
-
-          const overlapX = minDx - Math.abs(diffX);
-          const overlapY = minDy - Math.abs(diffY);
-
-          if (overlapX > 0 && overlapY > 0) {
-            if (overlapX < overlapY) {
-              const pushX = Math.sign(diffX) * overlapX * 0.5;
-              c1.currX += pushX;
-              c2.currX -= pushX;
-            } else {
-              const pushY = Math.sign(diffY) * overlapY * 0.5;
-              c1.currY += pushY;
-              c2.currY -= pushY;
-            }
-          }
-        }
-      }
-    }
-
-    return coords.map((c) => {
-      const minX = c.isExpanded ? 24 : 10;
-      const maxX = c.isExpanded ? 76 : 90;
-      const minY = c.isExpanded ? 16 : 10;
-      const maxY = c.isExpanded ? 84 : 90;
-
-      return {
-        ...c,
-        displayX: clamp(c.currX, minX, maxX),
-        displayY: clamp(c.currY, minY, maxY),
-      };
-    });
-  }, [visibleReviews, expandedIds]);
+  const topLevelReviews = useMemo(
+    () => reviews.filter((r) => r.replyTo === null),
+    [reviews],
+  );
 
   /* --- form submit and update handlers --- */
 
@@ -346,6 +233,10 @@ export default function Reviews() {
     reviewsRef.current = nextReviews;
     setReviews(nextReviews);
     setSyncState("ready");
+  }
+
+  function handleToggleReview(id: string) {
+    setExpandedId((prev) => (prev === id ? null : id));
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -407,29 +298,60 @@ export default function Reviews() {
     }
   }
 
-  /* --- mouse hover timeout handlers --- */
+  /* --- tree rendering helper --- */
 
-  function handleMouseEnter(id: string) {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-    hoverTimeoutRef.current = setTimeout(() => {
-      setHoveredId(id);
-    }, 200);
-  }
+  function renderReplies(parentId: string, depth: number) {
+    const children = reviews
+      .filter((r) => r.replyTo === parentId)
+      .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 
-  function handleMouseLeave() {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-    setHoveredId(null);
+    if (children.length === 0) return null;
+
+    return (
+      <div className={styles.reviewTree}>
+        {children.map((child) => {
+          const isLastChild =
+            children.indexOf(child) === children.length - 1;
+          const depthLabel =
+            DEPTH_LABELS[Math.min(depth + 1, DEPTH_LABELS.length - 1)];
+
+          return (
+            <div key={child.id} className={styles.treeItem}>
+              <div className={styles.treeRow}>
+                <span className={styles.treeConnector}>
+                  {isLastChild ? "└──" : "├──"}
+                </span>
+                <span className={styles.treeAlias}>@{child.alias}</span>
+                <span className={styles.treeDot}>·</span>
+                <span className={styles.treeDate}>
+                  {formatDate(child.createdAt)}
+                </span>
+              </div>
+              <div className={styles.treeContent}>
+                <p className={styles.treeBody}>{child.body}</p>
+                <div className={styles.treeFooter}>
+                  <span className={styles.depthLabel}>{depthLabel}</span>
+                  <button
+                    type="button"
+                    className={styles.replyBtn}
+                    onClick={() => setReplyTo(child.id)}
+                  >
+                    Reply
+                  </button>
+                </div>
+              </div>
+              {renderReplies(child.id, depth + 1)}
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 
   /* --- variables setup --- */
 
   const isApiLive = syncState === "ready" || syncState === "saving";
   const dotClass = isApiLive ? styles.statusDotOnline : styles.statusDotOffline;
-  const hasActiveChain = expandedIds.size > 0;
 
   return (
     <section id="reviews" className={sectionStyles.section}>
@@ -539,104 +461,81 @@ export default function Reviews() {
             </form>
           </aside>
 
-          <div className={styles.board} aria-label="Floating reviews">
-            {reviews.length === 0 && (
-              <div className={styles.emptyState}>
-                <span>{syncState === "offline" ? "Reviews API unavailable" : "Awaiting first signal"}</span>
+          <div className={styles.reviewPanel}>
+            <div className={styles.shellTitle}>
+              <div className={styles.shellDots}>
+                <span />
+                <span />
+                <span />
               </div>
-            )}
+              <span className={styles.shellPrompt}>reviews@portfolio:~$</span>
+            </div>
 
-            <svg className={styles.links} aria-hidden="true">
-              <defs>
-                <marker
-                  id="arrowhead-active"
-                  markerWidth="8"
-                  markerHeight="6"
-                  refX="8"
-                  refY="3"
-                  orient="auto"
-                  markerUnits="userSpaceOnUse"
-                >
-                  <polygon points="0 0, 8 3, 0 6" fill="rgba(95, 158, 160, 0.85)" />
-                </marker>
-                <marker
-                  id="arrowhead-dimmed"
-                  markerWidth="8"
-                  markerHeight="6"
-                  refX="8"
-                  refY="3"
-                  orient="auto"
-                  markerUnits="userSpaceOnUse"
-                >
-                  <polygon points="0 0, 8 3, 0 6" fill="rgba(95, 158, 160, 0.15)" />
-                </marker>
-              </defs>
-              {positionedReviews.map((review) => {
-                if (!review.replyTo) return null;
-                const parent = reviewById.get(review.replyTo);
-                if (!parent) return null;
+            <div className={styles.reviewList}>
+              {topLevelReviews.length === 0 && (
+                <div className={styles.emptyState}>
+                  <span>
+                    {syncState === "offline"
+                      ? "Reviews API unavailable"
+                      : "Awaiting first signal"}
+                  </span>
+                </div>
+              )}
 
-                const parentPositioned = positionedReviews.find((r) => r.id === parent.id);
-                if (!parentPositioned) return null;
-
-                const isActive = expandedIds.has(review.id) && expandedIds.has(parent.id);
+              {topLevelReviews.map((review, index) => {
+                const isExpanded = expandedId === review.id;
+                const replyCount = countReplies(review.id, reviews);
 
                 return (
-                  <line
-                    key={`${review.id}-${review.replyTo}`}
-                    x1={`${parentPositioned.displayX}%`}
-                    y1={`${parentPositioned.displayY}%`}
-                    x2={`${review.displayX}%`}
-                    y2={`${review.displayY}%`}
-                    className={isActive ? styles.activeLink : styles.dimmedLink}
-                    markerEnd={isActive ? "url(#arrowhead-active)" : "url(#arrowhead-dimmed)"}
-                  />
-                );
-              })}
-            </svg>
+                  <div key={review.id} className={styles.reviewItem}>
+                    <button
+                      type="button"
+                      className={`${styles.reviewRow} ${isExpanded ? styles.reviewRowActive : ""}`}
+                      style={{ ["--index" as string]: `${index}` }}
+                      onClick={() => handleToggleReview(review.id)}
+                    >
+                      <span className={styles.reviewArrow}>
+                        {isExpanded ? "▾" : "▸"}
+                      </span>
+                      <span className={styles.reviewAlias}>@{review.alias}</span>
+                      <span className={styles.reviewDate}>
+                        · {formatDate(review.createdAt)}
+                      </span>
+                      {replyCount > 0 && (
+                        <span className={styles.reviewReplyCount}>
+                          💬 {replyCount}
+                        </span>
+                      )}
+                    </button>
 
-            {positionedReviews.map((review, index) => {
-              const depth = getDepth(review, reviewById);
-              const depthLabel = DEPTH_LABELS[Math.min(depth, DEPTH_LABELS.length - 1)];
-
-              return (
-                <article
-                  key={review.id}
-                  className={[
-                    styles.reviewCard,
-                    review.isExpanded ? styles.expanded : "",
-                    hasActiveChain && !review.isExpanded ? styles.dimmed : "",
-                  ].filter(Boolean).join(" ")}
-                  style={{
-                    left: `${review.displayX}%`,
-                    top: `${review.displayY}%`,
-                    ["--float-delay" as string]: `${index * -0.75}s`,
-                  }}
-                  onMouseEnter={() => handleMouseEnter(review.id)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <header className={styles.cardHeader}>
-                    <strong>@{review.alias}</strong>
-                    <span className={styles.cardDate}>{formatDate(review.createdAt)}</span>
-                  </header>
-                  <div className={styles.cardDetails}>
-                    <div className={styles.cardDetailsInner}>
-                      <p className={styles.cardBody}>{review.body}</p>
-                      <footer className={styles.cardFooter}>
-                        <span className={styles.depthLabel}>{depthLabel}</span>
-                        <button
-                          type="button"
-                          className="hover-link"
-                          onClick={() => setReplyTo(review.id)}
-                        >
-                          Reply
-                        </button>
-                      </footer>
+                    <div
+                      className={`${styles.reviewExpand} ${isExpanded ? styles.reviewExpandOpen : ""}`}
+                    >
+                      <div className={styles.reviewExpandInner}>
+                        <div className={styles.reviewExpandContent}>
+                          <p className={styles.reviewBody}>{review.body}</p>
+                          <div className={styles.reviewFooter}>
+                            <span className={styles.depthLabel}>comment</span>
+                            <button
+                              type="button"
+                              className={styles.replyBtn}
+                              onClick={() => setReplyTo(review.id)}
+                            >
+                              Reply
+                            </button>
+                          </div>
+                          {isExpanded && renderReplies(review.id, 0)}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </article>
-              );
-            })}
+                );
+              })}
+            </div>
+
+            <div className={styles.replyHint}>
+              {"// click a review to see the replies"}
+            </div>
           </div>
         </div>
       </div>
