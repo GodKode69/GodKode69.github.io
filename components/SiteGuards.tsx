@@ -54,13 +54,15 @@ export default function SiteGuards() {
     document.body.appendChild(overlay);
 
     overlay.addEventListener("animationend", () => {
-      overlay.remove();
-      wiping.current = false;
-    });
-
-    setTimeout(() => {
+      document.documentElement.dataset.theme = next ? "light" : "dark";
       setLight(next);
-    }, 200);
+      overlay.classList.add("fade-out");
+      const onFadeEnd = () => {
+        overlay.remove();
+        wiping.current = false;
+      };
+      overlay.addEventListener("transitionend", onFadeEnd, { once: true });
+    });
 
     close();
   }
@@ -117,7 +119,7 @@ export default function SiteGuards() {
       <button
         type="button"
         className="ctx-item"
-        onClick={toggleTheme}
+        onClick={() => toggleTheme()}
       >
         <span className="ctx-icon">{light ? "☀" : "☾"}</span>
         {light ? "Dark Mode" : "Light Mode"}
