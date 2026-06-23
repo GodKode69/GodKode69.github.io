@@ -190,7 +190,7 @@ export const skills: Skill[] = [
     name: "API",
     icon: "/assets/icons/api.png",
     desc: "Designing and consuming interfaces that let systems communicate reliably.",
-    tier: "Expert",
+    tier: "Intermediate",
     category: "Backend / APIs",
   },
   {
