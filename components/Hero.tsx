@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { useDiscord, type DiscordData } from "@/hooks/useDiscord";
+import { heroTitle, heroStagger, heroItem } from "@/components/Motion";
 import styles from "./Hero.module.css";
 
 function getActivityImage(
@@ -95,19 +97,31 @@ export default function Hero() {
       )}
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 className="glitch" data-text="GODKODE">
+          <motion.h1
+            className="glitch"
+            data-text="GODKODE"
+            variants={heroTitle}
+            initial="hidden"
+            animate="visible"
+          >
             GODKODE
-          </h1>
+          </motion.h1>
 
-          <div className={`${styles.systemStatus} mono-text`}>
-            <span
+          <motion.div
+            className={`${styles.systemStatus} mono-text`}
+            variants={heroStagger}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.span
               id="discord-dot"
               className={`${styles.inlineStatusDot} ${
                 discord?.status ? styles[discord.status] : styles.offline
               }`}
+              variants={heroItem}
             />
             {discord ? (
-              <span>
+              <motion.span variants={heroItem}>
                 Entity{" "}
                 <span style={{ color: "var(--text-primary)" }}>@{discord.username}</span> is{" "}
                 <span
@@ -115,28 +129,44 @@ export default function Hero() {
                 >
                   {statusLabel}
                 </span>
-              </span>
+              </motion.span>
             ) : (
-              <span>Initializing Entity...</span>
+              <motion.span variants={heroItem}>Initializing Entity...</motion.span>
             )}
-          </div>
+          </motion.div>
 
-          <div className={styles.subtitleWrapper}>
-            <span className={styles.bracket} style={{ color: "var(--text-primary)" }}>
+          <motion.div
+            className={styles.subtitleWrapper}
+            variants={heroStagger}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.span className={styles.bracket} style={{ color: "var(--text-primary)" }} variants={heroItem}>
               ⌈<br />⌊
-            </span>
-            <p className={styles.subtitle}>
+            </motion.span>
+            <motion.p className={styles.subtitle} variants={heroItem}>
               <span style={{ color: "var(--accent)" }}>Out of </span> Reach &amp;
               <br />
               Into <span style={{ color: "var(--accent)" }}>the Breach</span>
-            </p>
-            <span className={styles.bracket} style={{ color: "var(--text-primary)" }}>
+            </motion.p>
+            <motion.span className={styles.bracket} style={{ color: "var(--text-primary)" }} variants={heroItem}>
               ⌉<br />⌋
-            </span>
-          </div>
+            </motion.span>
+          </motion.div>
         </div>
 
-        <div className={styles.visual}>
+        <motion.div
+          className={styles.visual}
+          initial={{ opacity: 0, x: 60, rotateY: -10 }}
+          animate={{ opacity: 1, x: 0, rotateY: 0 }}
+          transition={{
+            type: "spring",
+            damping: 20,
+            stiffness: 80,
+            delay: 0.6,
+          }}
+          style={{ perspective: 1200 }}
+        >
           <div
             className={`${styles.cardScene} ${discord?.spotify && discord?.activity ? styles.cardSceneTallBoth : discord?.spotify || discord?.activity ? styles.cardSceneTall : ""}`}
           >
@@ -414,12 +444,17 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      <div className={styles.scrollIndicator}>
+      <motion.div
+        className={styles.scrollIndicator}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 0.8, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      >
         <span className={styles.scrollPath}>~/portfolio/README.md</span>
-      </div>
+      </motion.div>
     </header>
   );
 }

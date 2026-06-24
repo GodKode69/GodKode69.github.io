@@ -1,7 +1,8 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { useReveal } from "@/hooks/useReveal";
+import { motion } from "framer-motion";
+import { sectionTitle, staggerContainer } from "@/components/Motion";
 import styles from "./Reviews.module.css";
 import sectionStyles from "./Section.module.css";
 
@@ -154,7 +155,6 @@ function countReplies(parentId: string, allReviews: Review[]): number {
 /* --- reviews main react component --- */
 
 export default function Reviews() {
-  const ref = useReveal<HTMLDivElement>();
   const reviewsRef = useRef<Review[]>(INITIAL_REVIEWS);
 
   const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
@@ -357,8 +357,22 @@ export default function Reviews() {
   return (
     <section id="reviews" className={sectionStyles.section}>
       <div className={sectionStyles.container}>
-        <h2 className={sectionStyles.title}>04 / Reviews - {reviews.length}</h2>
-        <div ref={ref} className={`${styles.shell} reveal`}>
+        <motion.h2
+          className={sectionStyles.title}
+          variants={sectionTitle}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          04 / Reviews - {reviews.length}
+        </motion.h2>
+        <motion.div
+          className={styles.shell}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <aside className={styles.composer}>
             <div>
               <p className="mono-text">signal input</p>
@@ -542,7 +556,7 @@ export default function Reviews() {
               {"// click a review to see the replies"}
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

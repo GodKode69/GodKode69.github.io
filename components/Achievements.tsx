@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { achievements } from "@/lib/achievements";
-import { useReveal } from "@/hooks/useReveal";
+import { staggerContainer, staggerItem, sectionTitle } from "@/components/Motion";
 import styles from "./Achievements.module.css";
 import sectionStyles from "./Section.module.css";
 
@@ -11,9 +12,8 @@ function AchievementCard({
 }: {
   achievement: (typeof achievements)[0];
 }) {
-  const ref = useReveal();
   return (
-    <article ref={ref} className={`${styles.card} reveal`}>
+    <article className={styles.card}>
       <div className={styles.cardGlow} />
       <div className={styles.cardHeader}>
         <span className={styles.date}>{achievement.date}</span>
@@ -51,14 +51,28 @@ export default function Achievements() {
   return (
     <section id="achievements" className={sectionStyles.section}>
       <div className={sectionStyles.container}>
-        <h2 className={sectionStyles.title}>
+        <motion.h2
+          className={sectionStyles.title}
+          variants={sectionTitle}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           03 / Milestones - {achievements.length}
-        </h2>
-        <div className={styles.grid}>
+        </motion.h2>
+        <motion.div
+          className={styles.grid}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {achievements.map((a, i) => (
-            <AchievementCard key={i} achievement={a} />
+            <motion.div key={i} variants={staggerItem}>
+              <AchievementCard achievement={a} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

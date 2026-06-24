@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { projects } from "@/lib/projects";
-import { useReveal } from "@/hooks/useReveal";
+import { staggerContainer, staggerItem, sectionTitle } from "@/components/Motion";
 import styles from "./Work.module.css";
 import sectionStyles from "./Section.module.css";
 
@@ -21,9 +22,8 @@ function getLinkMeta(href?: string) {
 }
 
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
-  const ref = useReveal();
   return (
-    <article ref={ref} className={`${styles.card} reveal`}>
+    <article className={styles.card}>
       <div className={styles.cardGlow} />
       <div className={styles.cardHeader}>
         <span className={styles.year}>{project.year}</span>
@@ -78,10 +78,28 @@ export default function Work() {
   return (
     <section id="work" className={sectionStyles.section}>
       <div className={sectionStyles.container}>
-        <h2 className={sectionStyles.title}>02 / Executables - {projects.length}</h2>
-        <div className={styles.grid}>
-          {projects.map((p) => <ProjectCard key={p.title} project={p} />)}
-        </div>
+        <motion.h2
+          className={sectionStyles.title}
+          variants={sectionTitle}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          02 / Executables - {projects.length}
+        </motion.h2>
+        <motion.div
+          className={styles.grid}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {projects.map((p) => (
+            <motion.div key={p.title} variants={staggerItem}>
+              <ProjectCard project={p} />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { skills, skillCategoryDescriptions, type Tier } from "@/lib/skills";
+import { sectionTitle, staggerContainer, staggerItem } from "@/components/Motion";
 import styles from "./Skills.module.css";
 import sectionStyles from "./Section.module.css";
 
@@ -15,6 +18,8 @@ const TIER_CONFIG: Record<Tier, { segments: number; color: string; glow: string 
 const TOTAL_SEGMENTS = 5;
 
 export default function Skills() {
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
   const groupedSkills = Object.entries(
     skills.reduce<Record<string, typeof skills>>((acc, skill) => {
       if (!acc[skill.category]) {
@@ -27,10 +32,24 @@ export default function Skills() {
 
   return (
     <section id="skill" className={sectionStyles.section} suppressHydrationWarning={true}><div className={sectionStyles.container}>
-        <h2 className={sectionStyles.title}>01 / Skill Tree - {skills.length}</h2>
-        <div className={styles.grid}>
+        <motion.h2
+          className={sectionStyles.title}
+          variants={sectionTitle}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          01 / Skill Tree - {skills.length}
+        </motion.h2>
+        <motion.div
+          className={styles.grid}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {groupedSkills.map(([category, categorySkills]) => (
-            <article key={category} className={styles.card}>
+            <motion.article key={category} className={styles.card} variants={staggerItem}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>{category}</h3>
                 <span className={styles.cardCount}>{categorySkills.length}</span>
@@ -41,39 +60,79 @@ export default function Skills() {
               <div className={`tech-stack ${styles.stack}`}>
                 {categorySkills.map((skill) => {
                   const cfg = TIER_CONFIG[skill.tier];
+                  const isHovered = hoveredSkill === skill.name;
                   return (
-                    <span key={skill.name} className={`hover-link ${styles.chip}`}>
+                    <span
+                      key={skill.name}
+                      className={`hover-link ${styles.chip}`}
+                      onMouseEnter={() => setHoveredSkill(skill.name)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                    >
                       {skill.name}
-                      <div className={styles.popup}>
-                        <div className={styles.popupHeader}>
-                          <img src={skill.icon} alt={skill.name} width={24} height={24} />
-                          <span className={styles.popupTitle}>{skill.name}</span>
-                        </div>
-                        <p className={styles.popupDesc}>{skill.desc}</p>
-                        <div className={styles.visualize}>
-                          <div className={styles.tierLabel}>{skill.tier}</div>
-                          <div className={styles.tierBar}>
-                            {Array.from({ length: TOTAL_SEGMENTS }, (_, i) => (
-                              <div
-                                key={i}
-                                className={`${styles.tierSegment} ${i < cfg.segments ? styles.tierFilled : ""}`}
-                                style={{
-                                  ["--seg-color" as string]: cfg.color,
-                                  ["--seg-glow" as string]: cfg.glow,
-                                  ["--seg-index" as string]: i,
-                                }}
+                      <AnimatePresence>
+                        {isHovered && (
+                          <motion.div
+                            className={styles.popup}
+                            initial={{ opacity: 0, y: 12, scale: 0.92, filter: "blur(6px)" }}
+                            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, y: 8, scale: 0.95, filter: "blur(4px)" }}
+                            transition={{ type: "spring", damping: 22, stiffness: 200 }}
+                          >
+                            <div className={styles.popupHeader}>
+                              <motion.img
+                                src={skill.icon}
+                                alt={skill.name}
+                                width={24}
+                                height={24}
+                                initial={{ scale: 0, rotate: -90 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                transition={{ type: "spring", damping: 15, stiffness: 200, delay: 0.05 }}
                               />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
+                              <span className={styles.popupTitle}>{skill.name}</span>
+                            </div>
+                            <p className={styles.popupDesc}>{skill.desc}</p>
+                            <div className={styles.visualize}>
+                              <div className={styles.tierLabel}>{skill.tier}</div>
+                              <div className={styles.tierBar}>
+                                {Array.from({ length: TOTAL_SEGMENTS }, (_, i) => {
+                                  const filled = i < cfg.segments;
+                                  return filled ? (
+                                    <motion.div
+                                      key={i}
+                                      className={`${styles.tierSegment} ${styles.tierFilled}`}
+                                      style={{
+                                        ["--seg-color" as string]: cfg.color,
+                                        ["--seg-glow" as string]: cfg.glow,
+                                        ["--seg-index" as string]: i,
+                                      }}
+                                      initial={{ scaleY: 0, opacity: 0 }}
+                                      animate={{ scaleY: 1, opacity: 1 }}
+                                      transition={{
+                                        type: "spring",
+                                        damping: 12,
+                                        stiffness: 150,
+                                        delay: 0.08 + i * 0.06,
+                                      }}
+                                    />
+                                  ) : (
+                                    <div
+                                      key={i}
+                                      className={styles.tierSegment}
+                                    />
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </span>
                   );
                 })}
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

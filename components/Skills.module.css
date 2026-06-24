@@ -71,7 +71,7 @@
   position: absolute;
   bottom: 150%;
   left: 50%;
-  transform: translateX(-50%) translateY(10px);
+  transform: translateX(-50%);
   width: 220px;
   background: var(--bg-card);
   border: 1px solid var(--border-strong);
@@ -79,10 +79,7 @@
   padding: 12px;
   color: var(--text-primary);
   z-index: 100;
-  opacity: 0;
-  visibility: hidden;
   pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   text-transform: none;
 }
@@ -95,12 +92,6 @@
   border-width: 5px;
   border-style: solid;
   border-color: var(--bg-card) transparent transparent transparent;
-}
-
-.chip:hover .popup {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
 }
 
 .popupHeader {
@@ -158,22 +149,6 @@
   box-shadow: 0 0 10px var(--seg-glow), inset 0 0 6px rgba(255, 255, 255, 0.15);
 }
 
-.chip:hover .tierSegment {
-  animation: segPulse 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--seg-index) * 80ms);
-}
-
-.chip:hover .tierFilled {
-  animation: segGlow 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-  animation-delay: calc(var(--seg-index) * 80ms);
-}
-
-@keyframes segPulse {
-  0% { transform: scaleY(0.6); opacity: 0.7; }
-  50% { transform: scaleY(1.25); opacity: 1; }
-  100% { transform: scaleY(1); opacity: 1; }
-}
-
 @keyframes segGlow {
   0% {
     box-shadow: 0 0 8px var(--seg-glow), inset 0 0 6px rgba(255, 255, 255, 0.12);
@@ -207,10 +182,5 @@
   .popup {
     left: 0;
     width: min(260px, calc(100vw - 3rem));
-    transform: translateY(10px);
-  }
-
-  .chip:hover .popup {
-    transform: translateY(0);
   }
 }

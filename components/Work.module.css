@@ -22,7 +22,9 @@
   transition:
     transform 0.35s ease,
     border-color 0.35s ease,
-    box-shadow 0.35s ease;
+    box-shadow 0.35s ease,
+    opacity 0.4s ease,
+    filter 0.4s ease;
   isolation: isolate;
 }
 
@@ -32,6 +34,12 @@
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.35),
     0 0 0 1px rgba(95, 158, 160, 0.12);
+}
+
+.grid:has(.card:hover) .card:not(:hover) {
+  opacity: 0.35;
+  filter: blur(1px);
+  transform: scale(0.97);
 }
 
 .cardGlow {
