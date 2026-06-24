@@ -357,7 +357,7 @@ export default function Reviews() {
   return (
     <section id="reviews" className={sectionStyles.section}>
       <div className={sectionStyles.container}>
-        <h2 className={sectionStyles.title}>03 / Reviews - {reviews.length}</h2>
+        <h2 className={sectionStyles.title}>04 / Reviews - {reviews.length}</h2>
         <div ref={ref} className={`${styles.shell} reveal`}>
           <aside className={styles.composer}>
             <div>

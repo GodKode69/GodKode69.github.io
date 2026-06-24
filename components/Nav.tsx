@@ -44,6 +44,7 @@ export default function Nav() {
       <ul className={styles.links}>
         <li><a href="#skill" className="hover-link" onClick={scrollToSection}>Skills</a></li>
         <li><a href="#work" className="hover-link" onClick={scrollToSection}>Work</a></li>
+        <li><a href="#achievements" className="hover-link" onClick={scrollToSection}>Milestones</a></li>
         <li><a href="#reviews" className="hover-link" onClick={scrollToSection}>Reviews</a></li>
         <li className={styles.contactItem}>
           <button
