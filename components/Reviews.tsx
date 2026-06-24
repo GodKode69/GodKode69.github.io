@@ -28,7 +28,7 @@ const REVIEWS_ENDPOINT = `${API_BASE_URL}/reviews`;
 const ALIAS_KEY = "godkode.reviewAlias.v1";
 const USER_ID_KEY = "godkode.reviewUserId.v1";
 const INITIAL_REVIEWS: Review[] = [];
-const POLL_INTERVAL = 3000;
+const POLL_INTERVAL = 12000;
 const DEPTH_LABELS = ["comment", "↳ reply", "↳↳ reply", "↳↳↳ reply"];
 
 /* --- math and helper functions --- */
@@ -79,6 +79,7 @@ async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
     ...init,
     headers: {
       "Content-Type": "application/json",
+      "X-Requested-With": "XMLHttpRequest",
       ...init?.headers,
     },
   });

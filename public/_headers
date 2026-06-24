@@ -1,0 +1,7 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' https://cdn.discordapp.com https://api.lanyard.rest https://i.scdn.co https://images.unsplash.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.lanyard.rest https://api.godkode.xyz; frame-ancestors 'none'

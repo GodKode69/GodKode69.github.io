@@ -42,7 +42,10 @@ function readAvatarCache(): { hash: string; url: string } | null {
   try {
     const raw = window.localStorage.getItem(AVATAR_CACHE_KEY);
     if (!raw) return null;
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (typeof parsed?.hash !== "string" || typeof parsed?.url !== "string") return null;
+    if (!parsed.url.startsWith("https://cdn.discordapp.com/")) return null;
+    return parsed;
   } catch {
     return null;
   }

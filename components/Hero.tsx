@@ -6,20 +6,51 @@ import { useDiscord, type DiscordData } from "@/hooks/useDiscord";
 import { heroTitle, heroStagger, heroItem } from "@/components/Motion";
 import styles from "./Hero.module.css";
 
+const ALLOWED_IMAGE_HOSTS = [
+  "cdn.discordapp.com",
+  "i.scdn.co",
+  "images.unsplash.com",
+];
+
+const DEFAULT_AVATAR = "https://cdn.discordapp.com/embed/avatars/0.png";
+
+function isAllowedImageUrl(url: string): boolean {
+  try {
+    const { hostname, protocol } = new URL(url);
+    return protocol === "https:" && ALLOWED_IMAGE_HOSTS.includes(hostname);
+  } catch {
+    return false;
+  }
+}
+
+function sanitizeImageUrl(url: string, fallback: string = DEFAULT_AVATAR): string {
+  return isAllowedImageUrl(url) ? url : fallback;
+}
+
 function getActivityImage(
   act: NonNullable<ReturnType<typeof useDiscord>["discord"]>["activity"],
 ): string {
   if (!act?.assets?.large_image) {
-    return "https://cdn.discordapp.com/embed/avatars/0.png";
+    return DEFAULT_AVATAR;
   }
 
   const img = act.assets.large_image;
 
   if (img.startsWith("mp:external")) {
-    return img.replace(/mp:external\/.*\/https\//, "https://");
+    const extracted = img.replace(/mp:external\/.*\/https\//, "https://");
+    try {
+      const url = new URL(extracted);
+      if (url.protocol === "https:" && isAllowedImageUrl(extracted)) {
+        return extracted;
+      }
+    } catch {
+      // fall through
+    }
+    return DEFAULT_AVATAR;
   }
 
-  return `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;
+  const constructed = `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;
+  return sanitizeImageUrl(constructed);
 }
 
 function getStatusClass(status: DiscordData["status"] | undefined): string {
@@ -187,7 +218,7 @@ export default function Hero() {
                 <div className={styles.cardHeader}>
                   <div className={styles.avatarWrapper}>
                     <img
-                      src={discord?.avatarUrl ?? "/assets/profile/avatar.webp"}
+                      src={discord?.avatarUrl ? sanitizeImageUrl(discord.avatarUrl, "/assets/profile/avatar.webp") : "/assets/profile/avatar.webp"}
                       alt="Avatar"
                       className={styles.avatar}
                       width={70}
@@ -251,7 +282,7 @@ export default function Hero() {
                         {/* Spotify artwork host varies, so this stays a plain img. */}
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={discord.spotify.album_art_url}
+                          src={sanitizeImageUrl(discord.spotify.album_art_url)}
                           alt="album"
                           className={styles.activityImg}
                           loading="lazy"
