@@ -11,7 +11,6 @@ import sectionStyles from "./Section.module.css";
 type Review = {
   id: string;
   alias: string;
-  authorId?: string;
   body: string;
   createdAt: string;
   replyTo: string | null;
@@ -64,7 +63,6 @@ function normalizeReview(value: unknown): Review | null {
   return {
     id,
     alias,
-    authorId: stringValue(value.authorId) || undefined,
     body,
     createdAt,
     replyTo,
@@ -109,17 +107,10 @@ async function fetchReviews() {
   return extractReviews(await requestJson<unknown>(REVIEWS_ENDPOINT));
 }
 
-async function createReview(review: Review) {
+async function createReview(review: { alias: string; body: string; authorId: string; replyTo: string | null; x: number; y: number }) {
   await requestJson<unknown>(REVIEWS_ENDPOINT, {
     method: "POST",
     body: JSON.stringify(review),
-  });
-}
-
-async function updateAuthorAlias(authorId: string, alias: string) {
-  await requestJson<unknown>(`${REVIEWS_ENDPOINT}/alias`, {
-    method: "PATCH",
-    body: JSON.stringify({ authorId, alias }),
   });
 }
 
@@ -247,16 +238,6 @@ export default function Reviews() {
     if (!savedAlias || !body || !userId) return;
 
     const parent = replyTo ? reviewById.get(replyTo) : null;
-    const review: Review = {
-      id: crypto.randomUUID(),
-      alias: savedAlias,
-      authorId: userId,
-      body,
-      createdAt: new Date().toISOString(),
-      replyTo,
-      x: parent ? clamp(parent.x + (Math.random() * 20 - 10), 15, 85) : 16 + Math.random() * 68,
-      y: parent ? clamp(parent.y + (parent.y > 50 ? -20 : 20), 15, 85) : 18 + Math.random() * 62,
-    };
 
     try {
       setSyncState("saving");
@@ -265,7 +246,14 @@ export default function Reviews() {
         window.localStorage.setItem(ALIAS_KEY, savedAlias);
       }
 
-      await createReview(review);
+      await createReview({
+        alias: savedAlias,
+        body,
+        authorId: userId,
+        replyTo,
+        x: parent ? clamp(parent.x + (Math.random() * 20 - 10), 15, 85) : 16 + Math.random() * 68,
+        y: parent ? clamp(parent.y + (parent.y > 50 ? -20 : 20), 15, 85) : 18 + Math.random() * 62,
+      });
       await reloadReviews();
       setDraftAlias("");
       setDraftReview("");
@@ -279,23 +267,16 @@ export default function Reviews() {
     event.preventDefault();
 
     const nextAlias = draftAlias.trim();
-    if (!nextAlias || nextAlias === alias || !userId) {
+    if (!nextAlias || nextAlias === alias) {
       setDraftAlias("");
       setIsEditingAlias(false);
       return;
     }
 
-    try {
-      setSyncState("saving");
-      setAlias(nextAlias);
-      window.localStorage.setItem(ALIAS_KEY, nextAlias);
-      await updateAuthorAlias(userId, nextAlias);
-      await reloadReviews();
-      setDraftAlias("");
-      setIsEditingAlias(false);
-    } catch {
-      setSyncState("offline");
-    }
+    setAlias(nextAlias);
+    window.localStorage.setItem(ALIAS_KEY, nextAlias);
+    setDraftAlias("");
+    setIsEditingAlias(false);
   }
 
   /* --- tree rendering helper --- */
