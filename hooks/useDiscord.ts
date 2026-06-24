@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-const DISCORD_ID = "1150339860725514320";
-const AVATAR_CACHE_KEY = "godkode.avatarCache";
+const discordId = "1150339860725514320";
+const avatarCacheKey = "godkode.avatarCache";
 
 export type DiscordActivity = {
   type: number;
@@ -30,7 +30,7 @@ export type DiscordData = {
   activity: DiscordActivity | null;
 };
 
-const STATUS_LABEL: Record<string, string> = {
+const statusLabels: Record<string, string> = {
   online: "online",
   idle: "idle",
   dnd: "on do not disturb",
@@ -40,7 +40,7 @@ const STATUS_LABEL: Record<string, string> = {
 function readAvatarCache(): { hash: string; url: string } | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = window.localStorage.getItem(AVATAR_CACHE_KEY);
+    const raw = window.localStorage.getItem(avatarCacheKey);
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (typeof parsed?.hash !== "string" || typeof parsed?.url !== "string") return null;
@@ -53,15 +53,14 @@ function readAvatarCache(): { hash: string; url: string } | null {
 
 function writeAvatarCache(hash: string, url: string) {
   try {
-    window.localStorage.setItem(AVATAR_CACHE_KEY, JSON.stringify({ hash, url }));
+    window.localStorage.setItem(avatarCacheKey, JSON.stringify({ hash, url }));
   } catch {
-    // storage full or unavailable
   }
 }
 
 async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
   try {
-    const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`, {
+    const res = await fetch(`https://api.lanyard.rest/v1/users/${discordId}`, {
       cache: "no-store",
       signal,
     });
@@ -75,7 +74,7 @@ async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
     );
 
     const avatarHash: string | null = data.discord_user.avatar ?? null;
-    const cdnUrl = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`;
+    const cdnUrl = `https://cdn.discordapp.com/avatars/${discordId}/${data.discord_user.avatar}.png`;
 
     return {
       status: data.discord_status,
@@ -125,20 +124,17 @@ export function useDiscord() {
 
       const nextDiscord = await fetchLanyard(controller.signal);
       if (mounted && nextDiscord) {
-        const cached = readAvatarCache();
-
-        if (cached && cached.hash && nextDiscord.avatarHash && cached.hash !== nextDiscord.avatarHash) {
+        if (nextDiscord.avatarHash) {
           writeAvatarCache(nextDiscord.avatarHash, nextDiscord.avatarUrl);
-          nextDiscord.avatarUrl = nextDiscord.avatarUrl;
-        } else if (!cached || cached.hash !== nextDiscord.avatarHash) {
-          if (nextDiscord.avatarHash) {
-            writeAvatarCache(nextDiscord.avatarHash, nextDiscord.avatarUrl);
-          }
-        } else {
-          nextDiscord.avatarUrl = cached.url;
         }
-
         setDiscord(nextDiscord);
+      } else if (mounted) {
+        const cached = readAvatarCache();
+        if (cached) {
+          setDiscord((prev) =>
+            prev ? { ...prev, avatarUrl: cached.url } : prev,
+          );
+        }
       }
 
       inFlight = false;
@@ -172,7 +168,7 @@ export function useDiscord() {
     };
   }, []);
 
-  const statusLabel = discord ? STATUS_LABEL[discord.status] ?? discord.status : "";
+  const statusLabel = discord ? statusLabels[discord.status] ?? discord.status : "";
 
   return { discord, statusLabel };
 }

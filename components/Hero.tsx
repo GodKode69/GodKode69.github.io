@@ -6,24 +6,24 @@ import { useDiscord, type DiscordData } from "@/hooks/useDiscord";
 import { heroTitle, heroStagger, heroItem } from "@/components/Motion";
 import styles from "./Hero.module.css";
 
-const ALLOWED_IMAGE_HOSTS = [
+const allowedImageHosts = [
   "cdn.discordapp.com",
   "i.scdn.co",
   "images.unsplash.com",
 ];
 
-const DEFAULT_AVATAR = "https://cdn.discordapp.com/embed/avatars/0.png";
+const defaultAvatar = "https://cdn.discordapp.com/embed/avatars/0.png";
 
 function isAllowedImageUrl(url: string): boolean {
   try {
     const { hostname, protocol } = new URL(url);
-    return protocol === "https:" && ALLOWED_IMAGE_HOSTS.includes(hostname);
+    return protocol === "https:" && allowedImageHosts.includes(hostname);
   } catch {
     return false;
   }
 }
 
-function sanitizeImageUrl(url: string, fallback: string = DEFAULT_AVATAR): string {
+function sanitizeImageUrl(url: string, fallback: string = defaultAvatar): string {
   return isAllowedImageUrl(url) ? url : fallback;
 }
 
@@ -31,7 +31,11 @@ function getActivityImage(
   act: NonNullable<ReturnType<typeof useDiscord>["discord"]>["activity"],
 ): string {
   if (!act?.assets?.large_image) {
-    return DEFAULT_AVATAR;
+    return defaultAvatar;
+  }
+
+  if (act.application_id && !/^\d{17,20}$/.test(act.application_id)) {
+    return defaultAvatar;
   }
 
   const img = act.assets.large_image;
@@ -44,9 +48,8 @@ function getActivityImage(
         return extracted;
       }
     } catch {
-      // fall through
     }
-    return DEFAULT_AVATAR;
+    return defaultAvatar;
   }
 
   const constructed = `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;

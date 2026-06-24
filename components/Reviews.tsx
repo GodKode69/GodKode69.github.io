@@ -6,8 +6,6 @@ import { sectionTitle, staggerContainer } from "@/components/Motion";
 import styles from "./Reviews.module.css";
 import sectionStyles from "./Section.module.css";
 
-/* --- types and interfaces --- */
-
 type Review = {
   id: string;
   alias: string;
@@ -20,18 +18,14 @@ type Review = {
 
 type SyncState = "loading" | "ready" | "saving" | "offline";
 
-/* --- constants --- */
-
-const API_BASE_URL = (process.env.NEXT_PUBLIC_REVIEWS_API_BASE_URL ?? "https://api.godkode.xyz")
+const apiBaseUrl = (process.env.NEXT_PUBLIC_REVIEWS_API_BASE_URL ?? "https://api.godkode.xyz")
   .replace(/\/$/, "");
-const REVIEWS_ENDPOINT = `${API_BASE_URL}/reviews`;
-const ALIAS_KEY = "godkode.reviewAlias.v1";
-const USER_ID_KEY = "godkode.reviewUserId.v1";
-const INITIAL_REVIEWS: Review[] = [];
-const POLL_INTERVAL = 12000;
-const DEPTH_LABELS = ["comment", "↳ reply", "↳↳ reply", "↳↳↳ reply"];
-
-/* --- math and helper functions --- */
+const reviewsEndpoint = `${apiBaseUrl}/reviews`;
+const aliasKey = "godkode.reviewAlias.v1";
+const userIdKey = "godkode.reviewUserId.v1";
+const initialReviews: Review[] = [];
+const pollInterval = 12000;
+const depthLabels = ["comment", "↳ reply", "↳↳ reply", "↳↳↳ reply"];
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -71,8 +65,6 @@ function normalizeReview(value: unknown): Review | null {
   };
 }
 
-/* --- api interaction services --- */
-
 async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, {
     cache: "no-store",
@@ -105,31 +97,29 @@ function extractReviews(payload: unknown) {
 }
 
 async function fetchReviews() {
-  return extractReviews(await requestJson<unknown>(REVIEWS_ENDPOINT));
+  return extractReviews(await requestJson<unknown>(reviewsEndpoint));
 }
 
 async function createReview(review: { alias: string; body: string; authorId: string; replyTo: string | null; x: number; y: number }) {
-  await requestJson<unknown>(REVIEWS_ENDPOINT, {
+  await requestJson<unknown>(reviewsEndpoint, {
     method: "POST",
     body: JSON.stringify(review),
   });
 }
 
-/* --- state storage utility methods --- */
-
 function readAlias() {
   if (typeof window === "undefined") return "";
-  return window.localStorage.getItem(ALIAS_KEY) ?? "";
+  return window.localStorage.getItem(aliasKey) ?? "";
 }
 
 function readUserId() {
   if (typeof window === "undefined") return "";
 
-  const existing = window.localStorage.getItem(USER_ID_KEY);
+  const existing = window.localStorage.getItem(userIdKey);
   if (existing) return existing;
 
   const next = crypto.randomUUID();
-  window.localStorage.setItem(USER_ID_KEY, next);
+  window.localStorage.setItem(userIdKey, next);
   return next;
 }
 
@@ -144,12 +134,10 @@ function countReplies(parentId: string, allReviews: Review[]): number {
   return allReviews.filter((r) => r.replyTo === parentId).length;
 }
 
-/* --- reviews main react component --- */
-
 export default function Reviews() {
-  const reviewsRef = useRef<Review[]>(INITIAL_REVIEWS);
+  const reviewsRef = useRef<Review[]>(initialReviews);
 
-  const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
+  const [reviews, setReviews] = useState<Review[]>(initialReviews);
   const [alias, setAlias] = useState("");
   const [userId, setUserId] = useState("");
   const [draftAlias, setDraftAlias] = useState("");
@@ -158,8 +146,6 @@ export default function Reviews() {
   const [isEditingAlias, setIsEditingAlias] = useState(false);
   const [syncState, setSyncState] = useState<SyncState>("loading");
   const [expandedId, setExpandedId] = useState<string | null>(null);
-
-  /* --- component lifecycle effects --- */
 
   useEffect(() => {
     reviewsRef.current = reviews;
@@ -178,6 +164,9 @@ export default function Reviews() {
 
   useEffect(() => {
     let active = true;
+    let currentInterval = pollInterval;
+    const MAX_INTERVAL = 120_000;
+    let timeoutId: number | null = null;
 
     async function refresh() {
       try {
@@ -186,21 +175,25 @@ export default function Reviews() {
         reviewsRef.current = nextReviews;
         setReviews(nextReviews);
         setSyncState("ready");
+        currentInterval = pollInterval;
       } catch {
-        if (active) setSyncState("offline");
+        if (active) {
+          setSyncState("offline");
+          currentInterval = Math.min(currentInterval * 2, MAX_INTERVAL);
+        }
+      }
+      if (active) {
+        timeoutId = window.setTimeout(refresh, currentInterval);
       }
     }
 
     refresh();
-    const interval = window.setInterval(refresh, POLL_INTERVAL);
 
     return () => {
       active = false;
-      window.clearInterval(interval);
+      if (timeoutId) window.clearTimeout(timeoutId);
     };
   }, []);
-
-  /* --- reviews logic mappings and hooks --- */
 
   const replyTarget = useMemo(
     () => reviews.find((review) => review.id === replyTo) ?? null,
@@ -217,8 +210,6 @@ export default function Reviews() {
     () => reviews.filter((r) => r.replyTo === null),
     [reviews],
   );
-
-  /* --- form submit and update handlers --- */
 
   async function reloadReviews() {
     const nextReviews = await fetchReviews();
@@ -244,7 +235,7 @@ export default function Reviews() {
       setSyncState("saving");
       if (!alias) {
         setAlias(savedAlias);
-        window.localStorage.setItem(ALIAS_KEY, savedAlias);
+        window.localStorage.setItem(aliasKey, savedAlias);
       }
 
       await createReview({
@@ -275,12 +266,10 @@ export default function Reviews() {
     }
 
     setAlias(nextAlias);
-    window.localStorage.setItem(ALIAS_KEY, nextAlias);
+    window.localStorage.setItem(aliasKey, nextAlias);
     setDraftAlias("");
     setIsEditingAlias(false);
   }
-
-  /* --- tree rendering helper --- */
 
   function renderReplies(parentId: string, depth: number) {
     const children = reviews
@@ -295,7 +284,7 @@ export default function Reviews() {
           const isLastChild =
             children.indexOf(child) === children.length - 1;
           const depthLabel =
-            DEPTH_LABELS[Math.min(depth + 1, DEPTH_LABELS.length - 1)];
+            depthLabels[Math.min(depth + 1, depthLabels.length - 1)];
 
           return (
             <div key={child.id} className={styles.treeItem}>
@@ -330,8 +319,6 @@ export default function Reviews() {
       </div>
     );
   }
-
-  /* --- variables setup --- */
 
   const isApiLive = syncState === "ready" || syncState === "saving";
   const dotClass = isApiLive ? styles.statusDotOnline : styles.statusDotOffline;
