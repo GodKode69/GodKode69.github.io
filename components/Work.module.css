@@ -1,6 +1,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
   gap: 1.75rem;
 }
 
@@ -8,7 +9,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 320px;
+  height: 100%;
   padding: 1.4rem;
   overflow: hidden;
   border: 1px solid var(--border-default);
@@ -89,9 +90,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 112px;
-  height: 112px;
-  border-radius: 28px;
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
   border: 1px solid var(--border-default);
   background: rgba(255, 255, 255, 0.04);
   overflow: hidden;
