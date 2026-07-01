@@ -21,7 +21,7 @@ export const projects: Project[] = [
     year: "2026",
     title: "Fabric",
     desc: "An all-in-one discord.js bot with unique features.",
-    icon: "/assets/icons/f.gif",
+    icon: "/assets/icons/f.webp",
     links: [
       {
         label: "Invite",
@@ -65,7 +65,7 @@ export const projects: Project[] = [
     year: "2026",
     title: "Fabric-API",
     desc: "An API layer for the Fabric ecosystem, focused on exposing reusable bot and platform functionality.",
-    icon: "/assets/icons/f.gif",
+    icon: "/assets/icons/f.webp",
     links: [
       { label: "Visit", href: "https://api.godkode.xyz" },
       { label: "GitHub ↗", href: "https://github.com/GodKode69/fabric-api" },
