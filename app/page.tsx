@@ -3,7 +3,7 @@ import SkillsLazy from "@/components/SkillsLazy";
 import WorkLazy from "@/components/WorkLazy";
 import AchievementsLazy from "@/components/AchievementsLazy";
 import ReviewsSection from "@/components/ReviewsSection";
-import Footer from "@/components/Footer";
+import FooterLazy from "@/components/FooterLazy";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       <WorkLazy />
       <AchievementsLazy />
       <ReviewsSection />
-      <Footer />
+      <FooterLazy />
     </main>
   );
 }

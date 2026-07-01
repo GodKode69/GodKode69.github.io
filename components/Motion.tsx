@@ -1,3 +1,5 @@
+"use client";
+
 import { type Variants } from "framer-motion";
 
 export const staggerContainer: Variants = {
@@ -92,6 +94,21 @@ export const heroItem: Variants = {
       type: "spring",
       damping: 20,
       stiffness: 100,
+    },
+  },
+};
+
+export const parallaxFade: Variants = {
+  offscreen: {
+    opacity: 0,
+    y: 80,
+  },
+  onscreen: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };

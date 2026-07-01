@@ -1,5 +1,4 @@
 export type Achievement = {
-  id: string;
   title: string;
   date: string;
   description: string;
@@ -9,7 +8,6 @@ export type Achievement = {
 
 export const achievements: Achievement[] = [
   {
-    id: "github-contributions",
     title: "GitHub Contributions",
     date: "Since 21st May",
     description:
@@ -17,7 +15,6 @@ export const achievements: Achievement[] = [
     icon: "/assets/icons/github.webp",
   },
   {
-    id: "pull-shark",
     title: "Pull Shark",
     date: "2025",
     description: "Merged multiple pull requests — x2 badge earned.",
@@ -25,7 +22,6 @@ export const achievements: Achievement[] = [
     link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
   },
   {
-    id: "pair-extraordinaire",
     title: "Pair Extraordinaire",
     date: "2025",
     description: "Co-authored commits with other developers on shared projects.",
@@ -33,7 +29,6 @@ export const achievements: Achievement[] = [
     link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
   },
   {
-    id: "yolo",
     title: "YOLO",
     date: "2025",
     description: "Merged code without waiting for review — sometimes you just gotta ship it.",
@@ -41,7 +36,6 @@ export const achievements: Achievement[] = [
     link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
   },
   {
-    id: "quickdraw",
     title: "Quickdraw",
     date: "2025",
     description: "Closed an issue quickly, demonstrating fast problem resolution.",
@@ -49,7 +43,6 @@ export const achievements: Achievement[] = [
     link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
   },
   {
-    id: "zen-browser",
     title: "Zen Browser",
     date: "Since 30th June",
     description:
