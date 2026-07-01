@@ -482,7 +482,7 @@ export default function Hero() {
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/icons/cv.webp"
+                          src="/assets/icons/resume.webp"
                           alt="Resume"
                           className={styles.statIcon}
                           width={18}
