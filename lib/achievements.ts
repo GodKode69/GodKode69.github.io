@@ -4,6 +4,7 @@ export type Achievement = {
   date: string;
   description: string;
   icon: string;
+  badges?: { icon: string; label: string }[];
   link?: { label: string; href: string };
 };
 
@@ -15,37 +16,24 @@ export const achievements: Achievement[] = [
     description:
       "Over 40 days of daily contributions to github, commited more than 500 times this year.",
     icon: "/assets/icons/github.webp",
+    link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=overview&from=2026-07-01&to=2026-07-01" },
   },
   {
-    id: "pull-shark",
-    title: "Pull Shark",
+    id: "github-badges",
+    title: "GitHub Badges",
     date: "2025",
-    description: "Merged multiple pull requests — x2 badge earned.",
-    icon: "/assets/icons/pull-shark.webp",
-    link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
-  },
-  {
-    id: "pair-extraordinaire",
-    title: "Pair Extraordinaire",
-    date: "2025",
-    description: "Co-authored commits with other developers on shared projects.",
-    icon: "/assets/icons/pair-extraordinaire.webp",
-    link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
-  },
-  {
-    id: "yolo",
-    title: "YOLO",
-    date: "2025",
-    description: "Merged code without waiting for review — sometimes you just gotta ship it.",
-    icon: "/assets/icons/yolo.webp",
-    link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
-  },
-  {
-    id: "quickdraw",
-    title: "Quickdraw",
-    date: "2025",
-    description: "Closed an issue quickly, demonstrating fast problem resolution.",
-    icon: "/assets/icons/quickdraw.webp",
+    description:
+      "Earned multiple GitHub achievement badges which include - 2x Pull Shark, YOLO, Pair Extraordinaire, and Quickdraw.",
+    icon: "/assets/icons/github.webp",
+    badges: [
+      { icon: "/assets/icons/pull-shark.webp", label: "Pull Shark" },
+      {
+        icon: "/assets/icons/pair-extraordinaire.webp",
+        label: "Pair Extraordinaire",
+      },
+      { icon: "/assets/icons/yolo.webp", label: "YOLO" },
+      { icon: "/assets/icons/quickdraw.webp", label: "Quickdraw" },
+    ],
     link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
   },
   {
@@ -55,5 +43,6 @@ export const achievements: Achievement[] = [
     description:
       "Active contributor to Zen Browser, a privacy-focused web browser.",
     icon: "/assets/icons/zen-browser.webp",
+    link: { label: "View on GitHub ↗", href: "https://github.com/godkode69/zen-browser" },
   },
 ];

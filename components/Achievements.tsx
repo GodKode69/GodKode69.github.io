@@ -17,7 +17,22 @@ function AchievementCard({
       <div className={styles.cardGlow} />
       <div className={styles.cardHeader}>
         <span className={styles.date}>{achievement.date}</span>
-        {achievement.icon && (
+        {achievement.badges ? (
+          <div className={styles.badges}>
+            {achievement.badges.map((b) => (
+              <div key={b.label} className={styles.badgeIcon} title={b.label}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={b.icon}
+                  alt=""
+                  className={styles.iconImage}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))}
+          </div>
+        ) : achievement.icon ? (
           <div className={styles.iconWrapper}>
             {achievement.icon.startsWith("/") ? (
               /* eslint-disable-next-line @next/next/no-img-element */
@@ -32,7 +47,7 @@ function AchievementCard({
               <span>{achievement.icon}</span>
             )}
           </div>
-        )}
+        ) : null}
       </div>
       <div className={styles.cardBody}>
         <h3 className={styles.title}>{achievement.title}</h3>
