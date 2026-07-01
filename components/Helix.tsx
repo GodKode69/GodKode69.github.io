@@ -3,8 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 
 type StrandPoint = { x: number; y: number; t: number };
+
 const STRAND_GREEN = "74, 222, 128";
 const STRAND_YELLOW = "250, 204, 21";
+const POINTS = 160;
+const HEIGHT = 1200;
+const W = 60;
+const CX = W / 2;
+const AMPLITUDE = 11;
+const FREQ = 0.045;
+const RUNG_EVERY = 8;
+const BLOB_RADIUS = 12;
 
 function getTaperedBlobPath(
   pts: StrandPoint[],
@@ -40,6 +49,9 @@ function getTaperedBlobPath(
   return `M ${left[0]} L ${left.slice(1).join(" ")} L ${right.reverse().join(" ")} Z`;
 }
 
+const toPolyline = (pts: { x: number; y: number }[]) =>
+  pts.map((p) => `${p.x},${p.y}`).join(" ");
+
 export default function Helix() {
   const [scrollProgress, setScrollProgress] = useState<number | null>(null);
   const [tick, setTick] = useState(0);
@@ -55,7 +67,7 @@ export default function Helix() {
 
     let frame = 0;
     const loop = () => {
-      if (document.documentElement.dataset.reducedMotion === "true") {
+      if (document.hidden || document.documentElement.dataset.reducedMotion === "true") {
         rafRef.current = requestAnimationFrame(loop);
         return;
       }
@@ -73,34 +85,21 @@ export default function Helix() {
 
   if (scrollProgress === null) return null;
 
-  const POINTS      = 160;
-  const HEIGHT      = 1200;
-  const W           = 60;
-  const CX          = W / 2;
-  const AMPLITUDE   = 11;
-  const FREQ        = 0.045;
-  const RUNG_EVERY  = 8;
-  const BLOB_RADIUS = 12;
-
-  // wave offset driven by time only — scroll does NOT move the helix
   const waveOffset = tick * 1.2;
 
   const strandA: StrandPoint[] = [];
   const strandB: StrandPoint[] = [];
 
   for (let i = 0; i <= POINTS; i++) {
-    const y     = (i / POINTS) * HEIGHT;
+    const y = (i / POINTS) * HEIGHT;
     const angle = (y + waveOffset) * FREQ;
-    strandA.push({ x: CX + Math.sin(angle) * AMPLITUDE,           y, t: Math.sin(angle) });
+    strandA.push({ x: CX + Math.sin(angle) * AMPLITUDE, y, t: Math.sin(angle) });
     strandB.push({ x: CX + Math.sin(angle + Math.PI) * AMPLITUDE, y, t: Math.sin(angle + Math.PI) });
   }
 
-  const toPolyline = (pts: { x: number; y: number }[]) =>
-    pts.map((p) => `${p.x},${p.y}`).join(" ");
-
-  const pipIdx    = Math.round(scrollProgress * POINTS);
+  const pipIdx = Math.round(scrollProgress * POINTS);
   const blobStart = Math.max(0, pipIdx - BLOB_RADIUS);
-  const blobEnd   = Math.min(POINTS, pipIdx + BLOB_RADIUS);
+  const blobEnd = Math.min(POINTS, pipIdx + BLOB_RADIUS);
 
   const blobA = strandA.slice(blobStart, blobEnd + 1);
   const blobB = strandB.slice(blobStart, blobEnd + 1);
@@ -109,8 +108,6 @@ export default function Helix() {
   const blobCorePathA = getTaperedBlobPath(blobA, 1.75, 0.55);
   const blobCorePathB = getTaperedBlobPath(blobB, 1.75, 0.55);
 
-  // trailEndY: the y-coordinate up to which we show the glow
-  // this grows from 0 → HEIGHT as you scroll
   const trailEndY = strandA[blobEnd]?.y ?? 0;
 
   return (
@@ -140,10 +137,6 @@ export default function Helix() {
             <feMerge><feMergeNode in="blur" /><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
 
-          {/*
-            Core trail stays close to the strand width, while a separate halo
-            fades out down the visited portion so the tail blends back into the base helix.
-          */}
           <linearGradient id="trail-core-mask-grad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%"   stopColor="white" stopOpacity="1"    />
             <stop offset="85%"  stopColor="white" stopOpacity="0.6"  />
@@ -168,11 +161,9 @@ export default function Helix() {
         </defs>
 
         <g clipPath="url(#bar-clip)">
-          {/* ── dim base strands — always full length, always dim ── */}
           <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${STRAND_GREEN},0.14)`} strokeWidth="1.5" />
           <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.14)`} strokeWidth="1.5" />
 
-          {/* ── glowing trail — thin core with a halo that tapers off down the tail ── */}
           <g mask="url(#trail-core-mask)">
             <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${STRAND_GREEN},0.95)`} strokeWidth="1.5" />
             <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.95)`} strokeWidth="1.5" />
@@ -182,10 +173,9 @@ export default function Helix() {
             <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.95)`} strokeWidth="2.1" filter="url(#glow-yellow)" />
           </g>
 
-          {/* ── base-pair rungs ── */}
           {strandA.map((a, i) => {
             if (i % RUNG_EVERY !== 0) return null;
-            const b       = strandB[i];
+            const b = strandB[i];
             const opacity = 0.08 + Math.abs(a.t) * 0.22;
             return (
               <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
@@ -193,10 +183,9 @@ export default function Helix() {
             );
           })}
 
-          {/* ── nucleotide nodes ── */}
           {strandA.map((a, i) => {
             if (i % 6 !== 0) return null;
-            const b      = strandB[i];
+            const b = strandB[i];
             const depthA = (a.t + 1) / 2;
             const depthB = (b.t + 1) / 2;
             return (
@@ -207,7 +196,6 @@ export default function Helix() {
             );
           })}
 
-          {/* ── blob ── */}
           {blobPathA && blobCorePathA && (
             <>
               <path d={blobPathA} fill={`rgba(${STRAND_GREEN},0.2)`} filter="url(#blob-green)" />
@@ -221,7 +209,6 @@ export default function Helix() {
             </>
           )}
 
-          {/* bright rung at blob centre */}
           {(() => {
             const a = strandA[pipIdx];
             const b = strandB[pipIdx];

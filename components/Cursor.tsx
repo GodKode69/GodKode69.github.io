@@ -65,40 +65,64 @@ interface TrailProps {
 
 const HOVER_SELECTOR = "a, button, .hover-link, .tech-stack span";
 
+const TRAIL_PROPS: Required<TrailProps> = {
+  variant: "line",
+  fillType: "solid",
+  trailColor: "#5f9ea0",
+  trailColorEnd: "#5f9ea0",
+  trailLength: 80,
+  lineWidth: 3,
+  fadeOut: true,
+  smoothing: 0.3,
+  dotSize: 6,
+  dotSpacing: 10,
+  particleCount: 6,
+  particleSize: 3,
+  spreadAngle: 30,
+  drift: 0.4,
+  pixelSize: 6,
+  snapToGrid: true,
+  blendMode: "source-over",
+  autoFade: true,
+  fadeDuration: 1,
+};
+
+function spawnParticles(
+  particles: Particle[],
+  x: number,
+  y: number,
+  lastX: number,
+  lastY: number,
+  p: Required<TrailProps>,
+) {
+  const dx = x - lastX;
+  const dy = y - lastY;
+  const speed = Math.hypot(dx, dy);
+  if (speed <= 2) return;
+
+  const angle = Math.atan2(dy, dx);
+  const spread = (p.spreadAngle * Math.PI) / 180;
+  for (let i = 0; i < p.particleCount; i++) {
+    const a = angle + (Math.random() - 0.5) * spread;
+    const v = speed * 0.1 + Math.random() * 2;
+    particles.push({
+      x,
+      y,
+      vx: Math.cos(a) * v,
+      vy: Math.sin(a) * v,
+      life: 0.8 + Math.random() * 0.4,
+      size: p.particleSize + Math.random() * 1.5,
+    });
+  }
+}
+
 export default function Cursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const trailPointsRef = useRef<TrailPoint[]>([]);
   const particlesRef = useRef<Particle[]>([]);
   const rafRef = useRef<number>(0);
-  const timeRef = useRef(performance.now());
-
-  const props: Required<TrailProps> = {
-    variant: "line",
-    fillType: "solid",
-    trailColor: "#5f9ea0",
-    trailColorEnd: "#5f9ea0",
-    trailLength: 80,
-    lineWidth: 3,
-    fadeOut: true,
-    smoothing: 0.3,
-    dotSize: 6,
-    dotSpacing: 10,
-    particleCount: 6,
-    particleSize: 3,
-    spreadAngle: 30,
-    drift: 0.4,
-    pixelSize: 6,
-    snapToGrid: true,
-    blendMode: "source-over",
-    autoFade: true,
-    fadeDuration: 1,
-  };
-
-  const propsRef = useRef(props);
-  useEffect(() => {
-    propsRef.current = props;
-  }, []);
+  const timeRef = useRef(0);
 
   // --- Resize ---
   useEffect(() => {
@@ -123,19 +147,13 @@ export default function Cursor() {
     if (!cursor || !canvas) return;
 
     let isVisible = false;
-    let hasMoved = false;
 
     const handlePointerMove = (e: PointerEvent) => {
-      const canvasRect = canvas.getBoundingClientRect();
       const x = e.clientX;
       const y = e.clientY;
-      const p = propsRef.current;
+      const p = TRAIL_PROPS;
       const points = trailPointsRef.current;
       const last = points[points.length - 1];
-
-      if (!hasMoved) {
-        hasMoved = true;
-      }
 
       if (!isVisible) {
         isVisible = true;
@@ -145,45 +163,23 @@ export default function Cursor() {
       cursor.style.left = x + "px";
       cursor.style.top = y + "px";
 
-      // Debounce dots based on spacing
       if (p.variant === "dots" && last) {
         const dx = x - last.x;
         const dy = y - last.y;
         if (Math.hypot(dx, dy) < p.dotSpacing) return;
       }
 
-      // Smoothing
       const s = Math.max(0.001, 1 - p.smoothing);
       const sx = last ? last.x + (x - last.x) * s : x;
       const sy = last ? last.y + (y - last.y) * s : y;
       points.push({ x: sx, y: sy, life: 1 });
 
-      // Trim length
       if (points.length > p.trailLength) {
         points.splice(0, points.length - p.trailLength);
       }
 
-      // Spawn particles
       if (p.variant === "particles" && last) {
-        const dx = sx - last.x;
-        const dy = sy - last.y;
-        const speed = Math.hypot(dx, dy);
-        if (speed > 2) {
-          const angle = Math.atan2(dy, dx);
-          const spread = (p.spreadAngle * Math.PI) / 180;
-          for (let i = 0; i < p.particleCount; i++) {
-            const a = angle + (Math.random() - 0.5) * spread;
-            const v = speed * 0.1 + Math.random() * 2;
-            particlesRef.current.push({
-              x: sx,
-              y: sy,
-              vx: Math.cos(a) * v,
-              vy: Math.sin(a) * v,
-              life: 0.8 + Math.random() * 0.4,
-              size: p.particleSize + Math.random() * 1.5,
-            });
-          }
-        }
+        spawnParticles(particlesRef.current, sx, sy, last.x, last.y, p);
       }
     };
 
@@ -241,6 +237,11 @@ export default function Cursor() {
     timeRef.current = performance.now();
 
     const animate = () => {
+      if (document.hidden) {
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
       const now = performance.now();
       let dt = (now - timeRef.current) / 1000;
       dt = Math.max(0, Math.min(dt, 0.05));
@@ -257,7 +258,7 @@ export default function Cursor() {
         return;
       }
 
-      const p = propsRef.current;
+      const p = TRAIL_PROPS;
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
 
@@ -281,7 +282,6 @@ export default function Cursor() {
 
       const points = trailPointsRef.current;
 
-      // Age points
       if (p.autoFade && points.length) {
         const decay = dt / Math.max(0.001, p.fadeDuration);
         for (let i = points.length - 1; i >= 0; i--) {
@@ -290,42 +290,42 @@ export default function Cursor() {
         }
       }
 
-      if (points.length < 1) {
-        // Still update particles even if no trail points
-        if (p.variant === "particles") {
-          const particles = particlesRef.current;
-          const damping = Math.pow(0.98, dt * 60);
-          const g = (p.drift * 60 * 0.001 * dt * 60);
-          const decayP = 1.6 * dt;
-          for (let i = particles.length - 1; i >= 0; i--) {
-            const pt = particles[i];
-            pt.x += pt.vx * dt * 60;
-            pt.y += pt.vy * dt * 60;
-            pt.vx *= damping;
-            pt.vy = pt.vy * damping + g;
-            pt.life -= decayP;
-            if (pt.life <= 0) {
-              particles[i] = particles[particles.length - 1];
-              particles.pop();
-            } else {
-              ctx.fillStyle = rgba(pt.life, 1 - pt.life);
-              ctx.beginPath();
-              ctx.arc(pt.x, pt.y, pt.size * pt.life, 0, Math.PI * 2);
-              ctx.fill();
-            }
-          }
-        }
-        rafRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
       const indexAlpha = (i: number, n: number) => {
         if (!p.fadeOut) return 1;
         const t = n <= 1 ? 1 : i / (n - 1);
         return 1 - (1 - t) * (1 - t);
       };
 
-      // --- Render variants ---
+      const updateParticles = () => {
+        const particles = particlesRef.current;
+        const damping = Math.pow(0.98, dt * 60);
+        const g = p.drift * 60 * 0.001 * dt * 60;
+        const decayP = 1.6 * dt;
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const pt = particles[i];
+          pt.x += pt.vx * dt * 60;
+          pt.y += pt.vy * dt * 60;
+          pt.vx *= damping;
+          pt.vy = pt.vy * damping + g;
+          pt.life -= decayP;
+          if (pt.life <= 0) {
+            particles[i] = particles[particles.length - 1];
+            particles.pop();
+          } else {
+            ctx.fillStyle = rgba(pt.life, 1 - pt.life);
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, pt.size * pt.life, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      };
+
+      if (points.length < 1) {
+        if (p.variant === "particles") updateParticles();
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
       if (p.variant === "dots") {
         for (let i = 0; i < points.length; i++) {
           const pt = points[i];
@@ -354,28 +354,7 @@ export default function Cursor() {
           ctx.fillRect(x - s / 2, y - s / 2, s, s);
         }
       } else if (p.variant === "particles") {
-        const particles = particlesRef.current;
-        const damping = Math.pow(0.98, dt * 60);
-        const g = (p.drift * 60 * 0.001 * dt * 60);
-        const decayP = 1.6 * dt;
-        for (let i = particles.length - 1; i >= 0; i--) {
-          const pt = particles[i];
-          pt.x += pt.vx * dt * 60;
-          pt.y += pt.vy * dt * 60;
-          pt.vx *= damping;
-          pt.vy = pt.vy * damping + g;
-          pt.life -= decayP;
-          if (pt.life <= 0) {
-            particles[i] = particles[particles.length - 1];
-            particles.pop();
-          } else {
-            ctx.fillStyle = rgba(pt.life, 1 - pt.life);
-            ctx.beginPath();
-            ctx.arc(pt.x, pt.y, pt.size * pt.life, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-        // Connecting lines
+        updateParticles();
         if (points.length > 1) {
           for (let i = 1; i < points.length; i++) {
             const p1 = points[i - 1];
@@ -391,7 +370,6 @@ export default function Cursor() {
           }
         }
       } else {
-        // Line variant
         if (points.length < 2) {
           const pt = points[0];
           const a = p.autoFade ? pt.life : 1;

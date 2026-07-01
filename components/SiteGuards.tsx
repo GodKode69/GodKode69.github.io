@@ -53,15 +53,17 @@ export default function SiteGuards() {
     overlay.style.background = targetBg;
     document.body.appendChild(overlay);
 
+    const cleanup = () => {
+      overlay.remove();
+      wiping.current = false;
+    };
+
     overlay.addEventListener("animationend", () => {
       document.documentElement.dataset.theme = next ? "light" : "dark";
       setLight(next);
       overlay.classList.add("fade-out");
-      const onFadeEnd = () => {
-        overlay.remove();
-        wiping.current = false;
-      };
-      overlay.addEventListener("transitionend", onFadeEnd, { once: true });
+      overlay.addEventListener("transitionend", cleanup, { once: true });
+      setTimeout(cleanup, 600);
     });
 
     close();
@@ -131,7 +133,6 @@ export default function SiteGuards() {
       <button
         type="button"
         role="menuitem"
-        tabIndex={0}
         className="ctx-item"
         onClick={() => {
           setReduced((r) => !r);
@@ -144,7 +145,6 @@ export default function SiteGuards() {
       <button
         type="button"
         role="menuitem"
-        tabIndex={0}
         className="ctx-item"
         onClick={() => toggleTheme()}
       >

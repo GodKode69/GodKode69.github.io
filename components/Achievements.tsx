@@ -67,8 +67,8 @@ export default function Achievements() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {achievements.map((a, i) => (
-            <motion.div key={i} variants={staggerItem}>
+          {achievements.map((a) => (
+            <motion.div key={a.id} variants={staggerItem}>
               <AchievementCard achievement={a} />
             </motion.div>
           ))}

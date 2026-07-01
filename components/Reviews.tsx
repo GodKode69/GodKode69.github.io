@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { sectionTitle, staggerContainer } from "@/components/Motion";
 import styles from "./Reviews.module.css";
@@ -135,8 +135,6 @@ function countReplies(parentId: string, allReviews: Review[]): number {
 }
 
 export default function Reviews() {
-  const reviewsRef = useRef<Review[]>(initialReviews);
-
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
   const [alias, setAlias] = useState("");
   const [userId, setUserId] = useState("");
@@ -146,10 +144,6 @@ export default function Reviews() {
   const [isEditingAlias, setIsEditingAlias] = useState(false);
   const [syncState, setSyncState] = useState<SyncState>("loading");
   const [expandedId, setExpandedId] = useState<string | null>(null);
-
-  useEffect(() => {
-    reviewsRef.current = reviews;
-  }, [reviews]);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -172,7 +166,6 @@ export default function Reviews() {
       try {
         const nextReviews = await fetchReviews();
         if (!active) return;
-        reviewsRef.current = nextReviews;
         setReviews(nextReviews);
         setSyncState("ready");
         currentInterval = pollInterval;
@@ -213,7 +206,6 @@ export default function Reviews() {
 
   async function reloadReviews() {
     const nextReviews = await fetchReviews();
-    reviewsRef.current = nextReviews;
     setReviews(nextReviews);
     setSyncState("ready");
   }
@@ -280,9 +272,8 @@ export default function Reviews() {
 
     return (
       <div className={styles.reviewTree}>
-        {children.map((child) => {
-          const isLastChild =
-            children.indexOf(child) === children.length - 1;
+        {children.map((child, idx) => {
+          const isLastChild = idx === children.length - 1;
           const depthLabel =
             depthLabels[Math.min(depth + 1, depthLabels.length - 1)];
 
