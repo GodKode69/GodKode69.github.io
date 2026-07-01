@@ -66,6 +66,10 @@
 
 .chip:hover { background: var(--text-primary); color: var(--bg-page); }
 
+.card:has(.chip:hover) {
+  z-index: 200;
+}
+
 /* Popup */
 .popup {
   position: absolute;
