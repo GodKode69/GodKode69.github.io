@@ -1,6 +1,6 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.75rem;
 }
 
@@ -82,14 +82,25 @@
   color: var(--text-highlight);
 }
 
-.type {
-  max-width: 60%;
-  text-align: right;
-  font-family: var(--font-space-mono), monospace;
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-dim);
+.iconWrapper {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 112px;
+  border-radius: 28px;
+  border: 1px solid var(--border-default);
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.iconImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .cardBody {
@@ -160,11 +171,6 @@
   .card {
     min-height: 0;
     padding: 1.15rem;
-  }
-
-  .type {
-    max-width: 52%;
-    font-size: 0.68rem;
   }
 
   .title {

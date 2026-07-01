@@ -3,6 +3,7 @@ export type Project = {
   type: string;
   title: string;
   desc: string;
+  icon?: string;
   links: { label: string; href?: string }[];
 };
 
@@ -23,6 +24,7 @@ export const projects: Project[] = [
     type: "Discord Bot",
     title: "Fabric",
     desc: "An all-in-one discord.js bot with unique features.",
+    icon: "/assets/icons/f.gif",
     links: [
       {
         label: "Invite",
@@ -70,6 +72,7 @@ export const projects: Project[] = [
     type: "API",
     title: "Fabric-API",
     desc: "An API layer for the Fabric ecosystem, focused on exposing reusable bot and platform functionality.",
+    icon: "/assets/icons/f.gif",
     links: [
       { label: "Visit", href: "https://api.godkode.xyz" },
       { label: "GitHub ↗", href: "https://github.com/GodKode69/fabric-api" },

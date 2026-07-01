@@ -25,9 +25,19 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   return (
     <article className={styles.card}>
       <div className={styles.cardGlow} />
+      {project.icon && (
+        <div className={styles.iconWrapper}>
+          <img
+            src={project.icon}
+            alt=""
+            className={styles.iconImage}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      )}
       <div className={styles.cardHeader}>
         <span className={styles.year}>{project.year}</span>
-        <span className={styles.type}>{project.type}</span>
       </div>
       <div className={styles.cardBody}>
         <h3 className={styles.title}>{project.title}</h3>
