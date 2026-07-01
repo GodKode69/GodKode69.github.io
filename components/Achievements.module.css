@@ -5,6 +5,11 @@
   gap: 1.75rem;
 }
 
+.grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
 .card {
   position: relative;
   display: flex;
