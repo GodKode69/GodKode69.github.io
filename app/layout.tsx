@@ -42,6 +42,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html suppressHydrationWarning lang="en">
       <head>
+        <link rel="preconnect" href="https://cdn.discordapp.com" />
+        <link rel="preconnect" href="https://api.lanyard.rest" />
         <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/space-mono-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/maple-mono-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
