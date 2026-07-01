@@ -43,6 +43,15 @@ export const achievements: Achievement[] = [
     description:
       "Active contributor to Zen Browser, a privacy-focused web browser.",
     icon: "/assets/icons/zen-browser.webp",
-    link: { label: "View on GitHub ↗", href: "https://github.com/godkode69/zen-browser" },
+    link: { label: "View on GitHub ↗", href: "https://github.com/nicegoodthings/zen-browser" },
+  },
+  {
+    id: "sidex",
+    title: "SideX",
+    date: "2025",
+    description:
+      "Active contributor to SideX, a VS Code fork rebuilt on Tauri.",
+    icon: "/assets/icons/rust.webp",
+    link: { label: "View on GitHub ↗", href: "https://github.com/godkode69/sidex" },
   },
 ];

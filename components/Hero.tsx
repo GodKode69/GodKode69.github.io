@@ -233,6 +233,7 @@ export default function Hero() {
                           ? styles[discord.status]
                           : styles.offline
                       }`}
+                      style={flipped ? { opacity: 0 } : undefined}
                     />
                     <div className={styles.flipBubble}>
                       Click here to flip me!
@@ -468,6 +469,27 @@ export default function Hero() {
                         />
                         <div>
                           <p className={styles.aboutText}>Instagram</p>
+                        </div>
+                      </div>
+                    </a>
+
+                    <a
+                      href="/assets/Resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.statCard}
+                      onClick={stopFlip}
+                    >
+                      <div className={styles.statTop}>
+                        <img
+                          src="/assets/icons/cv.webp"
+                          alt="Resume"
+                          className={styles.statIcon}
+                          width={18}
+                          height={18}
+                        />
+                        <div>
+                          <p className={styles.aboutText}>Resume</p>
                         </div>
                       </div>
                     </a>
