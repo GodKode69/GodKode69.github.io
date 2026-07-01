@@ -79,4 +79,24 @@ export const projects: Project[] = [
       { label: "Learn More ↗", href: "https://fabric.godkode.xyz" },
     ],
   },
+  {
+    year: "2026",
+    type: "ML Model",
+    title: "DorC",
+    desc: "An image classification system built with PyTorch and EfficientNet-B0, using CLIP for zero-shot data verification. 108 classes, 97.2% accuracy, with a Next.js frontend for client-side inference.",
+    icon: "/assets/icons/cv.webp",
+    links: [
+      { label: "Visit", href: "https://dorc.godkode.xyz" },
+      { label: "GitHub ↗", href: "https://github.com/GodKode69/dorc" },
+    ],
+  },
+  {
+    year: "2026",
+    type: "Mobile App",
+    title: "Gallerio",
+    desc: "A Flutter gallery application for managing and viewing images across Android and iOS.",
+    links: [
+      { label: "GitHub ↗", href: "https://github.com/GodKode69/gallerio" },
+    ],
+  },
 ];
