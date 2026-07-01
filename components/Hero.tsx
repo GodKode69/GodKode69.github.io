@@ -12,7 +12,7 @@ const allowedImageHosts = [
   "images.unsplash.com",
 ];
 
-const defaultAvatar = "https://cdn.discordapp.com/embed/avatars/0.png";
+const defaultAvatar = "https://cdn.discordapp.com/embed/avatars/0.webp";
 
 function isAllowedImageUrl(url: string): boolean {
   try {
@@ -355,7 +355,7 @@ export default function Hero() {
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/icons/github.png"
+                          src="/assets/icons/github.webp"
                           alt="GitHub"
                           className={styles.statIcon}
                           width={18}
@@ -374,7 +374,7 @@ export default function Hero() {
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/icons/email.png"
+                          src="/assets/icons/email.webp"
                           alt="Email"
                           className={styles.statIcon}
                           width={18}
@@ -397,7 +397,7 @@ export default function Hero() {
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/icons/linkedin.png"
+                          src="/assets/icons/linkedin.webp"
                           alt="LinkedIn"
                           className={styles.statIcon}
                           width={18}
@@ -418,7 +418,7 @@ export default function Hero() {
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/icons/twitter.png"
+                          src="/assets/icons/twitter.webp"
                           alt="X.com"
                           className={styles.statIcon}
                           width={18}
@@ -439,7 +439,7 @@ export default function Hero() {
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/icons/spotify.png"
+                          src="/assets/icons/spotify.webp"
                           alt="Spotify"
                           className={styles.statIcon}
                           width={18}
@@ -460,7 +460,7 @@ export default function Hero() {
                     >
                       <div className={styles.statTop}>
                         <img
-                          src="/assets/icons/instagram.png"
+                          src="/assets/icons/instagram.webp"
                           alt="Instagram"
                           className={styles.statIcon}
                           width={18}
