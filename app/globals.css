@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 @font-face {
   font-family: "Maple Mono";
   font-style: normal;
@@ -41,17 +39,10 @@
 }
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
   --font-sans: "Space Grotesk", sans-serif;
   --font-mono: "Space Mono", monospace;
   --font-space-grotesk: "Space Grotesk", sans-serif;
   --font-space-mono: "Space Mono", monospace;
-
-  --bg-color: #050505;
-  --text-color: #e0e0e0;
-  --accent-color: #888888;
-  --grid-color: rgba(255, 255, 255, 0.03);
 
   --bg-page: #050505;
   --bg-card: #111214;
@@ -68,16 +59,10 @@
   --text-dim: rgba(255, 255, 255, 0.45);
   --text-faint: rgba(255, 255, 255, 0.25);
   --accent: #5f9ea0;
+  --grid-color: rgba(255, 255, 255, 0.03);
 }
 
 [data-theme="light"] {
-  --background: #f0f0f2;
-  --foreground: #111827;
-  --bg-color: #f0f0f2;
-  --text-color: #374151;
-  --accent-color: #6b7280;
-  --grid-color: rgba(0, 0, 0, 0.04);
-
   --bg-page: #f0f0f2;
   --bg-card: #ffffff;
   --bg-elevated: rgba(255, 255, 255, 0.95);
@@ -93,6 +78,7 @@
   --text-dim: rgba(0, 0, 0, 0.45);
   --text-faint: rgba(0, 0, 0, 0.3);
   --accent: #0d7377;
+  --grid-color: rgba(0, 0, 0, 0.04);
 }
 
 html {
@@ -187,16 +173,14 @@ a {
 .mono-text {
   font-family: var(--font-mono), monospace;
   font-size: 0.9rem;
-  color: var(--accent-color);
+  color: var(--text-secondary);
 }
 
 /* --- Body --- */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background: var(--bg-page);
+  color: var(--text-body);
   font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
   line-height: 1.6;
@@ -270,7 +254,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--bg-color);
+  background: var(--bg-page);
 }
 
 .glitch::before {
@@ -302,13 +286,6 @@ body::before {
   button,
   input {
     cursor: none !important;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
   }
 }
 
@@ -453,21 +430,6 @@ body::before {
   100% {
     clip: rect(8px, 9999px, 74px, 0);
   }
-}
-
-/* --- Scroll Reveal --- */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* --- Hover Link --- */

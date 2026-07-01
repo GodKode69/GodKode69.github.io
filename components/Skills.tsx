@@ -17,18 +17,18 @@ const TIER_CONFIG: Record<Tier, { segments: number; color: string; glow: string 
 
 const TOTAL_SEGMENTS = 5;
 
+const groupedSkills = Object.entries(
+  skills.reduce<Record<string, typeof skills>>((acc, skill) => {
+    if (!acc[skill.category]) {
+      acc[skill.category] = [];
+    }
+    acc[skill.category].push(skill);
+    return acc;
+  }, {}),
+);
+
 export default function Skills() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-
-  const groupedSkills = Object.entries(
-    skills.reduce<Record<string, typeof skills>>((acc, skill) => {
-      if (!acc[skill.category]) {
-        acc[skill.category] = [];
-      }
-      acc[skill.category].push(skill);
-      return acc;
-    }, {}),
-  );
 
   return (
     <section id="skill" className={sectionStyles.section} suppressHydrationWarning={true}><div className={sectionStyles.container}>
