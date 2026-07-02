@@ -1,0 +1,283 @@
+%-------------------------
+% Resume in LaTeX
+% License : MIT
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Raghav Bhati} \\ \vspace{1pt}
+    \small +91 9460730125 $|$ \href{mailto:godkode@godkode.xyz}{\underline{godkode@godkode.xyz}} $|$
+    \href{https://godkode.xyz}{\underline{godkode.xyz}} $|$
+    \href{https://github.com/godkode69/}{\underline{github.com/godkode69}}
+\end{center}
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Poornima University}{Jaipur, Rajasthan}
+      {Bachelor of Computer Applications --- CloudTech and DevOps}{Aug.\ 2025 -- May\ 2028}
+  \resumeSubHeadingListEnd
+
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+\resumeSubHeadingListStart
+
+  \resumeSubheading
+    {Open Source Contributor}{Jan.\ 2024 -- Present}
+    {GitHub}{}
+    \resumeItemListStart
+      \resumeItem{\href{https://github.com/Sidenai/sidex}{\underline{SideX}} (Code Editor)}
+      \begin{itemize}[leftmargin=*, nosep]
+        \item \small{Implemented markdown preview by adding a custom webview class}
+        \item \small{Resolved Git Bash detection scoping bug on non-Windows platforms causing build failures}
+        \item \small{Fixed build formatting issues}
+      \end{itemize}
+      \resumeItem{\href{https://github.com/siddhartha412/manga-app}{\underline{manga-app}} (Electron App)}
+      \begin{itemize}[leftmargin=*, nosep]
+        \item \small{Implemented a file naming system for downloaded manga chapters}
+        \item \small{Reduced unnecessary background logging}
+      \end{itemize}
+      \resumeItem{\href{https://github.com/nicegoodthings/zen-browser}{\underline{Zen Browser}} (Web Browser)}
+      \begin{itemize}[leftmargin=*, nosep]
+        \item \small{Fixed a bug causing AI features to appear in search context menu even when disabled}
+      \end{itemize}
+      \resumeItem{\href{https://github.com/botliy/92lr-s-digital-showcase}{\underline{92lr's Digital Showcase}} (Portfolio)}
+      \begin{itemize}[leftmargin=*, nosep]
+        \item \small{Fixed CSS theme issues in a developer portfolio built with React and Tailwind CSS}
+      \end{itemize}
+      \resumeItem{\href{https://github.com/The-Judge-From-Hell/the-judge-from-hell.github.io}{\underline{The Judge From Hell}} (Portfolio)}
+      \begin{itemize}[leftmargin=*, nosep]
+        \item \small{Fixed CSS styling bugs in a portfolio website built with HTML/CSS}
+      \end{itemize}
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+
+\textbf{Languages}
+\begin{itemize}[leftmargin=0.15in, label={--}]
+    \small
+    \item \textbf{JavaScript / TypeScript} --- Primary languages for web, backend, and tooling
+    \item \textbf{Python} --- Scripting, machine learning, and automation
+    \item \textbf{Dart} --- Cross-platform mobile app development with Flutter
+    \item \textbf{Rust / Go / C} --- Systems programming and performance-critical tooling
+\end{itemize}
+
+\textbf{Frontend \& Frameworks}
+\begin{itemize}[leftmargin=0.15in, label={--}]
+    \small
+    \item \textbf{Next.js / React} --- Modern frontend with SSR, App Router, and server components
+    \item \textbf{Flutter} --- Cross-platform mobile UI development
+    \item \textbf{VitePress} --- Static site generation for documentation
+    \item \textbf{HTML / CSS / Tailwind} --- Markup, styling, and utility-first CSS
+\end{itemize}
+
+\textbf{Backend \& Runtime}
+\begin{itemize}[leftmargin=0.15in, label={--}]
+    \small
+    \item \textbf{Node.js} --- Server-side JavaScript runtime for APIs and tooling
+    \item \textbf{Discord.js} --- Discord bot development with slash commands and events
+    \item \textbf{Electron / Tauri} --- Desktop application packaging and distribution
+\end{itemize}
+
+\textbf{ML \& AI}
+\begin{itemize}[leftmargin=0.15in, label={--}]
+    \small
+    \item \textbf{PyTorch} --- Deep learning model training and transfer learning
+    \item \textbf{MediaPipe / OpenCV} --- Real-time computer vision and hand tracking
+    \item \textbf{CLIP / EfficientNet} --- Zero-shot classification and image classification backbones
+    \item \textbf{ONNX} --- Model export for client-side web inference
+\end{itemize}
+
+\textbf{Databases}
+\begin{itemize}[leftmargin=0.15in, label={--}]
+    \small
+    \item \textbf{MongoDB} --- NoSQL document database for APIs and analytics
+    \item \textbf{SQLite} --- Embedded database for desktop and local storage
+    \item \textbf{Supabase} --- Cloud-hosted Postgres with auth and real-time subscriptions
+\end{itemize}
+
+\textbf{Infrastructure \& DevOps}
+\begin{itemize}[leftmargin=0.15in, label={--}]
+    \small
+    \item \textbf{Linux / Git / Docker} --- Version control, containerization, and server management
+    \item \textbf{AWS / GCP / Azure} --- Cloud compute, storage, and deployment services
+    \item \textbf{Vercel / Cloudflare} --- Frontend hosting, edge functions, and CDN
+    \item \textbf{GitHub Actions / CI/CD} --- Automated testing, building, and deployment pipelines
+\end{itemize}
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+
+      \resumeProjectHeading
+          {\href{https://github.com/godkode69/dorc}{\textbf{\underline{DorC}}} $|$ \emph{Python, PyTorch, EfficientNet, CLIP, Next.js}}{2026 -- Present}
+          \resumeItemListStart
+          \resumeItem{Built an open-source image classification model with 108 classes across mammals, birds, reptiles, insects, and marine animals}
+          \resumeItem{Trained EfficientNet-B0 backbone with transfer learning achieving 97.2\% accuracy on 200,000+ images}
+          \resumeItem{Integrated CLIP zero-shot classification for automated data curation and image scraping pipeline}
+          \resumeItem{Exported model to ONNX and built a Next.js frontend with client-side WASM inference}
+          \resumeItem{Implemented incremental training to add new classes without retraining from scratch}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/godkode69/open-gestures}{\textbf{\underline{Open Gestures}}} $|$ \emph{Python, MediaPipe, OpenCV}}{Apr.\ 2026 -- Present}
+          \resumeItemListStart
+          \resumeItem{Built a real-time gesture-based input system that maps hand gestures to system actions using MediaPipe hand landmark detection}
+          \resumeItem{Processed live video feed at 30+ FPS with sub-100ms gesture-to-action latency}
+          \resumeItem{Designed a modular gesture-action mapping architecture for easy extensibility}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/godkode69/fabric-api}{\textbf{\underline{Fabric API}}} $|$ \emph{Node.js, MongoDB, Vercel}}{May\ 2026 -- Present}
+          \resumeItemListStart
+          \resumeItem{Built a RESTful API serving real-time statistics and command data for a Discord bot with 100000+ users}
+          \resumeItem{Designed MongoDB schemas for command metadata and usage analytics}
+          \resumeItem{Automated deployments via GitHub Actions to Vercel with zero-downtime updates}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/godkode69/fabric-docs}{\textbf{\underline{Fabric Docs}}} $|$ \emph{VitePress, TypeScript}}{May\ 2026 -- Present}
+          \resumeItemListStart
+          \resumeItem{Built a VitePress documentation site with live API integration for command docs and bot statistics}
+          \resumeItem{Integrated Fabric API to dynamically render command references and usage metrics}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/siddhartha412/Waveyy}{\textbf{\underline{Waveyy}}} $|$ \emph{Next.js, React, Supabase, Tailwind CSS}}{2025 -- Present}
+          \resumeItemListStart
+          \resumeItem{Built a premium music streaming web app with JioSaavn API integration for browsing and playing millions of tracks}
+          \resumeItem{Implemented smart search with real-time results, custom playlists, and play history syncing}
+          \resumeItem{Designed a modular UI with glassmorphism, smooth transitions, and Discord Rich Presence integration}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/godkode69/flame.org}{\textbf{\underline{Flame.org}}} $|$ \emph{Node.js, Discord.js v14}}{2024}
+          \resumeItemListStart
+          \resumeItem{Built a modular Discord bot template with slash commands, event handler, and cooldown system}
+          \resumeItem{Designed a command handler architecture for easy extensibility with built-in reload capability}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/godkode69/project-ed}{\textbf{\underline{Boolean Equation Visualizer}}} $|$ \emph{Electron, Node.js, SVG}}{Sep.\ 2025}
+          \resumeItemListStart
+          \resumeItem{Built a desktop app that parses boolean expressions and generates dynamic SVG-based logic gate diagrams}
+          \resumeItem{Implemented rule-based expression parser with real-time circuit visualization}
+          \resumeItem{Developed and shipped within 48 hours for an Engineer's Day hackathon}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/godkode69/gallerio}{\textbf{\underline{Gallerio}}} $|$ \emph{Dart, Flutter}}{2026}
+          \resumeItemListStart
+          \resumeItem{Built a cross-platform mobile application using Flutter with 9 published releases}
+          \resumeItem{Implemented CI/CD pipeline with GitHub Actions for automated Android builds}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/godkode69/meta-cloner}{\textbf{\underline{Project Nebula}}} $|$ \emph{Node.js, Discord.js, Inquirer.js}}{Mar.\ 2025}
+          \resumeItemListStart
+          \resumeItem{Built a CLI tool that replicates Discord server structure --- channels, roles, and permissions --- via the Discord API}
+          \resumeItem{Handled asynchronous operations and event-driven workflows for reliable bulk cloning}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{\underline{Project Monteria}} $|$ \emph{Node.js, discord.js-selfbot-v13, Tesseract.js, pokehint}}{2025}
+          \resumeItemListStart
+          \resumeItem{Built an autocatcher for Pok\'{e}two\#8236 that detects spawns, solves hints via OCR, and auto-catches Pokemon}
+          \resumeItem{Implemented Pokemon switching logic to rotate party members when reaching target level}
+          \resumeItem{Added spam and incense modes with XP booster management for efficient grinding}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\href{https://github.com/kyrexiii/TalkShitGetDared}{\textbf{\underline{TalkShitGetDared}}} $|$ \emph{TypeScript}}{2025}
+          \resumeItemListStart
+          \resumeItem{Built a zero-dependency TypeScript package for Truth \& Dare prompts with NSFW/SFW modes, multi-language support, and difficulty filtering}
+          \resumeItem{Published to npm with CLI support, history tracking, and batch prompt generation}
+          \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}
