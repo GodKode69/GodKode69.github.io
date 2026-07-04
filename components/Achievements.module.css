@@ -126,6 +126,17 @@
   flex-shrink: 0;
 }
 
+.badgeLink {
+  display: flex;
+  border-radius: 10px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.badgeLink:hover {
+  transform: scale(1.15);
+  opacity: 0.8;
+}
+
 .cardBody {
   display: flex;
   flex: 1;

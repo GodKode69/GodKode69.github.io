@@ -94,20 +94,22 @@ async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
 }
 
 export function useDiscord() {
-  const [discord, setDiscord] = useState<DiscordData | null>(() => {
+  const [discord, setDiscord] = useState<DiscordData | null>(null);
+
+  useEffect(() => {
     const cached = readAvatarCache();
-    return cached
-      ? {
-          status: "offline",
-          username: "adhuraghav",
-          globalName: "Raghav",
-          avatarUrl: cached.url,
-          avatarHash: null,
-          spotify: null,
-          activity: null,
-        }
-      : null;
-  });
+    if (cached) {
+      setDiscord({
+        status: "offline",
+        username: "adhuraghav",
+        globalName: "Raghav",
+        avatarUrl: cached.url,
+        avatarHash: null,
+        spotify: null,
+        activity: null,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     let mounted = true;

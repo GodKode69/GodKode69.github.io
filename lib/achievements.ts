@@ -4,7 +4,7 @@ export type Achievement = {
   date: string;
   description: string;
   icon: string;
-  badges?: { icon: string; label: string }[];
+  badges?: { icon: string; label: string; link?: string }[];
   link?: { label: string; href: string };
 };
 
@@ -14,7 +14,7 @@ export const achievements: Achievement[] = [
     title: "GitHub Contributions",
     date: "Since 21st May",
     description:
-      "Over 40 days of daily contributions to github, commited more than 500 times this year.",
+      "Over 45 days of daily contributions to github, commited more than 500 times this year.",
     icon: "/assets/icons/github.webp",
     link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=overview&from=2026-07-01&to=2026-07-01" },
   },
@@ -37,21 +37,23 @@ export const achievements: Achievement[] = [
     link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=achievements" },
   },
   {
-    id: "zen-browser",
-    title: "Zen Browser",
-    date: "Since 30th June",
-    description:
-      "Active contributor to Zen Browser, a privacy-focused web browser.",
-    icon: "/assets/icons/zen-browser.webp",
-    link: { label: "View on GitHub ↗", href: "https://github.com/nicegoodthings/zen-browser" },
-  },
-  {
-    id: "sidex",
-    title: "SideX",
+    id: "open-source",
+    title: "Open Source",
     date: "2025",
     description:
-      "Active contributor to SideX, a VS Code fork rebuilt on Tauri.",
-    icon: "/assets/icons/sidex.webp",
-    link: { label: "View on GitHub ↗", href: "https://github.com/godkode69/sidex" },
+      "Active contributor to open source projects — Zen Browser and SideX.",
+    icon: "",
+    badges: [
+      {
+        icon: "/assets/icons/zen-browser.webp",
+        label: "Zen Browser",
+        link: "https://github.com/nicegoodthings/zen-browser",
+      },
+      {
+        icon: "/assets/icons/sidex.webp",
+        label: "SideX",
+        link: "https://github.com/godkode69/sidex",
+      },
+    ],
   },
 ];

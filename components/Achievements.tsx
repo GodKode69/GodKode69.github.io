@@ -19,18 +19,33 @@ function AchievementCard({
         <span className={styles.date}>{achievement.date}</span>
         {achievement.badges ? (
           <div className={styles.badges}>
-            {achievement.badges.map((b) => (
-              <div key={b.label} className={styles.badgeIcon} title={b.label}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={b.icon}
-                  alt=""
-                  className={styles.iconImage}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
+            {achievement.badges.map((b) => {
+              const badge = (
+                <div key={b.label} className={styles.badgeIcon} title={b.label}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={b.icon}
+                    alt=""
+                    className={styles.iconImage}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              );
+              return b.link ? (
+                <Link
+                  key={b.label}
+                  href={b.link}
+                  className={styles.badgeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {badge}
+                </Link>
+              ) : (
+                badge
+              );
+            })}
           </div>
         ) : achievement.icon ? (
           <div className={styles.iconWrapper}>
