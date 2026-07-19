@@ -14,7 +14,7 @@ export const achievements: Achievement[] = [
     title: "GitHub Contributions",
     date: "Since 21st May",
     description:
-      "Over 45 days of daily contributions to github, commited more than 500 times this year.",
+      "Over 60 days of daily contributions to github, commited more than 600 times this year.",
     icon: "/assets/icons/github.webp",
     link: { label: "View on GitHub ↗", href: "https://github.com/GodKode69?tab=overview&from=2026-07-01&to=2026-07-01" },
   },
