@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const discordId = "1150339860725514320";
 const avatarCacheKey = "godkode.avatarCache";
 
-export type DiscordActivity = {
+type DiscordActivity = {
   type: number;
   name: string;
   details?: string;
@@ -14,7 +14,7 @@ export type DiscordActivity = {
   assets?: { large_image?: string };
 };
 
-export type SpotifyData = {
+type SpotifyData = {
   song: string;
   artist: string;
   album_art_url: string;
@@ -99,6 +99,7 @@ export function useDiscord() {
   useEffect(() => {
     const cached = readAvatarCache();
     if (cached) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDiscord({
         status: "offline",
         username: "adhuraghav",
