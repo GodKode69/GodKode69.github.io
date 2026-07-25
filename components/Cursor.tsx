@@ -63,9 +63,7 @@ interface TrailProps {
   fadeDuration?: number;
 }
 
-const HOVER_SELECTOR = "a, button, .hover-link, .tech-stack span";
-
-const TRAIL_PROPS: Required<TrailProps> = {
+const trailProps: Required<TrailProps> = {
   variant: "line",
   fillType: "solid",
   trailColor: "#5f9ea0",
@@ -151,9 +149,6 @@ export default function Cursor() {
     const handlePointerMove = (e: PointerEvent) => {
       const x = e.clientX;
       const y = e.clientY;
-      const p = TRAIL_PROPS;
-      const points = trailPointsRef.current;
-      const last = points[points.length - 1];
 
       if (!isVisible) {
         isVisible = true;
@@ -162,6 +157,10 @@ export default function Cursor() {
 
       cursor.style.left = x + "px";
       cursor.style.top = y + "px";
+
+      const p = trailProps;
+      const points = trailPointsRef.current;
+      const last = points[points.length - 1];
 
       if (p.variant === "dots" && last) {
         const dx = x - last.x;
@@ -183,28 +182,6 @@ export default function Cursor() {
       }
     };
 
-    const handlePointerOver = (event: MouseEvent) => {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-      if (target.closest(HOVER_SELECTOR)) {
-        cursor.classList.add("cursor-grow");
-      }
-    };
-
-    const handlePointerOut = (event: MouseEvent) => {
-      const target = event.target;
-      const relatedTarget = event.relatedTarget;
-      if (!(target instanceof Element)) return;
-      if (!target.closest(HOVER_SELECTOR)) return;
-      if (
-        relatedTarget instanceof Element &&
-        relatedTarget.closest(HOVER_SELECTOR)
-      ) {
-        return;
-      }
-      cursor.classList.remove("cursor-grow");
-    };
-
     const handleBlur = () => {
       isVisible = false;
       cursor.classList.remove("cursor-visible");
@@ -216,16 +193,12 @@ export default function Cursor() {
     };
 
     document.addEventListener("pointermove", handlePointerMove);
-    document.addEventListener("mouseover", handlePointerOver);
-    document.addEventListener("mouseout", handlePointerOut);
     window.addEventListener("blur", handleBlur);
     document.addEventListener("mouseleave", handleBlur);
     document.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
       document.removeEventListener("pointermove", handlePointerMove);
-      document.removeEventListener("mouseover", handlePointerOver);
-      document.removeEventListener("mouseout", handlePointerOut);
       window.removeEventListener("blur", handleBlur);
       document.removeEventListener("mouseleave", handleBlur);
       document.removeEventListener("mouseenter", handleMouseEnter);
@@ -237,7 +210,15 @@ export default function Cursor() {
     timeRef.current = performance.now();
 
     const animate = () => {
-      if (document.hidden) {
+      if (document.hidden || document.documentElement.dataset.reducedMotion === "true") {
+        const canvas = canvasRef.current;
+        if (canvas) {
+          const ctx = canvas.getContext("2d");
+          if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        trailPointsRef.current.length = 0;
+        particlesRef.current.length = 0;
+        timeRef.current = performance.now();
         rafRef.current = requestAnimationFrame(animate);
         return;
       }
@@ -258,7 +239,7 @@ export default function Cursor() {
         return;
       }
 
-      const p = TRAIL_PROPS;
+      const p = trailProps;
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
 
