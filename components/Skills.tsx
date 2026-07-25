@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { skills, skillCategoryDescriptions, type Tier } from "@/lib/skills";
 import { sectionTitle, staggerContainer, staggerItem } from "@/components/Motion";
 import styles from "./Skills.module.css";
 import sectionStyles from "./Section.module.css";
 
-const TIER_CONFIG: Record<Tier, { segments: number; color: string; glow: string }> = {
+const tierConfig: Record<Tier, { segments: number; color: string; glow: string }> = {
   Beginner:     { segments: 1, color: "#fb7185", glow: "rgba(244, 114, 132, 0.55)" },
   Intermediate: { segments: 2, color: "#fb923c", glow: "rgba(249, 115, 22, 0.55)" },
   Advanced:     { segments: 3, color: "#facc15", glow: "rgba(250, 204, 21, 0.55)" },
@@ -15,7 +15,7 @@ const TIER_CONFIG: Record<Tier, { segments: number; color: string; glow: string 
   Master:       { segments: 5, color: "#22d3ee", glow: "rgba(34, 211, 238, 0.55)" },
 };
 
-const TOTAL_SEGMENTS = 5;
+const totalSegments = 5;
 
 const groupedSkills = Object.entries(
   skills.reduce<Record<string, typeof skills>>((acc, skill) => {
@@ -29,6 +29,21 @@ const groupedSkills = Object.entries(
 
 export default function Skills() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const el = document.documentElement;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const check = () => setReducedMotion(el.dataset.reducedMotion === "true" || mq.matches);
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(el, { attributes: true, attributeFilter: ["data-reduced-motion"] });
+    mq.addEventListener("change", check);
+    return () => {
+      observer.disconnect();
+      mq.removeEventListener("change", check);
+    };
+  }, []);
 
   return (
     <section id="skill" className={sectionStyles.section} suppressHydrationWarning={true}><div className={sectionStyles.container}>
@@ -59,7 +74,7 @@ export default function Skills() {
               </p>
               <div className={`tech-stack ${styles.stack}`}>
                 {categorySkills.map((skill) => {
-                  const cfg = TIER_CONFIG[skill.tier];
+                  const cfg = tierConfig[skill.tier];
                   const isHovered = hoveredSkill === skill.name;
                   return (
                     <span
@@ -73,10 +88,10 @@ export default function Skills() {
                         {isHovered && (
                           <motion.div
                             className={styles.popup}
-                            initial={{ opacity: 0, y: 12, scale: 0.92, filter: "blur(6px)" }}
+                            initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.92, filter: "blur(6px)" }}
                             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                            exit={{ opacity: 0, y: 8, scale: 0.95, filter: "blur(4px)" }}
-                            transition={{ type: "spring", damping: 22, stiffness: 200 }}
+                            exit={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 8, scale: 0.95, filter: "blur(4px)" }}
+                            transition={reducedMotion ? { duration: 0 } : { type: "spring", damping: 22, stiffness: 200 }}
                           >
                             <div className={styles.popupHeader}>
                               <motion.img
@@ -84,9 +99,9 @@ export default function Skills() {
                                 alt={skill.name}
                                 width={24}
                                 height={24}
-                                initial={{ scale: 0, rotate: -90 }}
+                                initial={reducedMotion ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -90 }}
                                 animate={{ scale: 1, rotate: 0 }}
-                                transition={{ type: "spring", damping: 15, stiffness: 200, delay: 0.05 }}
+                                transition={reducedMotion ? { duration: 0 } : { type: "spring", damping: 15, stiffness: 200, delay: 0.05 }}
                               />
                               <span className={styles.popupTitle}>{skill.name}</span>
                             </div>
@@ -94,7 +109,7 @@ export default function Skills() {
                             <div className={styles.visualize}>
                               <div className={styles.tierLabel}>{skill.tier}</div>
                               <div className={styles.tierBar}>
-                                {Array.from({ length: TOTAL_SEGMENTS }, (_, i) => {
+                                {Array.from({ length: totalSegments }, (_, i) => {
                                   const filled = i < cfg.segments;
                                   return filled ? (
                                     <motion.div
@@ -105,14 +120,18 @@ export default function Skills() {
                                         ["--seg-glow" as string]: cfg.glow,
                                         ["--seg-index" as string]: i,
                                       }}
-                                      initial={{ scaleY: 0, opacity: 0 }}
+                                      initial={reducedMotion ? { scaleY: 1, opacity: 1 } : { scaleY: 0, opacity: 0 }}
                                       animate={{ scaleY: 1, opacity: 1 }}
-                                      transition={{
-                                        type: "spring",
-                                        damping: 12,
-                                        stiffness: 150,
-                                        delay: 0.08 + i * 0.06,
-                                      }}
+                                      transition={
+                                        reducedMotion
+                                          ? { duration: 0 }
+                                          : {
+                                              type: "spring",
+                                              damping: 12,
+                                              stiffness: 150,
+                                              delay: 0.08 + i * 0.06,
+                                            }
+                                      }
                                     />
                                   ) : (
                                     <div
