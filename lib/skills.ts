@@ -1,6 +1,6 @@
 export type Tier = "Beginner" | "Intermediate" | "Advanced" | "Expert" | "Master";
 
-export type Skill = {
+type Skill = {
   name: string;
   icon: string;
   desc: string;
@@ -114,6 +114,13 @@ export const skills: Skill[] = [
     desc: "Reading and implementing technical documentation.",
     tier: "Advanced",
     category: "Tooling / Workflow",
+  },
+  {
+    name: "Dart",
+    icon: "/assets/icons/dart.webp",
+    desc: "Client-optimized programming language for building multi-platform applications.",
+    tier: "Intermediate",
+    category: "Languages",
   },
   {
     name: "TypeScript",
