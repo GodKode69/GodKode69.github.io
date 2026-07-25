@@ -153,17 +153,6 @@
   box-shadow: 0 0 10px var(--seg-glow), inset 0 0 6px rgba(255, 255, 255, 0.15);
 }
 
-@keyframes segGlow {
-  0% {
-    box-shadow: 0 0 8px var(--seg-glow), inset 0 0 6px rgba(255, 255, 255, 0.12);
-    filter: brightness(0.85);
-  }
-  100% {
-    box-shadow: 0 0 18px var(--seg-glow), 0 0 24px var(--seg-glow), inset 0 0 8px rgba(255, 255, 255, 0.2);
-    filter: brightness(1.1);
-  }
-}
-
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;

@@ -170,6 +170,14 @@ a {
   transition-duration: 0s !important;
 }
 
+[data-reduced-motion="true"] .cursor-canvas {
+  display: none !important;
+}
+
+[data-reduced-motion="true"] img {
+  animation: none !important;
+}
+
 .mono-text {
   font-family: var(--font-mono), monospace;
   font-size: 0.9rem;
@@ -224,11 +232,6 @@ body::before {
 
 .cursor-visible {
   opacity: 1 !important;
-}
-
-.cursor-grow {
-  width: 16px;
-  height: 16px;
 }
 
 .cursor-canvas {
@@ -452,6 +455,14 @@ body::before {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .cursor-canvas {
+    display: none !important;
+  }
+
+  img {
+    animation: none !important;
   }
 }
 
