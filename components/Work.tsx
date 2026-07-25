@@ -1,6 +1,8 @@
 "use client";
 
+import { memo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { projects } from "@/lib/projects";
 import { staggerContainer, staggerItem, sectionTitle } from "@/components/Motion";
@@ -21,18 +23,18 @@ function getLinkMeta(href?: string) {
   return null;
 }
 
-function ProjectCard({ project }: { project: (typeof projects)[0] }) {
+const ProjectCard = memo(function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   return (
     <article className={styles.card}>
       <div className={styles.cardGlow} />
       {project.icon && (
         <div className={styles.iconWrapper}>
-          <img
+          <Image
             src={project.icon}
             alt=""
             className={styles.iconImage}
-            loading="lazy"
-            decoding="async"
+            width={80}
+            height={80}
           />
         </div>
       )}
@@ -82,7 +84,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
       </div>
     </article>
   );
-}
+});
 
 export default function Work() {
   return (

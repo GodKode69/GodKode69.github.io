@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useDiscord, type DiscordData } from "@/hooks/useDiscord";
 import { heroTitle, heroStagger, heroItem } from "@/components/Motion";
@@ -84,11 +85,11 @@ export default function Hero() {
     };
   }, []);
 
-  function stopFlip(e: React.MouseEvent) {
+  const stopFlip = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-  }
+  }, []);
 
-  async function handleCopyEmail(e: React.MouseEvent) {
+  const handleCopyEmail = useCallback(async (e: React.MouseEvent) => {
     e.stopPropagation();
 
     try {
@@ -105,7 +106,7 @@ export default function Hero() {
     } catch {
       setCopied(false);
     }
-  }
+  }, []);
 
   return (
     <header className={styles.hero}>
@@ -211,15 +212,18 @@ export default function Hero() {
               {/* FRONT */}
               <div className={`${styles.cardFront} reveal active`}>
                 <div className={styles.cardBanner}>
-                  <img
+                  <Image
                     src="/assets/profile/banner.webp"
                     alt="Banner"
                     className={styles.bannerImage}
+                    fill
+                    priority
                   />
                 </div>
 
                 <div className={styles.cardHeader}>
                   <div className={styles.avatarWrapper}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={discord?.avatarUrl ? sanitizeImageUrl(discord.avatarUrl, "/assets/profile/avatar.webp") : "/assets/profile/avatar.webp"}
                       alt="Avatar"
@@ -355,7 +359,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/github.webp"
                           alt="GitHub"
                           className={styles.statIcon}
@@ -374,7 +378,7 @@ export default function Hero() {
                       onClick={handleCopyEmail}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/email.webp"
                           alt="Email"
                           className={styles.statIcon}
@@ -397,7 +401,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/linkedin.webp"
                           alt="LinkedIn"
                           className={styles.statIcon}
@@ -418,7 +422,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/twitter.webp"
                           alt="X.com"
                           className={styles.statIcon}
@@ -439,7 +443,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/spotify.webp"
                           alt="Spotify"
                           className={styles.statIcon}
@@ -460,7 +464,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/instagram.webp"
                           alt="Instagram"
                           className={styles.statIcon}
@@ -481,7 +485,7 @@ export default function Hero() {
                       onClick={stopFlip}
                     >
                       <div className={styles.statTop}>
-                        <img
+                        <Image
                           src="/assets/icons/resume.webp"
                           alt="Resume"
                           className={styles.statIcon}

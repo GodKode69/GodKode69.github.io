@@ -1,13 +1,15 @@
 "use client";
 
+import { memo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { achievements } from "@/lib/achievements";
 import { staggerContainer, staggerItem, sectionTitle } from "@/components/Motion";
 import styles from "./Achievements.module.css";
 import sectionStyles from "./Section.module.css";
 
-function AchievementCard({
+const AchievementCard = memo(function AchievementCard({
   achievement,
 }: {
   achievement: (typeof achievements)[0];
@@ -22,13 +24,12 @@ function AchievementCard({
             {achievement.badges.map((b) => {
               const badge = (
                 <div key={b.label} className={styles.badgeIcon} title={b.label}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={b.icon}
                     alt=""
                     className={styles.iconImage}
-                    loading="lazy"
-                    decoding="async"
+                    width={36}
+                    height={36}
                   />
                 </div>
               );
@@ -50,13 +51,12 @@ function AchievementCard({
         ) : achievement.icon ? (
           <div className={styles.iconWrapper}>
             {achievement.icon.startsWith("/") ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
+              <Image
                 src={achievement.icon}
                 alt=""
                 className={styles.iconImage}
-                loading="lazy"
-                decoding="async"
+                width={48}
+                height={48}
               />
             ) : (
               <span>{achievement.icon}</span>
@@ -75,7 +75,7 @@ function AchievementCard({
       )}
     </article>
   );
-}
+});
 
 export default function Achievements() {
   return (
