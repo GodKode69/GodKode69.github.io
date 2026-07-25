@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Nav.module.css";
 
-const NAV_HEIGHT = 80;
+const navHeight = 80;
 
 export default function Nav() {
   const [showContactHint, setShowContactHint] = useState(false);
@@ -17,17 +17,17 @@ export default function Nav() {
     };
   }, []);
 
-  function scrollToSection(e: React.MouseEvent<HTMLAnchorElement>) {
+  const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const id = e.currentTarget.getAttribute("href")?.slice(1);
     if (!id) return;
     const el = document.getElementById(id);
     if (!el) return;
-    const y = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
+    const y = el.getBoundingClientRect().top + window.scrollY - navHeight;
     window.scrollTo({ top: y, behavior: "smooth" });
-  }
+  }, []);
 
-  function openContactHint() {
+  const openContactHint = useCallback(() => {
     if (hideTimeoutRef.current) {
       window.clearTimeout(hideTimeoutRef.current);
     }
@@ -36,7 +36,7 @@ export default function Nav() {
     hideTimeoutRef.current = window.setTimeout(() => {
       setShowContactHint(false);
     }, 2600);
-  }
+  }, []);
 
   return (
     <nav className={styles.nav}>

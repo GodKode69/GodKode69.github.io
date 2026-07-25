@@ -2,32 +2,32 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const MOTION_KEY = "godkode.reducedMotion";
-const THEME_KEY = "godkode.lightMode";
+const motionKey = "godkode.reducedMotion";
+const themeKey = "godkode.lightMode";
 
 function readStorage(key: string): boolean {
   if (typeof window === "undefined") return false;
   return window.localStorage.getItem(key) === "true";
 }
 
-const DARK_BG = "#050505";
-const LIGHT_BG = "#f0f0f2";
+const darkBg = "#050505";
+const lightBg = "#f0f0f2";
 
 export default function SiteGuards() {
   const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
-  const [reduced, setReduced] = useState(() => readStorage(MOTION_KEY));
-  const [light, setLight] = useState(() => readStorage(THEME_KEY));
+  const [reduced, setReduced] = useState(() => readStorage(motionKey));
+  const [light, setLight] = useState(() => readStorage(themeKey));
   const menuRef = useRef<HTMLDivElement>(null);
   const wiping = useRef(false);
 
   useEffect(() => {
     document.documentElement.dataset.reducedMotion = String(reduced);
-    window.localStorage.setItem(MOTION_KEY, String(reduced));
+    window.localStorage.setItem(motionKey, String(reduced));
   }, [reduced]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = light ? "light" : "dark";
-    window.localStorage.setItem(THEME_KEY, String(light));
+    window.localStorage.setItem(themeKey, String(light));
   }, [light]);
 
   const close = useCallback(() => setMenu(null), []);
@@ -35,7 +35,7 @@ export default function SiteGuards() {
   function toggleTheme() {
     if (wiping.current) return;
     const next = !light;
-    const targetBg = next ? LIGHT_BG : DARK_BG;
+    const targetBg = next ? lightBg : darkBg;
 
     const isReduced =
       document.documentElement.dataset.reducedMotion === "true";

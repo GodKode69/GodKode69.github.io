@@ -159,7 +159,7 @@ export default function Reviews() {
   useEffect(() => {
     let active = true;
     let currentInterval = pollInterval;
-    const MAX_INTERVAL = 120_000;
+    const maxInterval = 120_000;
     let timeoutId: number | null = null;
 
     async function refresh() {
@@ -172,7 +172,7 @@ export default function Reviews() {
       } catch {
         if (active) {
           setSyncState("offline");
-          currentInterval = Math.min(currentInterval * 2, MAX_INTERVAL);
+          currentInterval = Math.min(currentInterval * 2, maxInterval);
         }
       }
       if (active) {

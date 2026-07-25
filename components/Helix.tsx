@@ -4,16 +4,16 @@ import { useEffect, useRef, useState } from "react";
 
 type StrandPoint = { x: number; y: number; t: number };
 
-const STRAND_GREEN = "74, 222, 128";
-const STRAND_YELLOW = "250, 204, 21";
+const strandGreen = "74, 222, 128";
+const strandYellow = "250, 204, 21";
 const POINTS = 160;
 const HEIGHT = 1200;
 const W = 60;
 const CX = W / 2;
 const AMPLITUDE = 11;
 const FREQ = 0.045;
-const RUNG_EVERY = 8;
-const BLOB_RADIUS = 12;
+const rungEvery = 8;
+const blobRadius = 12;
 
 function getTaperedBlobPath(
   pts: StrandPoint[],
@@ -98,8 +98,8 @@ export default function Helix() {
   }
 
   const pipIdx = Math.round(scrollProgress * POINTS);
-  const blobStart = Math.max(0, pipIdx - BLOB_RADIUS);
-  const blobEnd = Math.min(POINTS, pipIdx + BLOB_RADIUS);
+  const blobStart = Math.max(0, pipIdx - blobRadius);
+  const blobEnd = Math.min(POINTS, pipIdx + blobRadius);
 
   const blobA = strandA.slice(blobStart, blobEnd + 1);
   const blobB = strandB.slice(blobStart, blobEnd + 1);
@@ -161,20 +161,20 @@ export default function Helix() {
         </defs>
 
         <g clipPath="url(#bar-clip)">
-          <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${STRAND_GREEN},0.14)`} strokeWidth="1.5" />
-          <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.14)`} strokeWidth="1.5" />
+          <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${strandGreen},0.14)`} strokeWidth="1.5" />
+          <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${strandYellow},0.14)`} strokeWidth="1.5" />
 
           <g mask="url(#trail-core-mask)">
-            <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${STRAND_GREEN},0.95)`} strokeWidth="1.5" />
-            <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.95)`} strokeWidth="1.5" />
+            <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${strandGreen},0.95)`} strokeWidth="1.5" />
+            <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${strandYellow},0.95)`} strokeWidth="1.5" />
           </g>
           <g mask="url(#trail-halo-mask)">
-            <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${STRAND_GREEN},0.95)`} strokeWidth="2.1" filter="url(#glow-green)" />
-            <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${STRAND_YELLOW},0.95)`} strokeWidth="2.1" filter="url(#glow-yellow)" />
+            <polyline points={toPolyline(strandA)} fill="none" stroke={`rgba(${strandGreen},0.95)`} strokeWidth="2.1" filter="url(#glow-green)" />
+            <polyline points={toPolyline(strandB)} fill="none" stroke={`rgba(${strandYellow},0.95)`} strokeWidth="2.1" filter="url(#glow-yellow)" />
           </g>
 
           {strandA.map((a, i) => {
-            if (i % RUNG_EVERY !== 0) return null;
+            if (i % rungEvery !== 0) return null;
             const b = strandB[i];
             const opacity = 0.08 + Math.abs(a.t) * 0.22;
             return (
@@ -190,22 +190,22 @@ export default function Helix() {
             const depthB = (b.t + 1) / 2;
             return (
               <g key={i}>
-                <circle cx={a.x} cy={a.y} r={1.5 + depthA * 2} fill={`rgba(${STRAND_GREEN},${0.2 + depthA * 0.8})`} filter="url(#glow-green)" />
-                <circle cx={b.x} cy={b.y} r={1.5 + depthB * 2} fill={`rgba(${STRAND_YELLOW},${0.2 + depthB * 0.8})`} filter="url(#glow-yellow)" />
+                <circle cx={a.x} cy={a.y} r={1.5 + depthA * 2} fill={`rgba(${strandGreen},${0.2 + depthA * 0.8})`} filter="url(#glow-green)" />
+                <circle cx={b.x} cy={b.y} r={1.5 + depthB * 2} fill={`rgba(${strandYellow},${0.2 + depthB * 0.8})`} filter="url(#glow-yellow)" />
               </g>
             );
           })}
 
           {blobPathA && blobCorePathA && (
             <>
-              <path d={blobPathA} fill={`rgba(${STRAND_GREEN},0.2)`} filter="url(#blob-green)" />
-              <path d={blobCorePathA} fill={`rgba(${STRAND_GREEN},1)`} filter="url(#blob-green)" />
+              <path d={blobPathA} fill={`rgba(${strandGreen},0.2)`} filter="url(#blob-green)" />
+              <path d={blobCorePathA} fill={`rgba(${strandGreen},1)`} filter="url(#blob-green)" />
             </>
           )}
           {blobPathB && blobCorePathB && (
             <>
-              <path d={blobPathB} fill={`rgba(${STRAND_YELLOW},0.2)`} filter="url(#blob-yellow)" />
-              <path d={blobCorePathB} fill={`rgba(${STRAND_YELLOW},1)`} filter="url(#blob-yellow)" />
+              <path d={blobPathB} fill={`rgba(${strandYellow},0.2)`} filter="url(#blob-yellow)" />
+              <path d={blobCorePathB} fill={`rgba(${strandYellow},1)`} filter="url(#blob-yellow)" />
             </>
           )}
 
