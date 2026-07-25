@@ -427,7 +427,7 @@
   border: 1px solid var(--border-default);
   border-radius: 14px;
   background: var(--border-subtle);
-  color: var(--text-color);
+  color: var(--text-body);
   font: inherit;
   outline: none;
   transition:

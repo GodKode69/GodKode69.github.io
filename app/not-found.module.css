@@ -22,12 +22,12 @@
 
 .message {
   font-family: "Space Mono", monospace;
-  color: var(--accent-color);
+  color: var(--accent);
   letter-spacing: 0.1em;
 }
 
 .btn {
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--border-default);
   padding: 1rem 2rem;
   font-family: "Space Mono", monospace;
   font-size: 0.9rem;
@@ -36,6 +36,6 @@
 }
 
 .btn:hover {
-  background: var(--text-color);
-  color: var(--bg-color);
+  background: var(--border-default);
+  color: var(--bg-page);
 }

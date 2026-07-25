@@ -11,14 +11,12 @@
 .title {
   font-family: var(--font-space-mono), monospace;
   font-size: 1rem;
-  color: var(--accent-color);
+  color: var(--accent);
   margin-bottom: 4rem;
   display: block;
   border-bottom: 1px solid var(--border-divider);
   padding-bottom: 1rem;
 }
-
-.textBlock p { line-height: 1.8; }
 
 @media (max-width: 768px) {
   .section {
