@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import HeroLazy from "@/components/HeroLazy";
 import SkillsLazy from "@/components/SkillsLazy";
 import WorkLazy from "@/components/WorkLazy";
 import AchievementsLazy from "@/components/AchievementsLazy";
@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main>
-      <Hero />
+      <HeroLazy />
       <SkillsLazy />
       <WorkLazy />
       <AchievementsLazy />
