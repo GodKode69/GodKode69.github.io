@@ -148,6 +148,14 @@ a {
   background: rgba(255, 255, 255, 0.06);
 }
 
+.ctx-item:focus {
+  outline: none;
+}
+.ctx-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
 .ctx-icon {
   font-size: 0.7rem;
   color: var(--accent);
