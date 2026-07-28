@@ -156,6 +156,13 @@ a {
   outline-offset: -2px;
 }
 
+.ctx-item:first-child {
+  border-radius: 8px 8px 0 0;
+}
+.ctx-item:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
 .ctx-icon {
   font-size: 0.7rem;
   color: var(--accent);
