@@ -58,39 +58,39 @@ function writeAvatarCache(hash: string, url: string) {
   }
 }
 
-async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
+function parseLanyardData(data: any): DiscordData | null {
+  if (!data) return null;
+  const playingAct: DiscordActivity | undefined = data.activities?.find(
+    (a: DiscordActivity) => a.type === 0
+  );
+
+  const avatarHash: string | null = data.discord_user?.avatar ?? null;
+  const cdnUrl = avatarHash
+    ? `https://cdn.discordapp.com/avatars/${discordId}/${avatarHash}.png`
+    : "/assets/profile/avatar.webp";
+
+  return {
+    status: data.discord_status || "offline",
+    username: data.discord_user?.username || "adhuraghav",
+    globalName: data.discord_user?.global_name || data.discord_user?.username || "Raghav",
+    avatarUrl: cdnUrl,
+    avatarHash,
+    spotify: data.listening_to_spotify ? data.spotify : null,
+    activity: playingAct ?? null,
+  };
+}
+
+async function fetchLanyardHTTP(signal?: AbortSignal): Promise<DiscordData | null> {
   try {
     const res = await fetch(`https://api.lanyard.rest/v1/users/${discordId}`, {
       cache: "no-store",
       signal,
     });
     if (!res.ok) return null;
-
     const { data, success } = await res.json();
     if (!success) return null;
-
-    const playingAct: DiscordActivity | undefined = data.activities?.find(
-      (a: DiscordActivity) => a.type === 0
-    );
-
-    const avatarHash: string | null = data.discord_user.avatar ?? null;
-    const cdnUrl = avatarHash
-      ? `https://cdn.discordapp.com/avatars/${discordId}/${avatarHash}.png`
-      : "/assets/profile/avatar.webp";
-
-    return {
-      status: data.discord_status,
-      username: data.discord_user.username,
-      globalName: data.discord_user.global_name || data.discord_user.username,
-      avatarUrl: cdnUrl,
-      avatarHash,
-      spotify: data.listening_to_spotify ? data.spotify : null,
-      activity: playingAct ?? null,
-    };
-  } catch (error) {
-    if (error instanceof DOMException && error.name === "AbortError") {
-      return null;
-    }
+    return parseLanyardData(data);
+  } catch {
     return null;
   }
 }
@@ -112,64 +112,110 @@ export function useDiscord() {
         activity: null,
       });
     }
-  }, []);
 
-  useEffect(() => {
     let mounted = true;
-    let inFlight = false;
-    let controller: AbortController | null = null;
-    let intervalId: ReturnType<typeof setInterval> | null = null;
+    let ws: WebSocket | null = null;
+    let heartbeatTimer: ReturnType<typeof setInterval> | null = null;
+    let fallbackTimer: ReturnType<typeof setInterval> | null = null;
 
-    const poll = async () => {
-      if (inFlight || document.visibilityState === "hidden") return;
-
-      inFlight = true;
-      controller?.abort();
-      controller = new AbortController();
-
-      const nextDiscord = await fetchLanyard(controller.signal);
-      if (mounted && nextDiscord) {
-        if (nextDiscord.avatarHash) {
-          writeAvatarCache(nextDiscord.avatarHash, nextDiscord.avatarUrl);
+    const initHTTPFallback = () => {
+      if (!mounted) return;
+      void fetchLanyardHTTP().then((res) => {
+        if (mounted && res) {
+          if (res.avatarHash) writeAvatarCache(res.avatarHash, res.avatarUrl);
+          setDiscord(res);
         }
-        setDiscord(nextDiscord);
-      } else if (mounted) {
-        const cached = readAvatarCache();
-        if (cached) {
-          setDiscord((prev: DiscordData | null) =>
-            prev ? { ...prev, avatarUrl: cached.url } : prev,
-          );
-        }
+      });
+    };
+
+    const connectWS = () => {
+      if (!mounted || document.visibilityState === "hidden") return;
+
+      try {
+        ws = new WebSocket("wss://api.lanyard.rest/socket");
+
+        ws.onmessage = (event) => {
+          try {
+            const packet = JSON.parse(event.data);
+            const { op, t, d } = packet;
+
+            if (op === 1) {
+              const interval = d.heartbeat_interval;
+              if (heartbeatTimer) clearInterval(heartbeatTimer);
+              heartbeatTimer = setInterval(() => {
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                  ws.send(JSON.stringify({ op: 3 }));
+                }
+              }, interval);
+            } else if (op === 0 && (t === "INIT_STATE" || t === "PRESENCE_UPDATE")) {
+              const parsed = parseLanyardData(d);
+              if (mounted && parsed) {
+                if (parsed.avatarHash) writeAvatarCache(parsed.avatarHash, parsed.avatarUrl);
+                setDiscord(parsed);
+              }
+            }
+          } catch {
+          }
+        };
+
+        ws.onopen = () => {
+          if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(
+              JSON.stringify({
+                op: 2,
+                d: { subscribe_to_id: discordId },
+              })
+            );
+          }
+        };
+
+        ws.onclose = () => {
+          if (heartbeatTimer) clearInterval(heartbeatTimer);
+          // Fall back to polling if socket closes
+          if (mounted) {
+            initHTTPFallback();
+            fallbackTimer = setInterval(initHTTPFallback, 15_000);
+          }
+        };
+      } catch {
+        initHTTPFallback();
+        fallbackTimer = setInterval(initHTTPFallback, 15_000);
       }
-
-      inFlight = false;
     };
 
-    const startInterval = () => {
-      if (intervalId) clearInterval(intervalId);
-      intervalId = setInterval(() => void poll(), 15_000);
-    };
+    initHTTPFallback();
+    connectWS();
 
-    void poll();
-    startInterval();
-
-    const handleVisibilityChange = () => {
+    const handleVisibility = () => {
       if (document.visibilityState === "visible") {
-        void poll();
-        startInterval();
+        if (!ws || ws.readyState !== WebSocket.OPEN) {
+          connectWS();
+        }
+        initHTTPFallback();
       } else {
-        if (intervalId) clearInterval(intervalId);
-        intervalId = null;
+        if (ws) {
+          ws.close();
+          ws = null;
+        }
+        if (heartbeatTimer) {
+          clearInterval(heartbeatTimer);
+          heartbeatTimer = null;
+        }
+        if (fallbackTimer) {
+          clearInterval(fallbackTimer);
+          fallbackTimer = null;
+        }
       }
     };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
       mounted = false;
-      if (intervalId) clearInterval(intervalId);
-      controller?.abort();
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (ws) ws.close();
+      if (heartbeatTimer) clearInterval(heartbeatTimer);
+      if (fallbackTimer) clearInterval(fallbackTimer);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
 
