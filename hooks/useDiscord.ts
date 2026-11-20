@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const discordId = "1150339860725514320";
+const discordId = "563396067341631499";
 const avatarCacheKey = "godkode.avatarCache";
 
 type DiscordActivity = {
