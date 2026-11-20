@@ -70,12 +70,53 @@ function getStatusClass(status: DiscordData["status"] | undefined): string {
   }
 }
 
+const CONTACT_ITEMS = [
+  {
+    label: "GitHub",
+    href: "https://github.com/GodKode69",
+    icon: "/assets/icons/github.webp",
+  },
+  {
+    label: "Email",
+    isEmail: true,
+    icon: "/assets/icons/email.webp",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/raghav-bhati-a22349365/",
+    icon: "/assets/icons/linkedin.webp",
+  },
+  {
+    label: "X.com",
+    href: "https://x.com/iskidcodes",
+    icon: "/assets/icons/twitter.webp",
+  },
+  {
+    label: "Spotify",
+    href: "https://open.spotify.com/user/31qqz4epfmpqxwzmmibutb5j47be?si=09ba3e4c6d0741a1",
+    icon: "/assets/icons/spotify.webp",
+  },
+  {
+    label: "Instagram",
+    href: "https://instagram.com/adhuraghav",
+    icon: "/assets/icons/instagram.webp",
+  },
+  {
+    label: "Resume",
+    href: "/assets/Resume.pdf",
+    icon: "/assets/icons/resume.webp",
+  },
+];
+
 export default function Hero() {
   const [flipped, setFlipped] = useState(false);
   const { discord, statusLabel } = useDiscord();
   const [copied, setCopied] = useState(false);
   const copyTimeoutRef = useRef<number | null>(null);
-  const [mobileWarningDismissed, setMobileWarningDismissed] = useState(false);
+  const [mobileWarningDismissed, setMobileWarningDismissed] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("godkode.mobileWarningDismissed") === "true";
+  });
 
   useEffect(() => {
     return () => {
@@ -83,6 +124,14 @@ export default function Hero() {
         window.clearTimeout(copyTimeoutRef.current);
       }
     };
+  }, []);
+
+  const dismissMobileWarning = useCallback(() => {
+    setMobileWarningDismissed(true);
+    try {
+      window.localStorage.setItem("godkode.mobileWarningDismissed", "true");
+    } catch {
+    }
   }, []);
 
   const stopFlip = useCallback((e: React.MouseEvent) => {
@@ -123,7 +172,7 @@ export default function Hero() {
             <button
               type="button"
               className="hover-link mobile-warning-dismiss"
-              onClick={() => setMobileWarningDismissed(true)}
+              onClick={dismissMobileWarning}
             >
               Got it
             </button>
@@ -207,7 +256,16 @@ export default function Hero() {
           >
             <div
               className={`${styles.card3d} ${flipped ? styles.flipped : ""}`}
+              role="button"
+              tabIndex={0}
+              aria-label="Toggle profile card"
               onClick={() => setFlipped(!flipped)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setFlipped((f) => !f);
+                }
+              }}
             >
               {/* FRONT */}
               <div className={`${styles.cardFront} reveal active`}>
@@ -351,152 +409,66 @@ export default function Hero() {
                   </div>
 
                   <div className={styles.backGrid}>
-                    <a
-                      href="https://github.com/GodKode69"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.statCard}
-                      onClick={stopFlip}
-                    >
-                      <div className={styles.statTop}>
-                        <Image
-                          src="/assets/icons/github.webp"
-                          alt="GitHub"
-                          className={styles.statIcon}
-                          width={18}
-                          height={18}
-                        />
-                        <div>
-                          <p className={styles.aboutText}>GitHub</p>
-                        </div>
-                      </div>
-                    </a>
+                    {CONTACT_ITEMS.map((item, index) => {
+                      if (item.isEmail) {
+                        return (
+                          <div
+                            key={index}
+                            className={`${styles.statCard} ${styles.statCardEmail}`}
+                            style={{ cursor: "pointer" }}
+                            role="button"
+                            tabIndex={0}
+                            aria-label="Copy Email address"
+                            onClick={handleCopyEmail}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                handleCopyEmail(e as unknown as React.MouseEvent);
+                              }
+                            }}
+                          >
+                            <div className={styles.statTop}>
+                              <Image
+                                src={item.icon}
+                                alt="Email"
+                                className={styles.statIcon}
+                                width={18}
+                                height={18}
+                              />
+                              <div>
+                                <p className={styles.aboutText}>
+                                  {copied ? "Copied!" : "Email"}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }
 
-                    <div
-                      className={`${styles.statCard} ${styles.statCardEmail}`}
-                      style={{ cursor: "pointer" }}
-                      onClick={handleCopyEmail}
-                    >
-                      <div className={styles.statTop}>
-                        <Image
-                          src="/assets/icons/email.webp"
-                          alt="Email"
-                          className={styles.statIcon}
-                          width={18}
-                          height={18}
-                        />
-                        <div>
-                          <p className={styles.aboutText}>
-                            {copied ? "Copied!" : "Email"}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <a
-                      href="https://www.linkedin.com/in/raghav-bhati-a22349365/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.statCard}
-                      onClick={stopFlip}
-                    >
-                      <div className={styles.statTop}>
-                        <Image
-                          src="/assets/icons/linkedin.webp"
-                          alt="LinkedIn"
-                          className={styles.statIcon}
-                          width={18}
-                          height={18}
-                        />
-                        <div>
-                          <p className={styles.aboutText}>LinkedIn</p>
-                        </div>
-                      </div>
-                    </a>
-
-                    <a
-                      href="https://x.com/iskidcodes"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.statCard}
-                      onClick={stopFlip}
-                    >
-                      <div className={styles.statTop}>
-                        <Image
-                          src="/assets/icons/twitter.webp"
-                          alt="X.com"
-                          className={styles.statIcon}
-                          width={18}
-                          height={18}
-                        />
-                        <div>
-                          <p className={styles.aboutText}>X.com</p>
-                        </div>
-                      </div>
-                    </a>
-
-                    <a
-                      href="https://open.spotify.com/user/31qqz4epfmpqxwzmmibutb5j47be?si=09ba3e4c6d0741a1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.statCard}
-                      onClick={stopFlip}
-                    >
-                      <div className={styles.statTop}>
-                        <Image
-                          src="/assets/icons/spotify.webp"
-                          alt="Spotify"
-                          className={styles.statIcon}
-                          width={18}
-                          height={18}
-                        />
-                        <div>
-                          <p className={styles.aboutText}>Spotify</p>
-                        </div>
-                      </div>
-                    </a>
-
-                    <a
-                      href="https://instagram.com/adhuraghav"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.statCard}
-                      onClick={stopFlip}
-                    >
-                      <div className={styles.statTop}>
-                        <Image
-                          src="/assets/icons/instagram.webp"
-                          alt="Instagram"
-                          className={styles.statIcon}
-                          width={18}
-                          height={18}
-                        />
-                        <div>
-                          <p className={styles.aboutText}>Instagram</p>
-                        </div>
-                      </div>
-                    </a>
-
-                    <a
-                      href="/assets/Resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.statCard}
-                      onClick={stopFlip}
-                    >
-                      <div className={styles.statTop}>
-                        <Image
-                          src="/assets/icons/resume.webp"
-                          alt="Resume"
-                          className={styles.statIcon}
-                          width={18}
-                          height={18}
-                        />
-                        <div>
-                          <p className={styles.aboutText}>Resume</p>
-                        </div>
-                      </div>
-                    </a>
+                      return (
+                        <a
+                          key={index}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.statCard}
+                          onClick={stopFlip}
+                        >
+                          <div className={styles.statTop}>
+                            <Image
+                              src={item.icon}
+                              alt={item.label}
+                              className={styles.statIcon}
+                              width={18}
+                              height={18}
+                            />
+                            <div>
+                              <p className={styles.aboutText}>{item.label}</p>
+                            </div>
+                          </div>
+                        </a>
+                      );
+                    })}
                   </div>
 
                   <div className={styles.backFooter}>click again to return</div>

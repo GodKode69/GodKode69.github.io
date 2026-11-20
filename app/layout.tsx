@@ -42,6 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html suppressHydrationWarning lang="en">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("godkode.lightMode");if(t==="true"){document.documentElement.dataset.theme="light"}else{document.documentElement.dataset.theme="dark"}}catch(e){}})()`,
+          }}
+        />
         <link rel="preconnect" href="https://cdn.discordapp.com" />
         <link rel="preconnect" href="https://api.lanyard.rest" />
         <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
