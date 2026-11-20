@@ -134,7 +134,7 @@ export function useDiscord() {
       } else if (mounted) {
         const cached = readAvatarCache();
         if (cached) {
-          setDiscord((prev) =>
+          setDiscord((prev: DiscordData ) =>
             prev ? { ...prev, avatarUrl: cached.url } : prev,
           );
         }
