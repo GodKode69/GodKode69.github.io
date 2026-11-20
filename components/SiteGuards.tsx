@@ -114,7 +114,11 @@ export default function SiteGuards() {
   useEffect(() => {
     const onContext = (e: MouseEvent) => {
       e.preventDefault();
-      setMenu({ x: e.clientX, y: e.clientY });
+      const menuWidth = 180;
+      const menuHeight = 100;
+      const x = Math.min(e.clientX, window.innerWidth - menuWidth);
+      const y = Math.min(e.clientY, window.innerHeight - menuHeight);
+      setMenu({ x: Math.max(0, x), y: Math.max(0, y) });
     };
 
     window.addEventListener("contextmenu", onContext);

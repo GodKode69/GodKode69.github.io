@@ -74,7 +74,9 @@ async function fetchLanyard(signal?: AbortSignal): Promise<DiscordData | null> {
     );
 
     const avatarHash: string | null = data.discord_user.avatar ?? null;
-    const cdnUrl = `https://cdn.discordapp.com/avatars/${discordId}/${data.discord_user.avatar}.png`;
+    const cdnUrl = avatarHash
+      ? `https://cdn.discordapp.com/avatars/${discordId}/${avatarHash}.png`
+      : "/assets/profile/avatar.webp";
 
     return {
       status: data.discord_status,
@@ -134,7 +136,7 @@ export function useDiscord() {
       } else if (mounted) {
         const cached = readAvatarCache();
         if (cached) {
-          setDiscord((prev: DiscordData ) =>
+          setDiscord((prev: DiscordData | null) =>
             prev ? { ...prev, avatarUrl: cached.url } : prev,
           );
         }
